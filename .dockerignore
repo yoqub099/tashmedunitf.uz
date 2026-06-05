@@ -1,0 +1,89 @@
+# ============================================================
+# Docker build context exclusions
+# Reduces image size and build time
+# ============================================================
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Node deps (Dockerfile installs them in container)
+**/node_modules/
+.pnpm-store/
+
+# PHP deps (Dockerfile installs them in container)
+**/vendor/
+
+# Build artifacts
+**/.next/
+**/.turbo/
+**/dist/
+**/build/
+**/out/
+**/storybook-static/
+**/coverage/
+
+# Backend (Laravel) — runtime state
+apps/api/public/storage
+apps/api/storage/app/public/*
+!apps/api/storage/app/public/.gitkeep
+apps/api/storage/app/private/*
+!apps/api/storage/app/private/.gitkeep
+apps/api/storage/app/backup/*
+!apps/api/storage/app/backup/.gitkeep
+apps/api/storage/framework/cache/data/*
+apps/api/storage/framework/sessions/*
+apps/api/storage/framework/views/*
+apps/api/storage/logs/*.log
+apps/api/bootstrap/cache/*.php
+!apps/api/bootstrap/cache/.gitkeep
+
+# Tests
+**/.phpunit.result.cache
+**/.phpunit.cache/
+e2e/.auth/
+e2e/test-results/
+e2e/playwright-report/
+e2e/screenshots/
+
+# IDE
+.vscode/
+.idea/
+.fleet/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (NEVER include in image)
+.env
+.env.local
+.env.production
+.env.*.local
+**/.env
+**/.env.local
+**/.env.production
+*.token
+.token
+*.pem
+*.key
+
+# Database backups (PII)
+*.sql
+*.sql.gz
+*.dump
+database_backup_*
+
+# Docs (not needed for runtime image)
+docs/
+*.md
+!README.md
+!apps/api/README.md
+
+# Logs
+*.log
+
+# Misc
+docker-compose.override.yml
+.docker-data/

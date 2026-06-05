@@ -1,0 +1,12 @@
+{
+  "name": "@tmtu/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TMTU Termiz — Mobile app (placeholder for React Native / Expo)",
+  "scripts": {
+    "dev": "echo 'Mobile: TODO — set up Expo' && exit 0",
+    "build": "echo 'Mobile: TODO' && exit 0",
+    "lint": "echo 'Mobile: TODO' && exit 0",
+    "typecheck": "echo 'Mobile: TODO' && exit 0"
+  }
+}

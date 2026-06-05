@@ -1,0 +1,957 @@
+@import "tailwindcss";
+
+/* Safari backdrop-filter support */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .backdrop-blur-sm { -webkit-backdrop-filter: blur(4px); }
+  .backdrop-blur { -webkit-backdrop-filter: blur(8px); }
+  .backdrop-blur-md { -webkit-backdrop-filter: blur(12px); }
+  .backdrop-blur-lg { -webkit-backdrop-filter: blur(16px); }
+  .backdrop-blur-xl { -webkit-backdrop-filter: blur(24px); }
+  [class*="backdrop-blur-["] { -webkit-backdrop-filter: var(--tw-backdrop-blur); }
+}
+
+/* ISFT-style sariq text selection */
+::selection {
+  background-color: #f59e0b !important;
+  color: #000 !important;
+}
+::-moz-selection {
+  background-color: #f59e0b !important;
+  color: #000 !important;
+}
+
+/* ISFT-style teal gradient for cards */
+@layer utilities {
+  .custom-bg-green-gradient {
+    background: linear-gradient(135deg, #00575B 0%, #00838F 50%, rgba(77, 182, 172, 0.3) 100%) !important;
+  }
+}
+
+/* Antikorrupsiya card hover effect */
+.anti-hover-card {
+  background: #f3f4f6 !important;
+  border: 1px solid #e5e7eb !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+.anti-hover-card:hover {
+  background: linear-gradient(to right, #004D50 0%, #00838F 50%, #4DB6AC 100%) !important;
+  border-color: transparent !important;
+}
+.anti-hover-card h6 {
+  transition: color 0.3s ease !important;
+}
+.anti-hover-card:hover h6 {
+  color: #fff !important;
+}
+.anti-hover-card .ac-btn {
+  border-color: #00838F !important;
+  color: #00838F !important;
+  transition: all 0.3s ease !important;
+}
+.anti-hover-card:hover .ac-btn {
+  border-color: #00575B !important;
+  color: #00575B !important;
+}
+
+/* Contact card hover effect (aloqa kanallari) */
+.contact-hover-card {
+  background: #f3f4f6 !important;
+  border: 1px solid #e5e7eb !important;
+  transition: all 0.3s ease !important;
+}
+.contact-hover-card:hover {
+  background: linear-gradient(135deg, #00575B 0%, #00838F 50%, rgba(77, 182, 172, 0.3) 100%) !important;
+  border-color: transparent !important;
+}
+.contact-hover-card h6,
+.contact-hover-card .card-desc {
+  transition: color 0.3s ease !important;
+}
+.contact-hover-card:hover h6,
+.contact-hover-card:hover .card-desc {
+  color: #fff !important;
+}
+.contact-hover-card:hover .card-desc a {
+  color: #fcd34d !important;
+}
+
+
+/* Force Leaflet map to stay below navbar */
+.leaflet-container {
+  z-index: 0 !important;
+}
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom {
+  z-index: auto !important;
+}
+
+:root {
+  --color-primary: #00575B;
+  --color-primary-dark: #003538;
+}
+
+/* Smooth scrolling — data-scroll-behavior attribute handles Next.js route transitions */
+html[data-scroll-behavior="smooth"] {
+  scroll-behavior: smooth;
+}
+
+/* Font family utility */
+.font-sans {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+.font-serif {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ═══════════════════════════════════════════
+   ISFT-style hero card effects
+   ═══════════════════════════════════════════ */
+
+/* Shine shimmer sweep */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: shine 4s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+}
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Gradient hover box — ISFT style */
+.gradient-box {
+  position: relative;
+  overflow: hidden;
+}
+.gradient-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0891b2 0%, #155e75 100%) !important;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 10;
+  border-radius: inherit;
+}
+.gradient-box:hover::before {
+  opacity: 1 !important;
+}
+/* Decorative circle on hover */
+.gradient-box::after {
+  content: "";
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.gradient-box:hover::after {
+  opacity: 1;
+}
+
+/* Decorative circle pulse */
+@keyframes pulse-circle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.12;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.18;
+  }
+}
+.pulse {
+  animation: pulse-circle 3s ease-in-out infinite;
+}
+
+/* Text container prose */
+.text-container {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: inherit;
+}
+.text-container p {
+  margin: 0;
+}
+.text-container ul {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.text-container ul li {
+  position: relative;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  list-style: disc;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   FAQ page animations
+   ═══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
+   Testimonials carousel cards (ISFT-style)
+   ═══════════════════════════════════════════ */
+.carousel-box {
+  position: relative;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  user-select: none;
+  transition: border-color 0.35s ease;
+}
+.carousel-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #00575B 0%, #003d40 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 0;
+  border-radius: inherit;
+}
+.carousel-box:hover::before {
+  opacity: 1;
+}
+.carousel-box:hover {
+  border-color: transparent;
+}
+/* Decorative circle on hover */
+.carousel-box::after {
+  content: "";
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.carousel-box:hover::after {
+  opacity: 1;
+}
+/* Text color transitions on hover */
+.carousel-box h5,
+.carousel-box p {
+  position: relative;
+  z-index: 2;
+  transition: color 0.35s ease;
+}
+.carousel-box:hover h5,
+.carousel-box:hover p {
+  color: #ffffff;
+}
+
+/* Smooth linear scroll for feedbacks swiper */
+.feedbacks-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+/* ═══════════════════════════════════════════
+   News category badge gradients (ISFT-style)
+   ═══════════════════════════════════════════ */
+.news-badge-green {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+.news-badge-amber {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+.news-badge-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+.news-badge-purple {
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+}
+.news-badge-red {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.faq-card {
+  animation: faqFadeUp 0.6s ease-out both;
+}
+
+@keyframes faqFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-sidebar-item {
+  position: relative;
+  overflow: hidden;
+}
+.faq-sidebar-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+.faq-sidebar-item:hover::before {
+  opacity: 1;
+}
+
+/* ── News card shadow ── */
+.news-card-shadow {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+.news-card-shadow:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* ════════════════════════════════════════════════════════════
+   ACCESSIBILITY (WCAG 2.1 AA) — Visually Impaired Mode
+   ════════════════════════════════════════════════════════════
+   State sites in Uzbekistan must offer this panel.
+   Activated when localStorage tmtu:a11y has enabled=true.
+   ──────────────────────────────────────────────────────────── */
+
+/* Default CSS variables (applied to root for all schemes) */
+:root {
+  --a11y-fs-small: 14px;
+  --a11y-fs-medium: 16px;
+  --a11y-fs-large: 20px;
+  --a11y-ls-normal: normal;
+  --a11y-ls-wide: 0.05em;
+  --a11y-ls-extra: 0.1em;
+  --a11y-lh-normal: 1.5;
+  --a11y-lh-comfortable: 1.85;
+  --a11y-bg: #ffffff;
+  --a11y-fg: #111827;
+  --a11y-link: #00575b;
+  --a11y-link-visited: #6b7280;
+  --a11y-focus: #f59e0b;
+  --a11y-border: #d1d5db;
+}
+
+/* Skip-to-content link — hidden until focused */
+.a11y-skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1.25rem;
+  background: #00575b;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.a11y-skip-link:focus {
+  top: 1rem;
+  outline: 3px solid var(--a11y-focus);
+  outline-offset: 2px;
+}
+
+/* Color schemes — applied via class on <html> */
+html.a11y-scheme-default {
+  --a11y-bg: #ffffff;
+  --a11y-fg: #111827;
+  --a11y-link: #00575b;
+  --a11y-link-visited: #6b7280;
+  --a11y-border: #d1d5db;
+}
+html.a11y-scheme-bw {
+  --a11y-bg: #ffffff;
+  --a11y-fg: #000000;
+  --a11y-link: #000000;
+  --a11y-link-visited: #404040;
+  --a11y-border: #000000;
+}
+html.a11y-scheme-wb {
+  --a11y-bg: #000000;
+  --a11y-fg: #ffffff;
+  --a11y-link: #ffffff;
+  --a11y-link-visited: #b0b0b0;
+  --a11y-border: #ffffff;
+  color-scheme: dark;
+}
+html.a11y-scheme-yb {
+  --a11y-bg: #000000;
+  --a11y-fg: #ffff00;
+  --a11y-link: #ffff00;
+  --a11y-link-visited: #cccc00;
+  --a11y-border: #ffff00;
+  color-scheme: dark;
+}
+html.a11y-scheme-by {
+  --a11y-bg: #003366;
+  --a11y-fg: #ffff00;
+  --a11y-link: #ffff00;
+  --a11y-link-visited: #cccc00;
+  --a11y-border: #ffff00;
+  color-scheme: dark;
+}
+html.a11y-scheme-sepia {
+  --a11y-bg: #f4ecd8;
+  --a11y-fg: #5b4636;
+  --a11y-link: #704214;
+  --a11y-link-visited: #8b5a2b;
+  --a11y-border: #b8a07a;
+}
+
+/* ─── Font size — scales rem-based units (Tailwind text-*) on <html> ───
+   Default 100% = 16px. Tailwind utilities use rem so they scale proportionally.
+   This preserves typography hierarchy: h1 stays larger than body, just everything scales. */
+html.a11y-fs-small  { font-size: 87.5%; }   /* 14/16 */
+html.a11y-fs-medium { font-size: 100%; }
+html.a11y-fs-large  { font-size: 125%; }    /* 20/16 */
+
+/* ─── Letter spacing — set on body, inheritance cascades ─── */
+body.a11y-active.a11y-ls-wide       { letter-spacing: 0.05em; }
+body.a11y-active.a11y-ls-extra-wide { letter-spacing: 0.1em; }
+
+/* ─── Line height — set on body ─── */
+body.a11y-active.a11y-lh-comfortable { line-height: 1.85; }
+
+/* ─── Font family — applied on body so existing Tailwind .font-sans inherits naturally ─── */
+html.a11y-font-serif body.a11y-active {
+  font-family: Georgia, "Times New Roman", Times, serif !important;
+}
+
+/* ─── COLOR OVERRIDES — only apply for high-contrast schemes.
+   "Standart" (default) scheme is a passthrough: typography changes only,
+   site design (gradients, cards, hero) stays untouched.
+   Recoloring kicks in ONLY when user picks bw/wb/yb/by/sepia. ─── */
+:is(html.a11y-scheme-bw, html.a11y-scheme-wb, html.a11y-scheme-yb, html.a11y-scheme-by, html.a11y-scheme-sepia) body.a11y-active {
+  background-color: var(--a11y-bg) !important;
+  color: var(--a11y-fg) !important;
+}
+:is(html.a11y-scheme-bw, html.a11y-scheme-wb, html.a11y-scheme-yb, html.a11y-scheme-by, html.a11y-scheme-sepia) body.a11y-active *:not([data-a11y-ui="true"]):not([data-a11y-ui="true"] *) {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--a11y-fg) !important;
+  border-color: var(--a11y-border) !important;
+}
+:is(html.a11y-scheme-bw, html.a11y-scheme-wb, html.a11y-scheme-yb, html.a11y-scheme-by, html.a11y-scheme-sepia) body.a11y-active a:not([data-a11y-ui="true"]):not([data-a11y-ui="true"] *),
+:is(html.a11y-scheme-bw, html.a11y-scheme-wb, html.a11y-scheme-yb, html.a11y-scheme-by, html.a11y-scheme-sepia) body.a11y-active button:not([data-a11y-ui="true"]):not([data-a11y-ui="true"] *) {
+  color: var(--a11y-link) !important;
+  text-decoration: underline !important;
+}
+:is(html.a11y-scheme-bw, html.a11y-scheme-wb, html.a11y-scheme-yb, html.a11y-scheme-by, html.a11y-scheme-sepia) body.a11y-active a:visited:not([data-a11y-ui="true"]):not([data-a11y-ui="true"] *) {
+  color: var(--a11y-link-visited) !important;
+}
+
+/* Image visibility — preserves layout (visibility, not display) */
+html[data-a11y-images="hidden"] body.a11y-active img:not([data-a11y-ui-icon]),
+html[data-a11y-images="hidden"] body.a11y-active picture:not([data-a11y-ui-icon]),
+html[data-a11y-images="hidden"] body.a11y-active video:not([data-a11y-ui-icon]),
+html[data-a11y-images="hidden"] body.a11y-active svg:not([data-a11y-ui-icon]) {
+  visibility: hidden !important;
+}
+
+/* Strong focus indicator when a11y mode is active */
+body.a11y-active *:focus-visible {
+  outline: 3px solid var(--a11y-focus) !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
+/* Reduced motion — kill animations when OS asks for it */
+@media (prefers-reduced-motion: reduce) {
+  body.a11y-active *,
+  body.a11y-active *::before,
+  body.a11y-active *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ──────── A11y Panel UI styling ──────── */
+
+/* ──────── Modern Panel — restyled with Framer Motion ──────── */
+.a11y-panel {
+  position: fixed;
+  left: 1rem;
+  bottom: 5.5rem;
+  width: min(384px, calc(100vw - 2rem));
+  max-height: min(82vh, 720px);
+  background: #ffffff;
+  color: #111827;
+  border-radius: 18px;
+  box-shadow:
+    0 24px 64px -12px rgba(0, 87, 91, 0.25),
+    0 12px 32px -8px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 87, 91, 0.08);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+}
+.a11y-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 27, 28, 0.4);
+  z-index: 9997;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+@media (max-width: 480px) {
+  .a11y-panel {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 5rem;
+    width: auto;
+    max-height: 78vh;
+  }
+}
+
+/* ─── Header ─── */
+.a11y-panel-header {
+  position: relative;
+  padding: 1.125rem 1.25rem;
+  color: #ffffff;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.a11y-panel-header-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 100% at 100% 0%, rgba(245, 158, 11, 0.18) 0%, transparent 50%),
+    linear-gradient(135deg, #003538 0%, #00575b 35%, #00838f 100%);
+  z-index: 0;
+}
+.a11y-panel-header-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 100%, rgba(255, 255, 255, 0.08) 1px, transparent 2px),
+    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.06) 1px, transparent 2px);
+  background-size: 28px 28px, 36px 36px;
+  opacity: 0.7;
+}
+.a11y-panel-header-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.a11y-panel-header-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+.a11y-panel-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.a11y-panel-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 0.69rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0.02em;
+}
+.a11y-panel-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+.a11y-panel-close:hover {
+  background: rgba(255, 255, 255, 0.24);
+  transform: rotate(90deg);
+}
+.a11y-panel-close:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+/* ─── Content scroll area ─── */
+.a11y-panel-content {
+  padding: 1rem 1.25rem 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.a11y-panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+.a11y-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.a11y-panel-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+.a11y-panel-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ─── Section ─── */
+.a11y-section {
+  padding: 0.875rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.a11y-section:first-child {
+  padding-top: 0.25rem;
+}
+.a11y-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0.25rem;
+}
+.a11y-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.625rem 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1f2937;
+  letter-spacing: 0.01em;
+}
+.a11y-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #00575b 0%, #00838f 100%);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ─── Segmented control (radio group) ─── */
+.a11y-segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: #f8fafc;
+  padding: 5px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+.a11y-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 0.4rem;
+  background: transparent;
+  color: #475569;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  min-height: 56px;
+}
+.a11y-segment:hover {
+  background: rgba(0, 87, 91, 0.06);
+  color: #00575b;
+}
+.a11y-segment.is-active {
+  background: #ffffff;
+  color: #00575b;
+  box-shadow:
+    0 1px 3px rgba(0, 87, 91, 0.12),
+    0 0 0 1.5px #00575b;
+  font-weight: 600;
+}
+.a11y-segment:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+.a11y-segment-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Color scheme grid ─── */
+.a11y-scheme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.a11y-scheme-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 6px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.a11y-scheme-card:hover {
+  transform: translateY(-2px);
+  border-color: #00838f;
+  box-shadow: 0 6px 14px rgba(0, 131, 143, 0.18);
+}
+.a11y-scheme-card.is-active {
+  border-color: #00575b;
+  background: rgba(0, 87, 91, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 87, 91, 0.15);
+}
+.a11y-scheme-card:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+.a11y-scheme-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3px;
+  height: 52px;
+  padding: 6px 7px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  overflow: hidden;
+}
+.a11y-scheme-preview-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  border-radius: 0;
+}
+.a11y-scheme-preview-text {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+.a11y-scheme-preview-line {
+  height: 2px;
+  width: 80%;
+  border-radius: 1px;
+  margin-top: 1px;
+}
+.a11y-scheme-name {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #475569;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+.a11y-scheme-card.is-active .a11y-scheme-name {
+  color: #00575b;
+  font-weight: 600;
+}
+.a11y-scheme-check {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #00575b;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 87, 91, 0.3);
+}
+
+/* ─── Toggle switch ─── */
+.a11y-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  user-select: none;
+}
+.a11y-toggle:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.a11y-toggle.is-on {
+  background: rgba(0, 87, 91, 0.05);
+  border-color: rgba(0, 87, 91, 0.3);
+}
+.a11y-toggle:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+.a11y-toggle-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+.a11y-toggle-track {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  border-radius: 11px;
+  background: #cbd5e1;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+.a11y-toggle.is-on .a11y-toggle-track {
+  background: linear-gradient(135deg, #00575b 0%, #00838f 100%);
+}
+.a11y-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.a11y-toggle.is-on .a11y-toggle-thumb {
+  transform: translateX(16px);
+}
+
+/* ─── Reset button ─── */
+.a11y-reset-btn {
+  margin-top: 0.875rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  color: #475569;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.a11y-reset-btn:hover {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+.a11y-reset-btn:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+/* Visually-hidden utility for screen-reader-only labels */
+.a11y-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Forced colors mode (Windows high contrast) — let OS control everything */
+@media (forced-colors: active) {
+  body.a11y-active,
+  body.a11y-active *:not([data-a11y-ui="true"]):not([data-a11y-ui="true"] *) {
+    background-color: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+  }
+}

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="800" viewBox="0 0 1440 800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00575B"/>
+      <stop offset="40%" stop-color="#004a4e"/>
+      <stop offset="100%" stop-color="#003538"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="15%" cy="85%" r="45%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="90%" cy="15%" r="40%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base gradient -->
+  <rect width="1440" height="800" fill="url(#bg)"/>
+  <rect width="1440" height="800" fill="url(#glow1)"/>
+  <rect width="1440" height="800" fill="url(#glow2)"/>
+  <rect width="1440" height="800" fill="url(#glow3)"/>
+
+  <!-- Stethoscope (large, bottom-left) -->
+  <g transform="translate(120, 480) scale(1.6)" opacity="0.12">
+    <circle cx="30" cy="30" r="25" stroke="#ffffff" stroke-width="2.5" fill="none"/>
+    <circle cx="30" cy="30" r="10" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <path d="M55 30 Q80 30 80 55 L80 120 Q80 150 55 150 Q30 150 30 120" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="30" cy="118" r="6" stroke="#ffffff" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- DNA Helix (right side) -->
+  <g transform="translate(950, 100) scale(1.4)" opacity="0.10">
+    <path d="M0 0 Q25 30 0 60 Q-25 90 0 120 Q25 150 0 180 Q-25 210 0 240" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <path d="M40 0 Q15 30 40 60 Q65 90 40 120 Q15 150 40 180 Q65 210 40 240" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <line x1="5" y1="30" x2="35" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+    <line x1="5" y1="90" x2="35" y2="90" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+    <line x1="5" y1="150" x2="35" y2="150" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+    <line x1="5" y1="210" x2="35" y2="210" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+  </g>
+
+  <!-- Microscope (top-left area) -->
+  <g transform="translate(60, 80) scale(1.3)" opacity="0.09">
+    <rect x="15" y="80" width="40" height="5" rx="2" fill="#ffffff"/>
+    <rect x="30" y="30" width="10" height="50" rx="3" fill="#ffffff"/>
+    <circle cx="35" cy="25" r="12" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <rect x="5" y="85" width="60" height="8" rx="3" fill="#ffffff"/>
+    <rect x="20" y="93" width="30" height="5" rx="2" fill="#ffffff"/>
+  </g>
+
+  <!-- Heart with pulse line (center-right) -->
+  <g transform="translate(780, 500) scale(1.5)" opacity="0.10">
+    <path d="M35 20 C35 10, 50 0, 55 10 C60 0, 75 10, 75 20 C75 35, 55 50, 55 50 C55 50, 35 35, 35 20Z" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <polyline points="20,35 35,35 40,20 48,45 55,30 62,35 80,35" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Medical cross (top-right) -->
+  <g transform="translate(1100, 120)" opacity="0.08">
+    <rect x="-12" y="-40" width="24" height="80" rx="5" fill="#ffffff"/>
+    <rect x="-40" y="-12" width="80" height="24" rx="5" fill="#ffffff"/>
+  </g>
+
+  <!-- Pills/capsule (bottom-right) -->
+  <g transform="translate(1050, 580) rotate(-30)" opacity="0.09">
+    <rect x="0" y="0" width="28" height="70" rx="14" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <line x1="0" y1="35" x2="28" y2="35" stroke="#ffffff" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(1120, 620) rotate(15)" opacity="0.07">
+    <rect x="0" y="0" width="22" height="55" rx="11" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <line x1="0" y1="27" x2="22" y2="27" stroke="#ffffff" stroke-width="1.5"/>
+  </g>
+
+  <!-- Book/graduation cap (center-left) -->
+  <g transform="translate(350, 550) scale(1.2)" opacity="0.08">
+    <path d="M0 30 L40 15 L80 30 L40 45 Z" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <line x1="40" y1="45" x2="40" y2="70" stroke="#ffffff" stroke-width="2"/>
+    <path d="M15 35 L15 55 Q40 70 65 55 L65 35" stroke="#ffffff" stroke-width="1.8" fill="none"/>
+  </g>
+
+  <!-- Molecule/atoms (top-center) -->
+  <g opacity="0.07">
+    <circle cx="500" cy="150" r="8" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    <circle cx="540" cy="120" r="6" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    <circle cx="480" cy="110" r="5" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    <line x1="506" y1="144" x2="535" y2="125" stroke="#ffffff" stroke-width="1.2"/>
+    <line x1="494" y1="144" x2="484" y2="115" stroke="#ffffff" stroke-width="1.2"/>
+  </g>
+
+  <!-- More molecules (right) -->
+  <g opacity="0.06">
+    <circle cx="1250" cy="400" r="7" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    <circle cx="1290" cy="370" r="5" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    <circle cx="1220" cy="380" r="4" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    <line x1="1255" y1="395" x2="1286" y2="374" stroke="#ffffff" stroke-width="1.2"/>
+    <line x1="1244" y1="396" x2="1224" y2="383" stroke="#ffffff" stroke-width="1.2"/>
+  </g>
+
+  <!-- Lightbulb (innovation) -->
+  <g transform="translate(680, 80) scale(1.1)" opacity="0.08">
+    <path d="M25 0 C10 0, 0 12, 0 25 C0 38, 10 42, 12 52 L38 52 C40 42, 50 38, 50 25 C50 12, 40 0, 25 0Z" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <line x1="15" y1="56" x2="35" y2="56" stroke="#ffffff" stroke-width="1.5"/>
+    <line x1="17" y1="60" x2="33" y2="60" stroke="#ffffff" stroke-width="1.5"/>
+    <line x1="20" y1="64" x2="30" y2="64" stroke="#ffffff" stroke-width="1.5"/>
+    <line x1="25" y1="-10" x2="25" y2="-20" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="-10" y1="25" x2="-18" y2="25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="60" y1="25" x2="68" y2="25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="5" y1="5" x2="-2" y2="-2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="45" y1="5" x2="52" y2="-2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Dot grid -->
+  <g fill="#ffffff" opacity="0.035">
+    <circle cx="200" cy="200" r="2.5"/><circle cx="250" cy="200" r="2.5"/>
+    <circle cx="300" cy="200" r="2.5"/><circle cx="350" cy="200" r="2.5"/>
+    <circle cx="200" cy="250" r="2.5"/><circle cx="250" cy="250" r="2.5"/>
+    <circle cx="300" cy="250" r="2.5"/><circle cx="350" cy="250" r="2.5"/>
+    <circle cx="200" cy="300" r="2.5"/><circle cx="250" cy="300" r="2.5"/>
+    <circle cx="300" cy="300" r="2.5"/><circle cx="350" cy="300" r="2.5"/>
+    <circle cx="200" cy="350" r="2.5"/><circle cx="250" cy="350" r="2.5"/>
+    <circle cx="300" cy="350" r="2.5"/><circle cx="350" cy="350" r="2.5"/>
+  </g>
+
+  <!-- Curved lines -->
+  <path d="M0 650 Q 350 550 700 680 T 1440 580" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.04"/>
+  <path d="M0 720 Q 400 640 900 730 T 1440 660" stroke="#ffffff" stroke-width="1" fill="none" opacity="0.03"/>
+</svg>

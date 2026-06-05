@@ -1,0 +1,46 @@
+# ============================================================
+# TMTU Admin — Next.js 16 admin panel (@tmtu/admin)
+# Monorepo-aware build. Build context: repo root (../../..)
+# Usage from compose: docker compose build admin
+# ============================================================
+
+FROM node:20-alpine AS base
+RUN corepack enable
+WORKDIR /app
+
+# ============================================================
+# Builder — install the @tmtu/admin subgraph (incl. workspace
+# packages like @tmtu/utils) and produce the standalone output.
+# ============================================================
+FROM base AS builder
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# .dockerignore excludes node_modules/.next/.turbo/vendor/.env, so the
+# root context is small. Copying the whole repo guarantees every workspace
+# manifest is present for pnpm's frozen-lockfile validation.
+COPY . .
+RUN pnpm install --frozen-lockfile --filter @tmtu/admin...
+RUN pnpm --filter @tmtu/admin build
+
+# ============================================================
+# Runner — minimal standalone image
+# ============================================================
+FROM base AS runner
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3001
+ENV HOSTNAME=0.0.0.0
+
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 nextjs
+
+# Next.js standalone output keeps the monorepo layout (apps/admin/server.js).
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/static ./apps/admin/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/public ./apps/admin/public
+
+USER nextjs
+
+EXPOSE 3001
+
+CMD ["node", "apps/admin/server.js"]

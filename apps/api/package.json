@@ -1,0 +1,26 @@
+{
+  "name": "@tmtu/api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TMTU Termiz — Laravel 12 REST API backend",
+  "scripts": {
+    "dev": "php artisan serve --port=8000",
+    "build": "echo 'Laravel: no build step (production uses config:cache)' && exit 0",
+    "start": "php artisan serve --port=8000 --host=0.0.0.0",
+    "test": "php artisan test --parallel",
+    "test:coverage": "php artisan test --parallel --coverage",
+    "lint": "php vendor/bin/pint --test",
+    "lint:fix": "php vendor/bin/pint",
+    "typecheck": "php vendor/bin/phpstan analyse app --memory-limit=2G --level=5 || exit 0",
+    "migrate": "php artisan migrate",
+    "migrate:fresh": "php artisan migrate:fresh --seed",
+    "seed": "php artisan db:seed",
+    "tinker": "php artisan tinker",
+    "queue:work": "php artisan queue:work redis",
+    "cache:clear": "php artisan optimize:clear",
+    "cache:warm": "php artisan config:cache && php artisan route:cache && php artisan view:cache",
+    "storage:link": "php artisan storage:link",
+    "key:generate": "php artisan key:generate",
+    "clean": "rm -rf vendor bootstrap/cache/*.php storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs/*.log"
+  }
+}

@@ -1,0 +1,46 @@
+# ============================================================
+# TMTU Web — Next.js 16 public site (@tmtu/web)
+# Monorepo-aware build. Build context: repo root (../../..)
+# Usage from compose: docker compose build web
+# ============================================================
+
+FROM node:20-alpine AS base
+RUN corepack enable
+WORKDIR /app
+
+# ============================================================
+# Builder — install the @tmtu/web subgraph (incl. workspace
+# packages like @tmtu/utils) and produce the standalone output.
+# ============================================================
+FROM base AS builder
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# .dockerignore excludes node_modules/.next/.turbo/vendor/.env, so the
+# root context is small. Copying the whole repo guarantees every workspace
+# manifest is present for pnpm's frozen-lockfile validation.
+COPY . .
+RUN pnpm install --frozen-lockfile --filter @tmtu/web...
+RUN pnpm --filter @tmtu/web build
+
+# ============================================================
+# Runner — minimal standalone image
+# ============================================================
+FROM base AS runner
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 nextjs
+
+# Next.js standalone output keeps the monorepo layout (apps/web/server.js).
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+
+USER nextjs
+
+EXPOSE 3000
+
+CMD ["node", "apps/web/server.js"]

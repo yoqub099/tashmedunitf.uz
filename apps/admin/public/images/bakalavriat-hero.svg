@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00575B"/>
+      <stop offset="50%" stop-color="#007a80"/>
+      <stop offset="100%" stop-color="#003d40"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="460" rx="24" fill="url(#bg)"/>
+  <rect width="960" height="460" rx="24" fill="url(#shine)"/>
+  <!-- Decorative circles -->
+  <circle cx="780" cy="100" r="180" fill="white" opacity="0.04"/>
+  <circle cx="850" cy="350" r="120" fill="white" opacity="0.03"/>
+  <circle cx="150" cy="380" r="100" fill="white" opacity="0.03"/>
+  <!-- Medical cross -->
+  <g transform="translate(480,200)" opacity="0.08">
+    <rect x="-15" y="-50" width="30" height="100" rx="6" fill="white"/>
+    <rect x="-50" y="-15" width="100" height="30" rx="6" fill="white"/>
+  </g>
+  <!-- Stethoscope icon -->
+  <g transform="translate(480,180)" opacity="0.12">
+    <circle cx="0" cy="60" r="25" stroke="white" stroke-width="3" fill="none"/>
+    <path d="M-25,60 C-25,-20 25,-20 25,60" stroke="white" stroke-width="3" fill="none"/>
+    <circle cx="0" cy="85" r="5" fill="white"/>
+  </g>
+  <!-- Title text -->
+  <text x="480" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="48" font-weight="600" fill="white" opacity="0.95">Bakalavriat</text>
+  <text x="480" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="white" opacity="0.6">Toshkent tibbiyot akademiyasi Termiz filiali</text>
+  <!-- Dot pattern -->
+  <g fill="white" opacity="0.05">
+    <circle cx="60" cy="60" r="2"/><circle cx="100" cy="60" r="2"/><circle cx="140" cy="60" r="2"/><circle cx="180" cy="60" r="2"/>
+    <circle cx="60" cy="100" r="2"/><circle cx="100" cy="100" r="2"/><circle cx="140" cy="100" r="2"/><circle cx="180" cy="100" r="2"/>
+    <circle cx="60" cy="140" r="2"/><circle cx="100" cy="140" r="2"/><circle cx="140" cy="140" r="2"/><circle cx="180" cy="140" r="2"/>
+  </g>
+</svg>

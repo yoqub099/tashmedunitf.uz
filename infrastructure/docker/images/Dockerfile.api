@@ -1,0 +1,108 @@
+# ============================================================
+# TMTU API — Laravel 12 (PHP 8.3) production image
+# Build context: project root (../../..)
+# Usage from compose: docker compose build app
+# ============================================================
+
+FROM php:8.3-fpm-alpine AS base
+
+# ----- System dependencies -----
+RUN apk add --no-cache \
+    curl \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    libwebp-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    icu-dev \
+    postgresql-dev \
+    imagemagick \
+    imagemagick-dev \
+    ffmpeg \
+    supervisor \
+    nginx \
+    jpegoptim \
+    pngquant \
+    optipng \
+    gifsicle \
+    libavif-utils \
+    libwebp-tools \
+    && docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
+    && docker-php-ext-install -j$(nproc) \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+        gd \
+        zip \
+        intl \
+        bcmath \
+        opcache \
+        exif \
+        pcntl \
+    && pecl install redis imagick \
+    && docker-php-ext-enable redis imagick \
+    && rm -rf /var/cache/apk/*
+
+# ----- PHP production config -----
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY infrastructure/docker/configs/php/php.ini      "$PHP_INI_DIR/conf.d/99-custom.ini"
+COPY infrastructure/docker/configs/php/opcache.ini  "$PHP_INI_DIR/conf.d/opcache.ini"
+COPY infrastructure/docker/configs/php/www.conf     /usr/local/etc/php-fpm.d/www.conf
+
+# ----- Composer -----
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# ============================================================
+# Vendor stage — install PHP dependencies separately for caching
+# ============================================================
+FROM base AS vendor
+
+COPY apps/api/composer.json apps/api/composer.lock ./
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --prefer-dist \
+    --no-interaction
+
+COPY apps/api/ .
+RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
+
+# ============================================================
+# Production stage
+# ============================================================
+FROM base AS production
+
+COPY --from=vendor /var/www/html /var/www/html
+COPY infrastructure/docker/configs/nginx/default.conf      /etc/nginx/http.d/default.conf
+COPY infrastructure/docker/configs/supervisor/supervisord.conf /etc/supervisord.conf
+
+# ----- Storage directories with correct permissions -----
+RUN mkdir -p \
+        /var/www/html/storage/app/public \
+        /var/www/html/storage/app/private \
+        /var/www/html/storage/app/backup \
+        /var/www/html/storage/framework/cache/data \
+        /var/www/html/storage/framework/sessions \
+        /var/www/html/storage/framework/views \
+        /var/www/html/storage/logs \
+        /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Storage symlink (idempotent)
+RUN php artisan storage:link 2>/dev/null || true
+
+EXPOSE 80 9000
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD curl -f http://localhost/api/health || exit 1
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

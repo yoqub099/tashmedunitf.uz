@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+vendor/
+.pnpm-store/
+
+# Build outputs
+.next/
+.turbo/
+dist/
+build/
+out/
+storybook-static/
+coverage/
+
+# Generated
+pnpm-lock.yaml
+package-lock.json
+composer.lock
+
+# Backend (PHP — use Pint instead)
+apps/api/
+
+# Static assets
+**/*.min.*
+**/*.svg
+**/*.{png,jpg,jpeg,gif,webp,avif,ico}
+
+# Database
+*.sql
+*.dump
+
+# Logs
+*.log

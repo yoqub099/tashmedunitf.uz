@@ -1,0 +1,21 @@
+{
+  "name": "@tmtu/types",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared TypeScript types — single source of truth for entities across web/admin/mobile",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./entities": "./src/entities/index.ts",
+    "./api": "./src/api/index.ts",
+    "./common": "./src/common/index.ts"
+  },
+  "scripts": {
+    "lint": "echo 'types: no lint needed' && exit 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

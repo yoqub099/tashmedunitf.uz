@@ -1,0 +1,17 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    paths:
+        - app
+    level: 5
+
+    excludePaths:
+        - app/Console/Commands/*Backup*.php
+        - app/Console/Commands/SafeSeed.php
+
+    # Existing 387 errors are baselined in phpstan-baseline.neon.
+    # New code must not introduce new errors at level 5.
+    # To incrementally clean up, regenerate baseline after fixes:
+    #   php vendor/bin/phpstan analyse --generate-baseline

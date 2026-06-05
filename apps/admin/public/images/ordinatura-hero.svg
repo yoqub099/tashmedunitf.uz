@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00575B"/>
+      <stop offset="50%" stop-color="#006b6f"/>
+      <stop offset="100%" stop-color="#003d40"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="460" rx="24" fill="url(#bg)"/>
+  <rect width="960" height="460" rx="24" fill="url(#shine)"/>
+  <circle cx="780" cy="100" r="180" fill="white" opacity="0.04"/>
+  <circle cx="850" cy="350" r="120" fill="white" opacity="0.03"/>
+  <circle cx="150" cy="380" r="100" fill="white" opacity="0.03"/>
+  <!-- Medical cross -->
+  <g transform="translate(480,180)" opacity="0.1">
+    <rect x="-18" y="-55" width="36" height="110" rx="8" fill="white"/>
+    <rect x="-55" y="-18" width="110" height="36" rx="8" fill="white"/>
+  </g>
+  <!-- Pulse line -->
+  <g transform="translate(280,230)" opacity="0.12">
+    <polyline points="0,0 60,0 80,-40 100,30 120,-20 140,0 400,0" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="480" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="48" font-weight="600" fill="white" opacity="0.95">Klinik ordinatura</text>
+  <text x="480" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="white" opacity="0.6">Toshkent tibbiyot akademiyasi Termiz filiali</text>
+  <g fill="white" opacity="0.05">
+    <circle cx="60" cy="60" r="2"/><circle cx="100" cy="60" r="2"/><circle cx="140" cy="60" r="2"/><circle cx="180" cy="60" r="2"/>
+    <circle cx="60" cy="100" r="2"/><circle cx="100" cy="100" r="2"/><circle cx="140" cy="100" r="2"/><circle cx="180" cy="100" r="2"/>
+  </g>
+</svg>

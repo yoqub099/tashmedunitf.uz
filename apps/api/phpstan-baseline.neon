@@ -1,0 +1,1915 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Invalid array key type float\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: app/Console/Commands/CleanOrphanMedia.php
+
+		-
+			message: '#^Parameter \#1 \$bytes of method App\\Console\\Commands\\MediaHealth\:\:humanSize\(\) expects int, float given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Console/Commands/MediaHealth.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Http/Controllers/Api/PasswordResetController.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/SiteContentController.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/SiteContentController.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Requests\\BaseFormRequest\:\:rules\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Requests/BaseFormRequest.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\BannerResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\BannerResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\BannerResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\BannerResource\:\:\$link\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\BannerResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\BannerResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\BannerResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\BannerResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/BannerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CareerCenterInfoResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\CareerCenterInfoResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: app/Http/Resources/CareerCenterInfoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$address\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$first_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$is_read\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$last_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$news\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$news_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ConferenceRegistrationResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ConferenceRegistrationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$lat\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$lng\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactLocationResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\ContactLocationResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/ContactLocationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$is_read\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$message\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$subject\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ContactMessageResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\ContactMessageResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/ContactMessageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DepartmentResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\DepartmentResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\DepartmentResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: app/Http/Resources/DepartmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$faculty_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$level\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$price_daytime\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$price_remote\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\DirectionResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\DirectionResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\DirectionResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/DirectionResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$activeDirections\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$level\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FacultyResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\FacultyResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\FacultyResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/FacultyResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$category\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$faculty_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FaqResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\FaqResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/FaqResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$about_motivation\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$additional_info\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$applied_before_comment\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$birthday\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$citizenship\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$company\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$contact_phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$degree\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$extra_email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$how_find_vacancy\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$is_convicted\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$is_currently_in_uzbekistan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$is_currently_working\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$is_previously_worked_at_university\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$is_read\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$last_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$middle_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$position\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$relative_detail_at_university\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$research_identifier\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$salary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$skills\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$skype\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$social_media_link\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JobApplicationResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\JobApplicationResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/JobApplicationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$is_current\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$issue_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\JournalIssueResource\:\:\$year\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\JournalIssueResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\JournalIssueResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\JournalIssueResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/JournalIssueResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$category\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$published_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LibraryResourceResource\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\LibraryResourceResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\LibraryResourceResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\LibraryResourceResource\:\:getMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\LibraryResourceResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/LibraryResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\NewsResource\:\:\$category\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\NewsResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\NewsResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\NewsResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\NewsResource\:\:\$published_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\NewsResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\NewsResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 5
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\NewsResource\:\:getMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\NewsResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/NewsResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$depth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$external_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$is_nav_item\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$nav_icon\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$page_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$parent_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PageResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\PageResource\:\:getMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\PageResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/PageResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PartnerResource\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\PartnerResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/PartnerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteContentResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteContentResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteContentResource\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteContentResource\:\:\$section\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteContentResource\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteContentResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\SiteContentResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/SiteContentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\SiteMediaResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\SiteMediaResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\SiteMediaResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/SiteMediaResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$department_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StaffResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\StaffResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\StaffResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/StaffResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentLifePhotoResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentLifePhotoResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentLifePhotoResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentLifePhotoResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentLifePhotoResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\StudentLifePhotoResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\StudentLifePhotoResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/StudentLifePhotoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$address\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$file_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$file_path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$fullname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$is_read\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$organization\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/StudentWorkResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TalentedStudentResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TalentedStudentResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TalentedStudentResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TalentedStudentResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TalentedStudentResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TalentedStudentResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TalentedStudentResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/TalentedStudentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TestimonialResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TestimonialResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TestimonialResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TestimonialResource\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TestimonialResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TestimonialResource\:\:getFirstMediaUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TestimonialResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/TestimonialResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TranslationResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TranslationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TranslationResource\:\:\$group\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TranslationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TranslationResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TranslationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TranslationResource\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TranslationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TranslationResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TranslationResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TranslationResource\:\:getTranslations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/TranslationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$email_verified_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\UserResource\:\:getAllPermissions\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\UserResource\:\:getRoleNames\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:performOnCollections\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Models/Banner.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:performOnCollections\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/Department.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/Direction.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/Faculty.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/JournalIssue.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/LibraryResource.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:performOnCollections\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/News.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:performOnCollections\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Models/Page.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Models/Partner.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/Staff.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/StudentLifePhoto.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Models/TalentedStudent.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Models/Testimonial.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/BannerService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/BannerService.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\ConferenceRegistration\>\:\:allowedFilters\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/ConferenceRegistrationService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ContactMessage\:\:\$accepted\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ContactService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ContactMessage\:\:\$completed\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ContactService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ContactMessage\:\:\$new\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ContactService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ContactMessage\:\:\$total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ContactService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/DepartmentService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/DepartmentService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/DirectionService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/DirectionService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/FacultyService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/FacultyService.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\JobApplication\>\:\:allowedFilters\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/JobApplicationService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/JournalIssueService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/JournalIssueService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/LibraryResourceService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/LibraryResourceService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\HasMedia\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$archive_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$archive_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$audio_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$audio_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$book_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$book_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$doc_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$doc_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$image_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$image_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$pdf_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$pdf_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$total_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$total_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$video_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Access to an undefined property Spatie\\MediaLibrary\\MediaCollections\\Models\\Media\:\:\$video_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$model contains unresolvable type\.$#'
+			identifier: parameter.unresolvableType
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$model contains unresolvable type\.$#'
+			identifier: varTag.unresolvableType
+			count: 1
+			path: app/Services/MediaUploadService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/NewsService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/NewsService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/PageService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/PageService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/PartnerService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/PartnerService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/StaffService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/StaffService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/StudentLifePhotoService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/StudentLifePhotoService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/TalentedStudentService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/TalentedStudentService.php
+
+		-
+			message: '#^Offset 0 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/TestimonialService.php
+
+		-
+			message: '#^Offset 1 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/TestimonialService.php

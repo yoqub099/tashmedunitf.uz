@@ -1,0 +1,82 @@
+{
+  "id": "/",
+  "name": "ToshDTU Termiz filiali — Toshkent Davlat Tibbiyot Universiteti",
+  "short_name": "TdTUTF",
+  "description": "Toshkent Davlat Tibbiyot Universiteti Termiz filiali — Surxondaryo viloyatida yetakchi tibbiyot oliy ta'lim muassasasi",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a5f",
+  "orientation": "portrait-primary",
+  "lang": "uz",
+  "dir": "ltr",
+  "categories": ["education", "medical", "health"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/favicon.webp",
+      "sizes": "32x32",
+      "type": "image/webp"
+    },
+    {
+      "src": "/icon-192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/apple-icon.webp",
+      "sizes": "180x180",
+      "type": "image/webp"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/opengraph-image",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "ToshDTU Termiz filiali bosh sahifasi"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Yangiliklar",
+      "short_name": "Yangiliklar",
+      "url": "/yangiliklar",
+      "description": "So'nggi yangiliklar va e'lonlar"
+    },
+    {
+      "name": "Qabul 2026",
+      "short_name": "Qabul",
+      "url": "/abiturientlarga",
+      "description": "Abiturientlar uchun qabul ma'lumoti"
+    },
+    {
+      "name": "Aloqa",
+      "short_name": "Aloqa",
+      "url": "/aloqa",
+      "description": "Biz bilan bog'lanish"
+    }
+  ]
+}

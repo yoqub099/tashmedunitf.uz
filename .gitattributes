@@ -1,0 +1,21 @@
+# Auto-detect text files and normalize line endings to LF
+* text=auto eol=lf
+
+# Force LF for these
+*.{ts,tsx,js,jsx,mjs,cjs,json,yaml,yml,md,html,css,scss,sh} text eol=lf
+*.{php,py,go,rb,rs,java,c,cpp,h,hpp} text eol=lf
+*.{xml,svg,sql,env,toml,ini} text eol=lf
+
+# Windows-only scripts
+*.{bat,cmd,ps1} text eol=crlf
+
+# Binary files (no line ending conversion)
+*.{png,jpg,jpeg,gif,webp,avif,ico,bmp,tiff,tif} binary
+*.{pdf,doc,docx,xls,xlsx,ppt,pptx,zip,gz,tar,7z,rar} binary
+*.{woff,woff2,ttf,eot,otf} binary
+*.{mp4,webm,mov,avi,mp3,wav,flac,ogg} binary
+
+# Generated files (don't show in PR diffs by default)
+pnpm-lock.yaml linguist-generated=true -diff
+package-lock.json linguist-generated=true -diff
+composer.lock linguist-generated=true -diff

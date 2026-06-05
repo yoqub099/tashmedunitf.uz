@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "EditorConfig.EditorConfig",
+    "open-southeners.laravel-pint",
+    "bmewburn.vscode-intelephense-client",
+    "onecentlin.laravel-blade",
+    "yoavbls.pretty-ts-errors",
+    "streetsidesoftware.code-spell-checker",
+    "redhat.vscode-yaml",
+    "ms-azuretools.vscode-docker",
+    "Vue.volar",
+    "GitHub.copilot",
+    "eamodio.gitlens",
+    "wayou.vscode-todo-highlight"
+  ]
+}

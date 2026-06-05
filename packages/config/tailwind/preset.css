@@ -1,0 +1,25 @@
+/**
+ * Shared Tailwind v4 design tokens (CSS-first).
+ *
+ * Usage in apps/web/src/app/globals.css:
+ *   @import "tailwindcss";
+ *   @import "@tmtu/tailwind-config/preset.css";
+ */
+
+@theme {
+  /* Brand colors — TMTU Termiz */
+  --color-brand-50: oklch(0.97 0.02 240);
+  --color-brand-100: oklch(0.94 0.04 240);
+  --color-brand-500: oklch(0.55 0.15 240);
+  --color-brand-600: oklch(0.48 0.16 240);
+  --color-brand-700: oklch(0.42 0.15 240);
+  --color-brand-900: oklch(0.22 0.10 240);
+
+  /* Accent — medical green */
+  --color-accent-500: oklch(0.65 0.14 165);
+  --color-accent-600: oklch(0.55 0.15 165);
+
+  /* Typography */
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}

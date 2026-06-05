@@ -1,0 +1,38 @@
+/**
+ * Admin a11y labels (Uzbek-only, since admin UI is single-locale).
+ * Centralized so future i18n is a one-file swap.
+ */
+export const A11Y_LABELS = {
+  widget: "Maxsus imkoniyatlar paneli",
+  title: "Maxsus imkoniyatlar",
+  skip: "Asosiy mazmunga o'tish",
+  fontSize: "Shrift o'lchami",
+  fontSizeSmall: "Kichik",
+  fontSizeMedium: "O'rta",
+  fontSizeLarge: "Katta",
+  scheme: "Rang sxemasi",
+  schemeDefault: "Standart",
+  schemeBw: "Oq-qora",
+  schemeWb: "Qora-oq",
+  schemeYb: "Sariq-qora",
+  schemeBy: "Ko'k-sariq",
+  schemeSepia: "Sepia",
+  letterSpacing: "Harflar oralig'i",
+  letterSpacingNormal: "Oddiy",
+  letterSpacingWide: "Kengaytirilgan",
+  letterSpacingExtra: "Katta",
+  lineHeight: "Qatorlar oralig'i",
+  lineHeightNormal: "Oddiy",
+  lineHeightComfortable: "Qulay",
+  fontFamily: "Shrift turi",
+  fontFamilySans: "Bezaksiz",
+  fontFamilySerif: "Bezakli",
+  images: "Tasvirlar",
+  imagesOn: "Yoqilgan",
+  imagesOff: "O'chirilgan",
+  reset: "Standart sozlamalarga qaytarish",
+  close: "Yopish",
+  announceOpened: "Maxsus imkoniyatlar paneli ochildi",
+  announceChanged: "Sozlama o'zgartirildi",
+  announceReset: "Sozlamalar tiklandi",
+} as const;

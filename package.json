@@ -1,0 +1,64 @@
+{
+  "name": "tmtu-termiz",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Toshkent Davlat Tibbiyot Universiteti Termiz Filiali — Official monorepo",
+  "license": "UNLICENSED",
+  "homepage": "https://tashmedunitf.uz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmtu-termiz/monorepo.git"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "packageManager": "pnpm@10.28.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/config/*",
+    "e2e",
+    "tooling/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@tmtu/web",
+    "dev:admin": "turbo run dev --filter=@tmtu/admin",
+    "dev:api": "pnpm --filter @tmtu/api dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "pnpm --filter @tmtu/e2e test",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "prepare": "husky install",
+    "docker:up": "docker compose -f infrastructure/docker/compose/compose.yml up -d",
+    "docker:down": "docker compose -f infrastructure/docker/compose/compose.yml down",
+    "docker:logs": "docker compose -f infrastructure/docker/compose/compose.yml logs -f"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.php": [
+      "./apps/api/vendor/bin/pint --dirty"
+    ]
+  }
+}

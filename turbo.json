@@ -1,0 +1,61 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalDependencies": [
+    ".env",
+    ".env.local",
+    "tsconfig.base.json"
+  ],
+  "globalEnv": [
+    "NODE_ENV",
+    "CI"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "build/**",
+        "storybook-static/**"
+      ],
+      "env": [
+        "NEXT_PUBLIC_*",
+        "API_URL",
+        "REVALIDATION_SECRET"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "NEXT_PUBLIC_*",
+        "API_URL"
+      ]
+    },
+    "lint": {
+      "outputs": [],
+      "dependsOn": ["^build"]
+    },
+    "lint:fix": {
+      "cache": false,
+      "outputs": []
+    },
+    "typecheck": {
+      "outputs": [],
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": ["^build"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

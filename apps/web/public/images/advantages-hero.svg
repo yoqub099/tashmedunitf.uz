@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="none">
+  <rect width="640" height="640" rx="24" fill="url(#bg)"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="640" y2="640">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="200" y1="180" x2="440" y2="460">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <circle cx="320" cy="260" r="180" fill="url(#shine)"/>
+  <!-- Building -->
+  <rect x="240" y="280" width="160" height="140" rx="4" fill="#ffffff" fill-opacity="0.9"/>
+  <rect x="260" y="240" width="120" height="40" rx="4" fill="#ffffff" fill-opacity="0.9"/>
+  <!-- Dome -->
+  <path d="M280 240 Q320 200 360 240" fill="#ffffff" fill-opacity="0.9"/>
+  <!-- Columns -->
+  <rect x="265" y="300" width="12" height="100" rx="2" fill="#1e40af" fill-opacity="0.3"/>
+  <rect x="295" y="300" width="12" height="100" rx="2" fill="#1e40af" fill-opacity="0.3"/>
+  <rect x="333" y="300" width="12" height="100" rx="2" fill="#1e40af" fill-opacity="0.3"/>
+  <rect x="363" y="300" width="12" height="100" rx="2" fill="#1e40af" fill-opacity="0.3"/>
+  <!-- Door -->
+  <rect x="305" y="360" width="30" height="40" rx="2" fill="#1e40af" fill-opacity="0.4"/>
+  <path d="M305 360 Q320 345 335 360" fill="#1e40af" fill-opacity="0.4"/>
+  <!-- Steps -->
+  <rect x="230" y="420" width="180" height="8" rx="2" fill="#ffffff" fill-opacity="0.7"/>
+  <rect x="220" y="430" width="200" height="8" rx="2" fill="#ffffff" fill-opacity="0.5"/>
+  <!-- Book -->
+  <rect x="250" y="470" width="60" height="45" rx="3" fill="#fbbf24" fill-opacity="0.9"/>
+  <rect x="280" y="470" width="2" height="45" fill="#f59e0b"/>
+  <line x1="258" y1="482" x2="276" y2="482" stroke="#92400e" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="258" y1="490" x2="274" y2="490" stroke="#92400e" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="258" y1="498" x2="270" y2="498" stroke="#92400e" stroke-width="2" stroke-opacity="0.4"/>
+  <!-- Graduation cap -->
+  <polygon points="350,465 390,480 350,495 310,480" fill="#ffffff" fill-opacity="0.9"/>
+  <rect x="348" y="455" width="4" height="15" fill="#ffffff" fill-opacity="0.9"/>
+  <circle cx="350" cy="452" r="5" fill="#fbbf24"/>
+  <line x1="390" y1="480" x2="390" y2="500" stroke="#ffffff" stroke-width="2" stroke-opacity="0.7"/>
+  <circle cx="390" cy="503" r="3" fill="#fbbf24"/>
+  <!-- Stethoscope hint -->
+  <circle cx="440" cy="475" r="18" stroke="#ffffff" stroke-width="3" fill="none" stroke-opacity="0.6"/>
+  <path d="M425 462 Q420 440 430 435" stroke="#ffffff" stroke-width="3" fill="none" stroke-opacity="0.6"/>
+  <path d="M455 462 Q460 440 450 435" stroke="#ffffff" stroke-width="3" fill="none" stroke-opacity="0.6"/>
+  <!-- Decorative dots -->
+  <circle cx="160" cy="180" r="4" fill="#ffffff" fill-opacity="0.2"/>
+  <circle cx="480" cy="160" r="6" fill="#ffffff" fill-opacity="0.15"/>
+  <circle cx="520" cy="350" r="3" fill="#ffffff" fill-opacity="0.2"/>
+  <circle cx="140" cy="400" r="5" fill="#ffffff" fill-opacity="0.15"/>
+  <circle cx="500" cy="500" r="4" fill="#ffffff" fill-opacity="0.2"/>
+  <!-- Text -->
+  <text x="320" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" fill-opacity="0.8">TDTUTF</text>
+  <text x="320" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#ffffff" fill-opacity="0.5">Toshkent Davlat Tibbiyot Universiteti</text>
+</svg>

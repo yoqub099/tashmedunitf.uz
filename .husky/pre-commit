@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged on staged files
+npx lint-staged --concurrent false
+
+# Verify no secrets are staged
+if git diff --cached --name-only | grep -qE '^\.env$|\.env\.local$|\.env\.production$'; then
+  echo "❌ ERROR: Staged .env files detected. Remove them with: git restore --staged .env"
+  exit 1
+fi
+
+if git diff --cached --name-only | grep -qE '\.sql$|\.dump$'; then
+  echo "⚠️  WARNING: SQL files staged. Verify they don't contain PII or secrets."
+fi

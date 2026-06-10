@@ -17,7 +17,7 @@ class DepartmentController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $departments = $this->departmentService->getAll($request, ! $isAdmin);
 
         return $this->paginated($departments, DepartmentResource::class);
@@ -26,6 +26,11 @@ class DepartmentController extends BaseController
     public function show(string $slug): JsonResponse
     {
         $department = $this->departmentService->findBySlug($slug);
+
+        // Nofaol yozuv faqat adminga ko'rinadi
+        if (! $department->is_active && ! $this->isAdminRequest()) {
+            return $this->error(__('messages.not_found', ['model' => __('messages.models.department')]), 404);
+        }
 
         return $this->success(new DepartmentResource($department));
     }

@@ -17,7 +17,7 @@ class FaqController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $faqs = $this->faqService->getAll($request, ! $isAdmin);
 
         return $this->paginated($faqs, FaqResource::class);
@@ -26,6 +26,11 @@ class FaqController extends BaseController
     public function show(int $id): JsonResponse
     {
         $faq = $this->faqService->findById($id);
+
+        // Nofaol yozuv faqat adminga ko'rinadi
+        if (! $faq->is_active && ! $this->isAdminRequest()) {
+            return $this->error(__('messages.not_found', ['model' => __('messages.models.faq')]), 404);
+        }
 
         return $this->success(new FaqResource($faq));
     }

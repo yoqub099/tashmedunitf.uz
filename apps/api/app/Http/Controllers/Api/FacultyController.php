@@ -17,7 +17,7 @@ class FacultyController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $faculties = $this->facultyService->getAll($request, ! $isAdmin);
 
         return $this->paginated($faculties, FacultyResource::class);
@@ -26,6 +26,11 @@ class FacultyController extends BaseController
     public function show(int $id): JsonResponse
     {
         $faculty = $this->facultyService->findById($id);
+
+        // Nofaol yozuv faqat adminga ko'rinadi
+        if (! $faculty->is_active && ! $this->isAdminRequest()) {
+            return $this->error(__('messages.not_found', ['model' => 'Fakultet']), 404);
+        }
 
         return $this->success(new FacultyResource($faculty));
     }

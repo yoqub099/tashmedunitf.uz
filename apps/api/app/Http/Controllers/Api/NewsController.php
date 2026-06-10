@@ -17,7 +17,7 @@ class NewsController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $news = $this->newsService->getAll($request, ! $isAdmin);
 
         return $this->paginated($news, NewsResource::class);
@@ -25,7 +25,7 @@ class NewsController extends BaseController
 
     public function show(Request $request, string $identifier): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $news = $this->newsService->findByIdentifier($identifier, ! $isAdmin);
 
         return $this->success(new NewsResource($news));

@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\DB;
  * generated_conversions, manipulations, responsive_images) are intentionally
  * left untouched — they are framework-managed.
  */
-return new class extends Migration {
+return new class extends Migration
+{
     /** @var array<int, array{0:string,1:string}> table+column pairs to convert */
     private array $columns = [
         ['faculties', 'name'],

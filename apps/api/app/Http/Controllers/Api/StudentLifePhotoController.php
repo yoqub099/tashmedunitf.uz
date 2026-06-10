@@ -17,7 +17,7 @@ class StudentLifePhotoController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $photos = $this->studentLifePhotoService->getAll($request, ! $isAdmin);
 
         return $this->paginated($photos, StudentLifePhotoResource::class);

@@ -17,7 +17,7 @@ class StaffController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $staff = $this->staffService->getAll($request, ! $isAdmin);
 
         return $this->paginated($staff, StaffResource::class);
@@ -26,6 +26,11 @@ class StaffController extends BaseController
     public function show(int $id): JsonResponse
     {
         $staff = $this->staffService->findById($id);
+
+        // Nofaol yozuv faqat adminga ko'rinadi
+        if (! $staff->is_active && ! $this->isAdminRequest()) {
+            return $this->error(__('messages.not_found', ['model' => __('messages.models.staff')]), 404);
+        }
 
         return $this->success(new StaffResource($staff));
     }

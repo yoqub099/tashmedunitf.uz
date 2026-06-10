@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -35,20 +36,32 @@ class UserController extends BaseController
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'email', 'max:255',
+                Rule::unique('users', 'email')->whereNull('deleted_at')],
             'password' => ['required', 'string', 'min:8'],
             'role' => ['required', Rule::in(['super-admin', 'admin', 'editor'])],
             'phone' => ['nullable', 'string', 'max:50'],
         ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => strtolower(trim($validated['email'])),
-            'password' => Hash::make($validated['password']),
-            'phone' => $validated['phone'] ?? null,
-        ]);
+        $email = strtolower(trim($validated['email']));
 
-        $user->assignRole($validated['role']);
+        $user = DB::transaction(function () use ($validated, $email) {
+            // Soft-delete qilingan eski akkaunt shu emailni band qilib turadi
+            // (DB unique indeksi deleted_at ni bilmaydi) — butunlay tozalaymiz.
+            User::onlyTrashed()->where('email', $email)->forceDelete();
+
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $email,
+                'password' => Hash::make($validated['password']),
+                'phone' => $validated['phone'] ?? null,
+            ]);
+
+            $user->assignRole($validated['role']);
+
+            return $user;
+        });
+
         $user->load('roles');
 
         return $this->success(new UserResource($user), 'Foydalanuvchi yaratildi', 201);
@@ -67,7 +80,8 @@ class UserController extends BaseController
 
         $validated = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
-            'email' => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($id)],
+            'email' => ['sometimes', 'email', 'max:255',
+                Rule::unique('users', 'email')->ignore($id)->whereNull('deleted_at')],
             'password' => ['nullable', 'string', 'min:8'],
             'role' => ['sometimes', Rule::in(['super-admin', 'admin', 'editor'])],
             'phone' => ['nullable', 'string', 'max:50'],
@@ -77,7 +91,10 @@ class UserController extends BaseController
             $user->name = $validated['name'];
         }
         if (isset($validated['email'])) {
-            $user->email = strtolower(trim($validated['email']));
+            $email = strtolower(trim($validated['email']));
+            // Soft-delete qilingan akkaunt emailni band qilgan bo'lishi mumkin
+            User::onlyTrashed()->where('email', $email)->forceDelete();
+            $user->email = $email;
         }
         if (! empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);

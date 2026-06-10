@@ -32,7 +32,8 @@ class SiteMediaController extends BaseController
     {
         $item = $this->siteMediaService->findByKey($key);
 
-        if (! $item) {
+        // Nofaol yozuv faqat adminga ko'rinadi
+        if (! $item || (! $item->is_active && ! $this->isAdminRequest())) {
             return $this->error(__('messages.not_found'), 404);
         }
 

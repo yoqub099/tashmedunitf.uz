@@ -17,7 +17,7 @@ class JournalIssueController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $issues = $this->journalIssueService->getAll($request, ! $isAdmin);
 
         return $this->paginated($issues, JournalIssueResource::class);
@@ -25,7 +25,7 @@ class JournalIssueController extends BaseController
 
     public function show(Request $request, string $identifier): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $issue = $this->journalIssueService->findByIdentifier($identifier, ! $isAdmin);
 
         return $this->success(new JournalIssueResource($issue));

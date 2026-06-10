@@ -17,7 +17,7 @@ class DirectionController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $directions = $this->directionService->getAll($request, ! $isAdmin);
 
         return $this->paginated($directions, DirectionResource::class);
@@ -26,6 +26,11 @@ class DirectionController extends BaseController
     public function show(int $id): JsonResponse
     {
         $direction = $this->directionService->findById($id);
+
+        // Nofaol yozuv faqat adminga ko'rinadi
+        if (! $direction->is_active && ! $this->isAdminRequest()) {
+            return $this->error(__('messages.not_found', ['model' => __('messages.models.direction')]), 404);
+        }
 
         return $this->success(new DirectionResource($direction));
     }

@@ -13,6 +13,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasRoles, Notifiable, SoftDeletes;
 
+    /**
+     * Rollar/ruxsatlar har doim `web` guard'da saqlanadi. Busiz Sanctum token
+     * orqali kelgan so'rovlarda Spatie rolni `sanctum` guard'dan qidirib,
+     * assignRole/syncRoles RoleDoesNotExist xatosi beradi.
+     */
+    protected $guard_name = 'web';
+
     protected $fillable = [
         'name',
         'email',

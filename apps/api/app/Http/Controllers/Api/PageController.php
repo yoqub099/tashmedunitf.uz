@@ -40,7 +40,7 @@ class PageController extends BaseController
      */
     public function findByPath(Request $request, string $path): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $page = $this->pageService->findByPath($path, ! $isAdmin);
 
         return $this->success(new PageResource($page));
@@ -65,7 +65,7 @@ class PageController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $pages = $this->pageService->getAll($request, ! $isAdmin);
 
         return $this->paginated($pages, PageResource::class);
@@ -73,7 +73,7 @@ class PageController extends BaseController
 
     public function show(Request $request, string $identifier): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
 
         // ID (raqam) yoki slug bilan qidirish
         if (ctype_digit($identifier)) {

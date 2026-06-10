@@ -24,7 +24,7 @@ class LibraryResourceController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $resources = $this->libraryResourceService->getAll($request, ! $isAdmin);
 
         return $this->paginated($resources, LibraryResourceResource::class);
@@ -32,7 +32,7 @@ class LibraryResourceController extends BaseController
 
     public function show(Request $request, string $identifier): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $resource = $this->libraryResourceService->findByIdentifier($identifier, ! $isAdmin);
 
         return $this->success(new LibraryResourceResource($resource));

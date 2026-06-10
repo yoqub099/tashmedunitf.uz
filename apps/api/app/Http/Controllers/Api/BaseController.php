@@ -7,6 +7,24 @@ use Illuminate\Http\JsonResponse;
 
 abstract class BaseController extends Controller
 {
+    /**
+     * Public route'da ixtiyoriy (optional) auth: Bearer token bo'lsa admin'ni taniydi.
+     *
+     * `$request->user()` BU YERDA ISHLAMAYDI — public routelarda default guard
+     * `web` (session) bo'lgani uchun token kelganda ham null qaytadi. Sanctum
+     * guard'idan aniq so'rash shart.
+     */
+    protected function isAdminRequest(): bool
+    {
+        try {
+            $user = auth('sanctum')->user();
+
+            return $user !== null && $user->hasAnyRole(['super-admin', 'admin']);
+        } catch (\Throwable) {
+            return false;
+        }
+    }
+
     protected function success($data = null, string $message = 'Success', int $code = 200): JsonResponse
     {
         return response()->json([

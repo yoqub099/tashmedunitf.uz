@@ -17,7 +17,7 @@ class PartnerController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $partners = $this->partnerService->getAll($request, ! $isAdmin);
 
         return $this->paginated($partners, PartnerResource::class);

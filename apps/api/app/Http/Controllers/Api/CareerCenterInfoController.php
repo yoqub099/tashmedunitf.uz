@@ -17,7 +17,7 @@ class CareerCenterInfoController extends BaseController
 
     public function index(Request $request): JsonResponse
     {
-        $isAdmin = $request->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = $this->isAdminRequest();
         $infos = $this->careerCenterInfoService->getAll($request, ! $isAdmin);
 
         return $this->paginated($infos, CareerCenterInfoResource::class);

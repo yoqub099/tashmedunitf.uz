@@ -276,31 +276,31 @@ admin/src/
 
 ### Fayl soni taqqoslash
 
-| Kategoriya  | Eski admin   | Yangi admin  | Frontend (reference) |
-| ----------- | ------------ | ------------ | -------------------- |
-| app/ pages  | 31 fayl      | 22 fayl      | 23 fayl              |
-| components/ | 21 fayl      | 30 fayl      | 20 fayl              |
-| hooks/      | 10 fayl      | 14 fayl      | 4 fayl               |
-| lib/        | 15 fayl      | 15 fayl      | 4 fayl               |
-| config/     | 0 fayl       | 2 fayl       | 2 fayl               |
-| store/      | 1 fayl       | 2 fayl       | 2 fayl               |
-| types/      | 1 fayl       | 2 fayl       | 2 fayl               |
-| providers/  | 1 fayl       | 1 fayl       | 1 fayl               |
-| **JAMI**    | **~85 fayl** | **~90 fayl** | **~62 fayl**         |
+| Kategoriya | Eski admin | Yangi admin | Frontend (reference) |
+|------------|-----------|-------------|---------------------|
+| app/ pages | 31 fayl | 22 fayl | 23 fayl |
+| components/ | 21 fayl | 30 fayl | 20 fayl |
+| hooks/ | 10 fayl | 14 fayl | 4 fayl |
+| lib/ | 15 fayl | 15 fayl | 4 fayl |
+| config/ | 0 fayl | 2 fayl | 2 fayl |
+| store/ | 1 fayl | 2 fayl | 2 fayl |
+| types/ | 1 fayl | 2 fayl | 2 fayl |
+| providers/ | 1 fayl | 1 fayl | 1 fayl |
+| **JAMI** | **~85 fayl** | **~90 fayl** | **~62 fayl** |
 
 ### Asosiy farqlar (Eski vs Yangi)
 
-| Eski admin                                           | Yangi admin                                        |
-| ---------------------------------------------------- | -------------------------------------------------- |
-| Sidebar + sidebar navigation                         | Top header (frontend mirror)                       |
-| `/news/create/page.tsx`, `/news/[id]/edit/page.tsx`  | EditModal popup — alohida sahifa yo'q              |
-| 10 ta EntityForm component (BannerForm, NewsForm...) | 1 ta EditModal + FieldConfig — universal           |
-| RichTextEditor = textarea                            | RichTextEditor = TipTap (toolbar, media)           |
-| config/ folder yo'q                                  | config/navigation.ts + site.ts                     |
-| store/ faqat auth                                    | store/ auth + UI state                             |
-| English URL'lar (news, departments, staff)           | O'zbek URL'lar (yangiliklar, kafedralar, xodimlar) |
-| Alohida create/edit sahifalar                        | Inline editing — hover to edit                     |
-| AdminHeader ishlatilmaydi                            | AdminTopHeader — asosiy component                  |
+| Eski admin | Yangi admin |
+|-----------|-------------|
+| Sidebar + sidebar navigation | Top header (frontend mirror) |
+| `/news/create/page.tsx`, `/news/[id]/edit/page.tsx` | EditModal popup — alohida sahifa yo'q |
+| 10 ta EntityForm component (BannerForm, NewsForm...) | 1 ta EditModal + FieldConfig — universal |
+| RichTextEditor = textarea | RichTextEditor = TipTap (toolbar, media) |
+| config/ folder yo'q | config/navigation.ts + site.ts |
+| store/ faqat auth | store/ auth + UI state |
+| English URL'lar (news, departments, staff) | O'zbek URL'lar (yangiliklar, kafedralar, xodimlar) |
+| Alohida create/edit sahifalar | Inline editing — hover to edit |
+| AdminHeader ishlatilmaydi | AdminTopHeader — asosiy component |
 
 ## Architecture
 
@@ -330,7 +330,6 @@ AdminLayout
 **Goal**: `admin/src/` folder to'liq o'chirib, yangi folder tizimini yaratish.
 
 **Jarayon**:
-
 1. `admin/src/` ichidagi barcha fayllarni o'chirish
 2. Yuqoridagi "YANGI Admin folder tizimi" bo'yicha barcha folderlarni yaratish
 3. Har bir faylni noldan professional darajada yozish
@@ -344,7 +343,6 @@ AdminLayout
 **Goal**: Yangi top header layout yaratish (frontend Header mirror).
 
 **Files to create (noldan)**:
-
 - `admin/src/app/layout.tsx` — Root layout (providers, fonts, metadata)
 - `admin/src/app/globals.css` — Tailwind + custom styles
 - `admin/src/app/not-found.tsx` — 404 page
@@ -362,12 +360,10 @@ AdminLayout
 - `admin/src/config/site.ts` — Site config
 
 **Reference files**:
-
 - `frontend/src/components/layout/Header.tsx` — design reference for header
 - `frontend/src/config/navigation.ts` — navigation structure reference
 
 **Design specs**:
-
 - Primary color: `#1d4ed8` (blue-700)
 - Gradient: `from-blue-800 via-blue-700 to-blue-900`
 - Font: Inter
@@ -378,17 +374,16 @@ AdminLayout
 - Mobile: hamburger menu same as frontend
 
 **Header navigation items**:
-
 ```ts
 const adminNavItems = [
-  { label: 'Bosh sahifa', href: '/', icon: Home },
-  { label: 'Yangiliklar', href: '/news', icon: Newspaper },
-  { label: "Bo'limlar", href: '/departments', icon: Building },
-  { label: "Yo'nalishlar", href: '/directions', icon: GraduationCap },
-  { label: 'Xodimlar', href: '/staff', icon: Users },
-  { label: 'FAQ', href: '/faq', icon: HelpCircle },
-  { label: 'Sahifalar', href: '/pages', icon: FileText },
-  { label: 'Aloqa', href: '/contacts', icon: Mail },
+  { label: "Bosh sahifa", href: "/", icon: Home },
+  { label: "Yangiliklar", href: "/news", icon: Newspaper },
+  { label: "Bo'limlar", href: "/departments", icon: Building },
+  { label: "Yo'nalishlar", href: "/directions", icon: GraduationCap },
+  { label: "Xodimlar", href: "/staff", icon: Users },
+  { label: "FAQ", href: "/faq", icon: HelpCircle },
+  { label: "Sahifalar", href: "/pages", icon: FileText },
+  { label: "Aloqa", href: "/contacts", icon: Mail },
 ];
 ```
 
@@ -399,26 +394,23 @@ const adminNavItems = [
 **Goal**: Core component that wraps any content section and adds hover-to-edit UI.
 
 **File to create**:
-
 - `admin/src/components/inline-edit/EditableWrapper.tsx`
 
 **Props interface**:
-
 ```ts
 interface EditableWrapperProps {
   children: React.ReactNode;
-  entityType: string; // 'news' | 'banner' | 'partner' | etc.
+  entityType: string;        // 'news' | 'banner' | 'partner' | etc.
   entityId?: number | string;
   onEdit: () => void;
   onDelete?: () => void;
   onAdd?: () => void;
   className?: string;
-  label?: string; // "Yangilik #3", "Banner", etc.
+  label?: string;            // "Yangilik #3", "Banner", etc.
 }
 ```
 
 **Behavior**:
-
 - Default state: invisible overlay, children render normally
 - Hover state: blue dashed border (`border-2 border-dashed border-blue-500`), semi-transparent blue background (`bg-blue-50/30`)
 - Action buttons appear top-right corner on hover:
@@ -437,13 +429,11 @@ interface EditableWrapperProps {
 **Goal**: Universal modal for editing any entity with language tabs and media upload.
 
 **Files to create**:
-
 - `admin/src/components/inline-edit/EditModal.tsx`
 - `admin/src/components/inline-edit/LanguageTabs.tsx`
 - `admin/src/components/inline-edit/MediaUploader.tsx`
 
 **EditModal props**:
-
 ```ts
 interface EditModalProps {
   isOpen: boolean;
@@ -459,17 +449,16 @@ interface FieldConfig {
   name: string;
   label: string;
   type: 'text' | 'textarea' | 'richtext' | 'select' | 'number' | 'date' | 'media' | 'toggle';
-  translatable?: boolean; // if true, shows UZ/RU/EN tabs
+  translatable?: boolean;    // if true, shows UZ/RU/EN tabs
   required?: boolean;
-  options?: { value: string; label: string }[]; // for select type
-  accept?: string; // for media type: 'image/*', 'video/*', '.pdf', etc.
-  multiple?: boolean; // for media type: allow multiple files
+  options?: { value: string; label: string }[];  // for select type
+  accept?: string;           // for media type: 'image/*', 'video/*', '.pdf', etc.
+  multiple?: boolean;        // for media type: allow multiple files
   placeholder?: string;
 }
 ```
 
 **LanguageTabs behavior**:
-
 - Three tabs: O'zbekcha (UZ) | Русский (RU) | English (EN)
 - UZ is required, RU/EN optional
 - Active tab highlighted with blue underline
@@ -477,7 +466,6 @@ interface FieldConfig {
 - Non-translatable fields (like category, order, is_active) appear once outside tabs
 
 **MediaUploader behavior**:
-
 - Drag & drop zone with dashed border
 - Supports: images (jpg, png, webp, gif), video (mp4, webm), documents (pdf)
 - Preview thumbnails for images, video player preview for videos
@@ -493,17 +481,14 @@ interface FieldConfig {
 **Goal**: Replace current textarea-based RichTextEditor with TipTap editor.
 
 **Dependencies to install**:
-
 ```bash
 npm install @tiptap/react @tiptap/starter-kit @tiptap/extension-image @tiptap/extension-link @tiptap/extension-youtube @tiptap/extension-placeholder
 ```
 
 **File to modify**:
-
 - `admin/src/components/shared/RichTextEditor.tsx` — complete rewrite
 
 **Features**:
-
 - Toolbar: Bold, Italic, Underline, Strikethrough
 - Headings: H1, H2, H3
 - Lists: Bullet, Numbered
@@ -520,7 +505,6 @@ npm install @tiptap/react @tiptap/starter-kit @tiptap/extension-image @tiptap/ex
 **Goal**: Make each home page section editable inline.
 
 **Sections to wrap with EditableWrapper**:
-
 1. HeroSection → edit hero title, subtitle, background image/video
 2. MissionSection → edit mission text, image
 3. DirectionsSection → edit/add/delete direction cards
@@ -531,7 +515,6 @@ npm install @tiptap/react @tiptap/starter-kit @tiptap/extension-image @tiptap/ex
 8. LocationSection → edit address, map coordinates, contact info
 
 **Implementation approach**:
-
 - Create admin versions of each frontend section component
 - Import frontend section components and wrap with EditableWrapper
 - Each section fetches real data from API (replace hardcoded data)
@@ -545,7 +528,6 @@ npm install @tiptap/react @tiptap/starter-kit @tiptap/extension-image @tiptap/ex
 **Goal**: News list, Department pages, Staff pages, etc. all use inline editing.
 
 **Pages to implement**:
-
 - `/news` — grid of news cards, each wrapped in EditableWrapper
 - `/news/[slug]` — full article view with inline editing of title, content, images
 - `/departments` — department list with inline editing
@@ -562,14 +544,12 @@ npm install @tiptap/react @tiptap/starter-kit @tiptap/extension-image @tiptap/ex
 **Goal**: Dashboard stats accessible from header, not a separate page.
 
 **Dashboard dropdown contents**:
-
 - Quick stats: total news, departments, staff, contacts (unread)
 - Recent activity: last 5 edits
 - Quick actions: "Yangilik qo'shish", "Xodim qo'shish"
 - Link to full dashboard page (optional)
 
 **Additional admin features**:
-
 - Banners management: edit/reorder/toggle visibility
 - Contact messages: view/mark as read from dropdown notification bell
 - Settings page: site settings, admin profile
@@ -613,37 +593,37 @@ Fayllar shu tartibda yoziladi — har biri oldingi qadamga bog'liq:
 
 ## API Endpoints Used
 
-| Entity       | List (GET)                | Create (POST)             | Update (POST+\_method)          | Delete (DELETE)                |
-| ------------ | ------------------------- | ------------------------- | ------------------------------- | ------------------------------ |
-| News         | `/api/admin/news`         | `/api/admin/news`         | `/api/admin/news/{id}`          | `/api/admin/news/{id}`         |
-| Departments  | `/api/admin/departments`  | `/api/admin/departments`  | `/api/admin/departments/{id}`   | `/api/admin/departments/{id}`  |
-| Staff        | `/api/admin/staff`        | `/api/admin/staff`        | `/api/admin/staff/{id}`         | `/api/admin/staff/{id}`        |
-| Directions   | `/api/admin/directions`   | `/api/admin/directions`   | `/api/admin/directions/{id}`    | `/api/admin/directions/{id}`   |
-| FAQs         | `/api/admin/faqs`         | `/api/admin/faqs`         | `/api/admin/faqs/{id}`          | `/api/admin/faqs/{id}`         |
-| Banners      | `/api/admin/banners`      | `/api/admin/banners`      | `/api/admin/banners/{id}`       | `/api/admin/banners/{id}`      |
-| Partners     | `/api/admin/partners`     | `/api/admin/partners`     | `/api/admin/partners/{id}`      | `/api/admin/partners/{id}`     |
-| Testimonials | `/api/admin/testimonials` | `/api/admin/testimonials` | `/api/admin/testimonials/{id}`  | `/api/admin/testimonials/{id}` |
-| Pages        | `/api/admin/pages`        | `/api/admin/pages`        | `/api/admin/pages/{id}`         | `/api/admin/pages/{id}`        |
-| Contacts     | `/api/admin/contacts`     | —                         | `/api/admin/contacts/{id}/read` | `/api/admin/contacts/{id}`     |
+| Entity        | List (GET)              | Create (POST)           | Update (POST+_method) | Delete (DELETE)         |
+|---------------|-------------------------|-------------------------|-----------------------|-------------------------|
+| News          | `/api/admin/news`       | `/api/admin/news`       | `/api/admin/news/{id}`| `/api/admin/news/{id}`  |
+| Departments   | `/api/admin/departments`| `/api/admin/departments`| `/api/admin/departments/{id}` | `/api/admin/departments/{id}` |
+| Staff         | `/api/admin/staff`      | `/api/admin/staff`      | `/api/admin/staff/{id}`| `/api/admin/staff/{id}` |
+| Directions    | `/api/admin/directions` | `/api/admin/directions` | `/api/admin/directions/{id}` | `/api/admin/directions/{id}` |
+| FAQs          | `/api/admin/faqs`       | `/api/admin/faqs`       | `/api/admin/faqs/{id}`| `/api/admin/faqs/{id}`  |
+| Banners       | `/api/admin/banners`    | `/api/admin/banners`    | `/api/admin/banners/{id}` | `/api/admin/banners/{id}` |
+| Partners      | `/api/admin/partners`   | `/api/admin/partners`   | `/api/admin/partners/{id}` | `/api/admin/partners/{id}` |
+| Testimonials  | `/api/admin/testimonials`| `/api/admin/testimonials`| `/api/admin/testimonials/{id}` | `/api/admin/testimonials/{id}` |
+| Pages         | `/api/admin/pages`      | `/api/admin/pages`      | `/api/admin/pages/{id}`| `/api/admin/pages/{id}` |
+| Contacts      | `/api/admin/contacts`   | —                       | `/api/admin/contacts/{id}/read` | `/api/admin/contacts/{id}` |
 
 ## Design Tokens
 
 ```ts
 const designTokens = {
   colors: {
-    primary: '#1d4ed8', // blue-700
-    primaryHover: '#1e40af', // blue-800
+    primary: '#1d4ed8',        // blue-700
+    primaryHover: '#1e40af',   // blue-800
     gradient: 'from-blue-800 via-blue-700 to-blue-900',
-    editBorder: '#3b82f6', // blue-500
+    editBorder: '#3b82f6',     // blue-500
     editBg: 'rgba(59,130,246,0.05)',
-    deleteBg: '#ef4444', // red-500
-    addBg: '#22c55e', // green-500
+    deleteBg: '#ef4444',       // red-500
+    addBg: '#22c55e',          // green-500
   },
   font: 'Inter, sans-serif',
   borderRadius: {
-    card: '1rem', // rounded-2xl
-    button: '0.5rem', // rounded-lg
-    modal: '1rem', // rounded-2xl
+    card: '1rem',              // rounded-2xl
+    button: '0.5rem',          // rounded-lg
+    modal: '1rem',             // rounded-2xl
   },
   shadow: {
     card: '0 4px 6px -1px rgba(0,0,0,0.1)',

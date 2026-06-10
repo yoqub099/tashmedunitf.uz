@@ -2,8 +2,8 @@
 # https://pnpm.io/workspaces
 
 packages:
-  - "apps/*"
-  - "packages/*"
-  - "packages/config/*"
-  - "e2e"
-  - "tooling/*"
+  - 'apps/*'
+  - 'packages/*'
+  - 'packages/config/*'
+  - 'e2e'
+  - 'tooling/*'

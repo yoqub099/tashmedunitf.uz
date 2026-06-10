@@ -4,10 +4,7 @@
   "private": true,
   "description": "Shared ESLint configurations",
   "main": "./index.js",
-  "files": [
-    "index.js",
-    "nextjs.js"
-  ],
+  "files": ["index.js", "nextjs.js"],
   "devDependencies": {
     "eslint": "^9.17.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",

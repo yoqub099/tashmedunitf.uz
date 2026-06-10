@@ -15,17 +15,17 @@ I'll write the migration completion report based on the deterministic diff stats
 
 ### Statistik jadval
 
-| Toifa                                       | Fayllar soni | Izoh                                                                   |
-| ------------------------------------------- | -----------: | ---------------------------------------------------------------------- |
-| **Identical** (bayt-ma-bayt bir xil)        |         1313 | Hech qanday o'zgarishsiz ko'chgan                                      |
-| **EOL-only** (faqat satr yakuni)            |          135 | CRLF/LF normalizatsiya, mazmun bir xil                                 |
-| **Formatting-only (token)**                 |           74 | Pint/Prettier — token darajada farq, logika bir xil                    |
-| **Token-genuine (adjudikatsiya qilingan)**  |           80 | Hammasi formatting/adaptatsiya/yaxshilanish — **0 logika yo'qotilgan** |
-| **Adapted (monorepo)**                      |  (80 ichida) | Nomlar `@tmtu/*`, yo'llar, env — to'g'ri adaptatsiya                   |
-| **Junk (to'g'ri chiqarib tashlangan)**      |          144 | Cache, \*.txt natijalar, .env, backup'lar                              |
-| **Real-missing (haqiqatan yetishmaydigan)** |           10 | Action list, §5 ga qarang                                              |
-| **Binary-diff (media)**                     |         1905 | 1896 .webp runtime media + 9 .png e2e screenshot                       |
-| **Maqsad jami / Manba jami**                |  3754 / 3731 | Maqsad +23 fayl (yangi monorepo scaffold/config)                       |
+| Toifa | Fayllar soni | Izoh |
+|---|---:|---|
+| **Identical** (bayt-ma-bayt bir xil) | 1313 | Hech qanday o'zgarishsiz ko'chgan |
+| **EOL-only** (faqat satr yakuni) | 135 | CRLF/LF normalizatsiya, mazmun bir xil |
+| **Formatting-only (token)** | 74 | Pint/Prettier — token darajada farq, logika bir xil |
+| **Token-genuine (adjudikatsiya qilingan)** | 80 | Hammasi formatting/adaptatsiya/yaxshilanish — **0 logika yo'qotilgan** |
+| **Adapted (monorepo)** | (80 ichida) | Nomlar `@tmtu/*`, yo'llar, env — to'g'ri adaptatsiya |
+| **Junk (to'g'ri chiqarib tashlangan)** | 144 | Cache, *.txt natijalar, .env, backup'lar |
+| **Real-missing (haqiqatan yetishmaydigan)** | 10 | Action list, §5 ga qarang |
+| **Binary-diff (media)** | 1905 | 1896 .webp runtime media + 9 .png e2e screenshot |
+| **Maqsad jami / Manba jami** | 3754 / 3731 | Maqsad +23 fayl (yangi monorepo scaffold/config) |
 
 ---
 
@@ -63,12 +63,12 @@ Demak, raqamlardagi katta "diff hajmi" deploy/migratsiya jarayonida o'rnatilgan 
 
 ### Toifa bo'yicha taqsimot
 
-| Hukm                       | Soni (taxminan) | Ma'nosi                                      |
-| -------------------------- | --------------- | -------------------------------------------- |
-| `[formatting]`             | ~60             | Sof Pint/Prettier — logika bir xil           |
-| `[monorepo-adaptation]`    | ~6              | Nom/yo'l/env adaptatsiyasi (to'g'ri)         |
-| `[target-newer-or-better]` | ~9              | Maqsad teng yoki ko'proq xatti-harakatga ega |
-| `[runtime-junk]`           | 2               | Playwright auth/last-run artefaktlari        |
+| Hukm | Soni (taxminan) | Ma'nosi |
+|---|---|---|
+| `[formatting]` | ~60 | Sof Pint/Prettier — logika bir xil |
+| `[monorepo-adaptation]` | ~6 | Nom/yo'l/env adaptatsiyasi (to'g'ri) |
+| `[target-newer-or-better]` | ~9 | Maqsad teng yoki ko'proq xatti-harakatga ega |
+| `[runtime-junk]` | 2 | Playwright auth/last-run artefaktlari |
 
 ### Diqqatga sazovor "target-newer-or-better" (yaxshilanish, regressiya EMAS)
 
@@ -97,20 +97,20 @@ Buni alohida ta'kidlash kerak: 80 ta token-genuine farqning **bironta ham** maqs
 
 12 o'lcham bo'yicha audit o'tkazildi. Quyida har biri uchun natija:
 
-| #   | O'lcham                | Holat        | Eng og'ir muammo                                                                         |
-| --- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------- |
-| 1   | workspace-root-wiring  | minor-issues | pnpm 9 vs 10 ziddiyati (P1), husky v10 deprecation (P2), `packages/config` dangling (P2) |
-| 2   | apps-api-laravel       | minor-issues | `rasim/` seed asset ko'chmagan (P1), `SiteMediaSeeder` admin'ga tashqi yo'l (P2)         |
-| 3   | apps-web-wiring        | minor-issues | **Web Docker build buzilgan** (P1), `/api/health` route yo'q (P2)                        |
-| 4   | apps-admin-wiring      | **broken**   | **🔴 Dockerfile.admin `npm ci` ishlamaydi — image BUILD FAIL (P0)**                      |
-| 5   | apps-mobile            | minor-issues | Plan doc noto'g'ri joyga ko'chgan + nomi buzilgan (P1)                                   |
-| 6   | e2e-wiring             | minor-issues | Report yo'l mismatch (P2), commit qilingan report (P3)                                   |
-| 7   | infrastructure-docker  | minor-issues | `docker-safe.sh` `-f` flag'siz (P1), **nginx-production.conf YO'Q (P1)**                 |
-| 8   | packages-shared        | minor-issues | **Barcha 8 paket 100% UNCONSUMED (P1)**, kod dublikatlangan (P1)                         |
-| 9   | ci-github              | minor-issues | E2E job server'larni ishga tushirmaydi (P1×2), admin Docker build fail (P2)              |
-| 10  | docs-completeness      | minor-issues | ARCHITECTURE_STUDY.md + VERIFICATION_ADDENDUM.md ko'chmagan (P2)                         |
-| 11  | root-config-coverage   | minor-issues | pnpm versiya ziddiyati (P1), husky (P2), `.npmrc` yo'q (P3)                              |
-| 12  | root-70-reconciliation | minor-issues | `docker-safe.sh` buzilgan (P2), tahlil hujjatlari ko'chmagan (P3)                        |
+| # | O'lcham | Holat | Eng og'ir muammo |
+|---|---|---|---|
+| 1 | workspace-root-wiring | minor-issues | pnpm 9 vs 10 ziddiyati (P1), husky v10 deprecation (P2), `packages/config` dangling (P2) |
+| 2 | apps-api-laravel | minor-issues | `rasim/` seed asset ko'chmagan (P1), `SiteMediaSeeder` admin'ga tashqi yo'l (P2) |
+| 3 | apps-web-wiring | minor-issues | **Web Docker build buzilgan** (P1), `/api/health` route yo'q (P2) |
+| 4 | apps-admin-wiring | **broken** | **🔴 Dockerfile.admin `npm ci` ishlamaydi — image BUILD FAIL (P0)** |
+| 5 | apps-mobile | minor-issues | Plan doc noto'g'ri joyga ko'chgan + nomi buzilgan (P1) |
+| 6 | e2e-wiring | minor-issues | Report yo'l mismatch (P2), commit qilingan report (P3) |
+| 7 | infrastructure-docker | minor-issues | `docker-safe.sh` `-f` flag'siz (P1), **nginx-production.conf YO'Q (P1)** |
+| 8 | packages-shared | minor-issues | **Barcha 8 paket 100% UNCONSUMED (P1)**, kod dublikatlangan (P1) |
+| 9 | ci-github | minor-issues | E2E job server'larni ishga tushirmaydi (P1×2), admin Docker build fail (P2) |
+| 10 | docs-completeness | minor-issues | ARCHITECTURE_STUDY.md + VERIFICATION_ADDENDUM.md ko'chmagan (P2) |
+| 11 | root-config-coverage | minor-issues | pnpm versiya ziddiyati (P1), husky (P2), `.npmrc` yo'q (P3) |
+| 12 | root-70-reconciliation | minor-issues | `docker-safe.sh` buzilgan (P2), tahlil hujjatlari ko'chmagan (P3) |
 
 ### Buzilgan / og'ir muammoli o'lchamlar (highlight)
 
@@ -135,7 +135,6 @@ Buni alohida ta'kidlash kerak: 80 ta token-genuine farqning **bironta ham** maqs
 ### 🔴 P0 — Build BUZILGAN (darhol)
 
 **A1. `Dockerfile.admin` ni pnpm-aware qiling**
-
 - **Harakat:** `COPY package.json package-lock.json* ./` + `RUN npm ci --prefer-offline` ni web'dagi lockfile-detection blokiga almashtiring: `COPY package.json package-lock.json* yarn.lock* pnpm-lock.yaml* ./` so'ng `RUN if [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm install --frozen-lockfile; elif [ -f package-lock.json ]; then npm ci; else npm install; fi`. (Admin'da `@tmtu/*` workspace dep yo'q, shuning uchun `npm install`'ga tushadi va ishlaydi.)
 - **Fayl:** `C:/Users/User/Desktop/tmtu-termiz/apps/admin/Dockerfile.admin` (6-7 satr)
 - **Ta'sir qiladi:** `infrastructure/docker/compose/compose.yml` (215-218), `.github/workflows/ci.yml` (228-236)
@@ -143,55 +142,46 @@ Buni alohida ta'kidlash kerak: 80 ta token-genuine farqning **bironta ham** maqs
 ### 🟠 P1 — Funksional/strukturaviy
 
 **A2. `rasim/` seed asset papkasini ko'chiring**
-
 - **Harakat:** ~8 `.webp` rasmni app ichiga joylashtiring va seeder yo'lini `base_path('../rasim/...')` dan `database_path('seeders/assets/...')` ga o'zgartiring.
 - **Manba:** `C:/Users/User/Desktop/tmtu_termiz project/rasim/`
 - **Maqsad:** `C:/Users/User/Desktop/tmtu-termiz/apps/api/database/seeders/assets/`
 - **Tegishli fayl:** `apps/api/database/seeders/StudentLifePhotoSeeder.php` (15-50, 8+ joyda)
 
 **A3. `nginx-production.conf` ni ko'chiring**
-
 - **Harakat:** Bare-metal reverse-proxy config'ini ko'chiring; ichki `root /var/www/tmtu-termiz/public` ni `apps/web`+`apps/api/public` ga moslab tekshiring.
 - **Manba:** `C:/Users/User/Desktop/tmtu_termiz project/backend/nginx-production.conf`
 - **Maqsad:** `C:/Users/User/Desktop/tmtu-termiz/infrastructure/nginx/production.conf` (hozir bo'sh)
 
 **A4. Web Docker build'ni monorepo-aware qiling**
-
 - **Harakat:** Build context'ni root'ga o'zgartiring, Dockerfile'ni `infrastructure/docker/images/Dockerfile.web` ga ko'chiring, root `pnpm-lock.yaml`+`pnpm-workspace.yaml` COPY qiling, `pnpm install --frozen-lockfile --filter @tmtu/web...`.
 - **Fayl:** `apps/web/Dockerfile.frontend` → `infrastructure/docker/images/Dockerfile.web`
 - **Ta'sir:** `compose.yml` (190-193), `ci.yml` (218-226)
 
 **A5. `scripts/docker-safe.sh` ga `-f` flag qo'shing**
-
 - **Harakat:** Yuqorida `COMPOSE='docker compose -f infrastructure/docker/compose/compose.yml'` aniqlang, har bir `docker compose` ni `$COMPOSE` ga almashtiring.
 - **Fayl:** `C:/Users/User/Desktop/tmtu-termiz/scripts/docker-safe.sh` (26,31,36,37,42,43,44,49,54,71 satr)
 
 **A6. Plan doc'ni to'g'ri joyga ko'chiring va to'liq versiyani tiklang**
-
 - **Harakat:** Buzilgan-nomli faylni app source'dan docs'ga ko'chiring; truncate qilingan 350-satr versiyani SOURCE'ning to'liq 660-satr versiyasi bilan almashtiring.
 - **Manba (to'liq):** `C:/Users/User/Desktop/tmtu_termiz project/mobile-app/plan-adminInlineEditing.prompt.md`
 - **Hozirgi (noto'g'ri):** `C:/Users/User/Desktop/tmtu-termiz/apps/admin/src/components/sections/# Admin Panel Inline Editing Redesign Pl.prompt.md`
 - **Maqsad:** `C:/Users/User/Desktop/tmtu-termiz/docs/architecture/admin-inline-editing-plan.md`
 
 **A7. pnpm versiya ziddiyatini hal qiling**
-
 - **Harakat:** `.tool-versions` da `pnpm 9.15.0` → `pnpm 10.28.2`; `README.md:62` `pnpm ≥ 9.0.0` → `pnpm ≥ 10.0.0`.
 - **Fayl:** `C:/Users/User/Desktop/tmtu-termiz/.tool-versions:3`, `README.md:62`
 
 **A8. E2E CI job'ga server provisioning qo'shing**
-
 - **Harakat:** `playwright.config.ts` ga `webServer` block qo'shing YOKI e2e job'ga postgres+redis service, PHP+composer setup, migration, `php artisan serve` + web build/start, `wait-on` qadamlarini qo'shing.
 - **Fayl:** `.github/workflows/ci.yml:157-192`, `e2e/playwright.config.ts:9`, `e2e/global-setup.ts:9`
 
 **A9. Shared paketlarni ulang (consolidation 2-bosqich) — yoki WIP deb belgilang**
-
 - **Harakat:** `apps/web`+`apps/admin` package.json ga `@tmtu/*` workspace dep qo'shing, dublikat lib kodini import bilan almashtiring, har `next.config.ts` ga `transpilePackages` qo'shing. AGAR tayyor bo'lmasa — docs/ADR'da paketlarni "source of truth" deb da'vo qilishni to'xtating.
 - **Fayl:** `apps/web/package.json`, `apps/admin/package.json`, `apps/{web,admin}/src/lib/{translate,utils,i18n}.ts`, `packages/utils/`, `packages/i18n/`
 
 ### 🟡 P2 — Sifat/integratsiya
 
 **A10. Tahlil hujjatlarini ko'chiring**
-
 - **Manba:** `.../ARCHITECTURE_STUDY.md` (584 satr), `.../VERIFICATION_ADDENDUM.md` (248 satr)
 - **Maqsad:** `docs/architecture/architecture-study.md`, `docs/architecture/verification-addendum.md`
 
@@ -223,15 +213,15 @@ Buni alohida ta'kidlash kerak: 80 ta token-genuine farqning **bironta ham** maqs
 
 Quyidagilar **ataylab va to'g'ri** ko'chirilmadi — bu globally-correct tanlov:
 
-| Element                        | Nima                                                                                                     | Nega to'g'ri                                                                                                                                                                                                                                    |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Runtime cache**              | `storage/framework/cache`, `sessions`, `views`, `bootstrap/cache` (compiled)                             | Generatsiya qilinadigan runtime artefakt; har deploy'da qayta yaratiladi. Versiya nazoratiga kirmasligi kerak.                                                                                                                                  |
-| **`.env` sirlari**             | `backend/.env`, `admin/.env(.local)` (REVALIDATION_SECRET, DB parol)                                     | Maxfiy ma'lumot. Faqat `.env.example` track qilinadi. `phpunit.xml` dagi hardcoded parol (`Yoqubjon20022006`) bo'sh'ga adapt qilindi — to'g'ri.                                                                                                 |
-| **DB dump**                    | `database_backup_*.sql`                                                                                  | PII (shaxsiy ma'lumot) o'z ichiga oladi; katta binary; `.gitignore` `*.sql`/`database_backup_*` ni bloklaydi.                                                                                                                                   |
-| **Test artefaktlari**          | `*.txt` test natijalar, Playwright `.auth/admin.json`, `test-results/.last-run.json`, e2e screenshot'lar | Har test run'da regeneratsiya qilinadigan runtime chiqish; kod emas.                                                                                                                                                                            |
-| **Scratch `rasim/*.jpg`**      | 46 ta screenshot (`Screenshot 2026-04-*.jpg`)                                                            | Vaqtinchalik ish rasmlari (scratch); hujjat yoki asset emas. **Diqqat:** bu seed-asset `rasim/*.webp` papkasidan FARQ qiladi — `.webp` seed assetlari ko'chirilishi KERAK (A2), lekin `.jpg` scratch screenshot'lar to'g'ri chiqarib tashlandi. |
-| **`node_modules/`, `vendor/`** | Bog'liqliklar                                                                                            | Lockfile'dan qayta o'rnatiladi; hech qachon commit qilinmaydi.                                                                                                                                                                                  |
-| **144 junk fayl**              | Yuqoridagilarning yig'indisi                                                                             | `.gitignore`/`.dockerignore` to'g'ri qamrab oladi; remapping `backend/` → `apps/api/` to'g'ri qo'llanildi.                                                                                                                                      |
+| Element | Nima | Nega to'g'ri |
+|---|---|---|
+| **Runtime cache** | `storage/framework/cache`, `sessions`, `views`, `bootstrap/cache` (compiled) | Generatsiya qilinadigan runtime artefakt; har deploy'da qayta yaratiladi. Versiya nazoratiga kirmasligi kerak. |
+| **`.env` sirlari** | `backend/.env`, `admin/.env(.local)` (REVALIDATION_SECRET, DB parol) | Maxfiy ma'lumot. Faqat `.env.example` track qilinadi. `phpunit.xml` dagi hardcoded parol (`Yoqubjon20022006`) bo'sh'ga adapt qilindi — to'g'ri. |
+| **DB dump** | `database_backup_*.sql` | PII (shaxsiy ma'lumot) o'z ichiga oladi; katta binary; `.gitignore` `*.sql`/`database_backup_*` ni bloklaydi. |
+| **Test artefaktlari** | `*.txt` test natijalar, Playwright `.auth/admin.json`, `test-results/.last-run.json`, e2e screenshot'lar | Har test run'da regeneratsiya qilinadigan runtime chiqish; kod emas. |
+| **Scratch `rasim/*.jpg`** | 46 ta screenshot (`Screenshot 2026-04-*.jpg`) | Vaqtinchalik ish rasmlari (scratch); hujjat yoki asset emas. **Diqqat:** bu seed-asset `rasim/*.webp` papkasidan FARQ qiladi — `.webp` seed assetlari ko'chirilishi KERAK (A2), lekin `.jpg` scratch screenshot'lar to'g'ri chiqarib tashlandi. |
+| **`node_modules/`, `vendor/`** | Bog'liqliklar | Lockfile'dan qayta o'rnatiladi; hech qachon commit qilinmaydi. |
+| **144 junk fayl** | Yuqoridagilarning yig'indisi | `.gitignore`/`.dockerignore` to'g'ri qamrab oladi; remapping `backend/` → `apps/api/` to'g'ri qo'llanildi. |
 
 Bu chiqarib tashlashlar **professional monorepo gigienasi** ning belgisi — sirlar, runtime holat, va katta binary'lar versiya nazoratidan tashqarida.
 
@@ -239,17 +229,16 @@ Bu chiqarib tashlashlar **professional monorepo gigienasi** ning belgisi — sir
 
 ## 7. Yakuniy verdikt
 
-| Ko'rsatkich                   | Qiymat                                                                                                           |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Kod logikasi migratsiyasi** | **100%** — 0 logika yo'qotilgan, 80/80 genuine-diff toza adjudikatsiya                                           |
-| **Tarkib/asset to'liqligi**   | **~97%** — 10 real-missing (asosan `rasim/` seed asset + 2 tahlil doc + nginx config)                            |
-| **Strukturaviy to'g'rilik**   | **~90%** — 1 P0 (admin Docker), bir nechta P1 (web Docker, e2e CI, shared-package wiring, docker-safe.sh, nginx) |
-| **UMUMIY MIGRATSIYA**         | **≈ 94% to'liq**                                                                                                 |
+| Ko'rsatkich | Qiymat |
+|---|---|
+| **Kod logikasi migratsiyasi** | **100%** — 0 logika yo'qotilgan, 80/80 genuine-diff toza adjudikatsiya |
+| **Tarkib/asset to'liqligi** | **~97%** — 10 real-missing (asosan `rasim/` seed asset + 2 tahlil doc + nginx config) |
+| **Strukturaviy to'g'rilik** | **~90%** — 1 P0 (admin Docker), bir nechta P1 (web Docker, e2e CI, shared-package wiring, docker-safe.sh, nginx) |
+| **UMUMIY MIGRATSIYA** | **≈ 94% to'liq** |
 
 **Yakuniy hukm:** Migratsiya **mohiyatan muvaffaqiyatli** — barcha ilova kodi, testlar va infratuzilma config'lari bironta logika regressiyasisiz ko'chdi, va yangi monorepo standartlashtirilgan formatting, professional gigiena va kengaytirilgan scaffold bilan **manbadan ustun**. Biroq u **deploy-ready 100% emas**: 1 ta P0 (admin Docker image build fail) tuzatilmaguncha to'liq Docker stack qurilmaydi.
 
 **Qoldiq to-do soni:** **23 ta amal** (A1–A23):
-
 - **1 × P0** (darhol — admin Docker)
 - **8 × P1** (funksional/strukturaviy)
 - **7 × P2** (sifat/integratsiya)

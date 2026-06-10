@@ -12,12 +12,12 @@
 Official website for **Toshkent Davlat Tibbiyot Universiteti (TMTU) — Termiz Filiali**.
 A production-grade Turborepo + pnpm monorepo:
 
-| App           | Pkg            | Stack                                                                 | Port |
-| ------------- | -------------- | --------------------------------------------------------------------- | ---- |
-| `apps/api`    | `@tmtu/api`    | Laravel 12, PHP 8.3, Sanctum, Spatie suite, PostgreSQL 16 + Redis 7   | 8000 |
-| `apps/web`    | `@tmtu/web`    | Next.js 16 App Router, React 19, Tailwind v4, TanStack Query, Zustand | 3000 |
-| `apps/admin`  | `@tmtu/admin`  | Next.js 16 + Tiptap, WordPress-style inline edit                      | 3001 |
-| `apps/mobile` | `@tmtu/mobile` | placeholder (all-echo scripts)                                        | —    |
+| App | Pkg | Stack | Port |
+|-----|-----|-------|------|
+| `apps/api` | `@tmtu/api` | Laravel 12, PHP 8.3, Sanctum, Spatie suite, PostgreSQL 16 + Redis 7 | 8000 |
+| `apps/web` | `@tmtu/web` | Next.js 16 App Router, React 19, Tailwind v4, TanStack Query, Zustand | 3000 |
+| `apps/admin` | `@tmtu/admin` | Next.js 16 + Tiptap, WordPress-style inline edit | 3001 |
+| `apps/mobile` | `@tmtu/mobile` | placeholder (all-echo scripts) | — |
 
 Shared: `packages/{types,sdk,utils,auth,i18n,analytics,ui,config}`; `e2e/` (Playwright+Axe);
 `infrastructure/{docker,nginx}`; `docs/`; `scripts/`.
@@ -35,7 +35,6 @@ admin ──POST /api/revalidate (secret)──▶ web   web ──version poll 
 ```
 
 **Six facts to internalise immediately:**
-
 1. **Redis is mandatory** — cache, sessions AND queue all use it.
 2. **All content is trilingual** JSONB `{uz,ru,en}` (Spatie Translatable). Never a bare string.
 3. **web uses `/api`, admin uses `/api/v1`** — the #1 misconfiguration (see §4).
@@ -48,30 +47,25 @@ admin ──POST /api/revalidate (secret)──▶ web   web ──version poll 
 ## 2. Per-area map (all 16 areas)
 
 ### Backend (`apps/api`)
-
 - **Data model** — 24 Eloquent models / ~45 tables. Trait stack `HasFactory (+HasSlug)(+HasTranslations)(+InteractsWithMedia) +SoftDeletes`. Translatable → JSONB; polymorphic Spatie media split across **public** vs **local/private** disks (all of `JobApplication`'s 13 collections, `Staff.private_docs`, `Page.private_docs`). Index keystone: `2026_02_21_000001_add_performance_indexes.php` (mass JSON→JSONB, GIN `jsonb_path_ops`, BRIN on `created_at`, partial/composite). `Page` = adjacency-list + materialized path (`boot()` computes depth/path). Per-model observers flush Redis + fire ISR after commit.
 - **HTTP layer** — `routes/api.php` (357 lines, route order load-bearing): `/api/health` + a `/v1` group behind `ApiPerformance` + `throttle:120,1`; public routes, then `auth:sanctum`, then Spatie `role:super-admin|admin`. 28 controllers extend `BaseController` → uniform `{success,message,data,meta,links}` envelope. Pattern: Route → middleware → FormRequest → thin Controller → Service → Model → Resource. Auth hardened (login lockout, anti-enumeration reset, 24 h token rotation).
 - **Service layer** — ~30 near-identical CRUD services (Spatie QueryBuilder reads + `CacheService::remember`; `DB::transaction` writes with auto-WebP). `CacheService` (Redis tag flush, 4 TTL tiers, file-driver fallback), `SearchService` (GIN JSONB ILIKE prefix search ×6 entities), `MediaUploadService` (986-line hardened pipeline), `FrontendRevalidationService` (ISR webhook bridge), `HtmlSanitizer` (**only wired into Faculty/Direction!**).
 - **Platform/config** — slim `bootstrap/app.php` (exception→JSON, Spatie aliases), single `AppServiceProvider` (observer wiring + `preventLazyLoading`), RBAC **3 roles / 47 permissions** seeded in `DatabaseSeeder` (CLAUDE.md's "30" is stale), 14 Artisan commands on a 9-job cron, PHPStan L5 over a 319-entry frozen baseline, Feature-only PHPUnit (Postgres-dependent).
 
 ### Public web (`apps/web`)
-
 - **Routing/IA** — ~99 `page.tsx`, hand-rolled `/uz|/ru|/en` prefix i18n via `middleware.ts` (no i18n lib), `(main)` route group adds chrome, `[...slug]` catch-all renders arbitrary CMS pages (DOMPurify'd). 3-level layout chain; only `[locale]/layout.tsx` has `generateStaticParams`. SEO via `lib/seo.ts` + locale-prefixed `sitemap.ts`/`robots.ts`/`opengraph-image.tsx`.
 - **Components** — two tiers: pure Tailwind primitives (`shared/`) + feature/section components (Server when data-only, Client when interactive). Template system = just `NavHub` + `DocumentDetail` (latter reused by 30+ regulatory-doc pages). Strong a11y subsystem (portal panel, pre-hydration FOUC guard, focus trap, cross-tab sync). `AutoRefresh` polls `/api/revalidate/stream` every 2 s.
 - **Data/SEO/state** — bespoke `api.ts` fetch client (NOT `@tmtu/sdk`) + ~30 `services.ts` wrappers; env-aware ISR caching; i18n dual-source: 4142-line `i18n.ts` `s()` dict overlaid by DB translations + per-record `t()`; 3 Zustand stores; `next.config.ts` = HSTS/X-Frame/**minimal CSP** + image remotePatterns.
 
 ### Admin (`apps/admin`)
-
 - **Routing/CRUD** — `(dashboard)` group, ~80 pages whose paths **mirror the public uz slugs** so admins edit a visual clone. Thin pages → ~22 reusable `*CrudAdmin` templates (FacultiesCrudAdmin serves 4 routes); a few fat 1000+-line inline-edit clones. `/` = editable homepage clone; real hub is `/dashboard`.
 - **Inline-edit/Tiptap** — `EditableWrapper` (hover overlay) → universal `EditModal` (FieldConfig schema, replaces ~20 forms) + `LanguageTabs` (uz/ru/en) → Tiptap `RichTextEditor`. Serializes one multipart FormData (`field[uz]` keys, `_method=PUT` spoof, `remove_*`/`remove_media_ids[]`).
 - **Auth/data** — `middleware.ts` **format-checks** the `admin-token` cookie only (regex, no API call); token also in localStorage (XSS-reachable); real enforcement = axios 401 interceptor. ~29 per-entity TanStack hook+service pairs; every mutation fires `revalidateFrontend` → secret-injecting admin proxy → web. Admin re-declares 668 lines of types instead of importing `@tmtu/types`.
 
 ### Shared packages
-
 Mostly **aspirational scaffolding** — every package private/0.1.0, raw TS source, no build/tests. Apps consume **only `@tmtu/utils` (cn)** + `@tmtu/types` via `transpilePackages`. `@tmtu/sdk` (6 resources, list/show only, throws a non-Error object), `auth`, `i18n`, `analytics` (interface only — real GA/Yandex lives in `apps/web`), `ui` (broken `styles.css` export), and **all `packages/config/*`** are unconsumed; apps use their own flat ESLint + ES2017 tsconfigs that don't extend `tsconfig.base.json`.
 
 ### Infra / CI / docs / e2e / root
-
 - **Docker** — 7-service compose; one multi-stage `Dockerfile.api` reused as app/queue/scheduler; in-container nginx serves `/storage` off disk + proxies php-fpm:9000; tuned PG16 + Redis7. **In-flight reorg**: Dockerfiles moved to `infrastructure/docker/images/`, repo-root build context, Next standalone output.
 - **CI/CD** — single `ci.yml`, 5 jobs (api / frontend / e2e / docker / deploy). e2e job rewritten to stand up the full stack. pnpm bumped 9→10.28.2. Husky + commitlint Conventional Commits. Versions triple-pinned (`.tool-versions`, `.nvmrc`, `package.json`).
 - **Docs** — rich corpus + **de-facto risk register** (two verification passes). 5 most valuable analysis docs are **untracked** (git `??`).
@@ -96,7 +90,6 @@ Mostly **aspirational scaffolding** — every package private/0.1.0, raw TS sour
 apps/web/.env    NEXT_PUBLIC_API_URL = http://localhost:8000/api        (NO /v1)
 apps/admin/.env  NEXT_PUBLIC_API_URL = http://localhost:8000/api/v1     (WITH /v1)
 ```
-
 - web appends paths to `/api` and derives the image origin via `API_BASE = url.replace('/api','')` ⚠️ (corrupts a host containing `api`).
 - admin sets axios `baseURL` to `/api/v1`, uses bare paths, and does the inverse `.replace('/api/v1','')`.
 - **`REVALIDATION_SECRET` must be identical in all three `.env` files** (api/web/admin), enforced only by comments. Web fails closed (500 if unset); Laravel falls back to a **weak hardcoded default** in `config/app.php`.
@@ -107,13 +100,11 @@ apps/admin/.env  NEXT_PUBLIC_API_URL = http://localhost:8000/api/v1     (WITH /v
 ## 5. Risk register (severity-ranked, verified)
 
 **CRITICAL**
-
 - **C1** `REVALIDATION_SECRET` hardcoded fallback in `config/app.php:33` (`tdtutf-revalidation-secret-2026`) → forgeable cache-purge if env unset. Web fail-closed, Laravel fail-open (asymmetric → invisible).
 - **C2** DB/Redis password in git history (`phpunit.xml`, reused in `.env`) → rotate + purge history + add secret-scan.
 - **C3** Public `pages/tree` (`routes/api.php:134`, before the `auth:sanctum` group at :191) may leak unpublished draft pages to anonymous users → gate or add `is_published` filter.
 
 **HIGH**
-
 - **H1** `HtmlSanitizer` wired into only 2 of ~10 rich-text services → server-side XSS gap (News/Page/SiteContent unsanitized on write). **H1b** `biz-haqimizda/page.tsx` injects HTML **without** DOMPurify.
 - **H2** Admin edge auth is format-only; token in non-HttpOnly cookie + localStorage (XSS-exfiltratable).
 - **H3** Private media `download`/`stream` have no per-resource ACL — any admin can pull any file by numeric id.

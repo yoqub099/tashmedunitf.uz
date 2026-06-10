@@ -8,16 +8,15 @@
 
 TMTU Termiz loyihasi — bitta repozitoriyda yashovchi **uchta ilovadan** iborat full-stack monorepo. U real, ishlab turgan universitet saytidir (production domeni jonli), shuning uchun bu greenfield emas, balki iteratsiya qilingan, production'da "yong'in o'chirilgan" kodbaza.
 
-| Ilova       | Stack                             | Port | Vazifa                         |
-| ----------- | --------------------------------- | ---- | ------------------------------ |
-| `backend/`  | Laravel 12, PHP 8.3, Sanctum      | 8000 | REST API (`/api/v1`)           |
-| `frontend/` | Next.js 16, React 19, Tailwind v4 | 3000 | Ommaviy SSR/ISR sayt           |
-| `admin/`    | Next.js 16, React 19, Tailwind v4 | 3001 | Inline-editing CMS admin panel |
+| Ilova | Stack | Port | Vazifa |
+|-------|-------|------|--------|
+| `backend/` | Laravel 12, PHP 8.3, Sanctum | 8000 | REST API (`/api/v1`) |
+| `frontend/` | Next.js 16, React 19, Tailwind v4 | 3000 | Ommaviy SSR/ISR sayt |
+| `admin/` | Next.js 16, React 19, Tailwind v4 | 3001 | Inline-editing CMS admin panel |
 
 Yordamchi infratuzilma: **PostgreSQL 16** (JSONB asosidagi ko'p tilli kontent), **Redis 7** (cache/session/queue — majburiy). Qo'shimcha `e2e_tests/` (Playwright) — mustaqil acceptance test loyihasi.
 
 **Asosiy g'oyalar:**
-
 - **Ko'p tillilik (uz/ru/en)** har bir qatlamda — Spatie Translatable JSONB ustunlari `{uz, ru, en}` shaklida.
 - **5-qatlamli cache invalidatsiya** — model yozuvi → Redis tag flush → Next.js ISR revalidation → brauzer soft-refresh. Kodbazada takror-takror **"999 million foydalanuvchi"** miqyoslash motivi.
 - **Public/private media ajratish** — Nginx tomonidan tarqatiladigan ochiq fayllar va auth-gated maxfiy fayllar (CV, diplom skanlari).
@@ -113,7 +112,6 @@ Admin EditModal → FormData (field[uz]/[ru]/[en], _method=PUT)
 `News`, `Page`, `Department`, `Staff`, `Faculty`, `Direction`, `Banner`, `Faq`, `Testimonial`, `Partner`, `LibraryResource`, `JournalIssue`, `TalentedStudent`, `StudentLifePhoto`, `CareerCenterInfo`.
 
 Deyarli barchasi bir xil trait stack ishlatadi:
-
 ```
 HasFactory + HasTranslations + InteractsWithMedia + SoftDeletes
   (+ HasSlug — News, Page, Department, LibraryResource, JournalIssue da)
@@ -126,7 +124,6 @@ HasFactory + HasTranslations + InteractsWithMedia + SoftDeletes
 `User` (auth), `SiteContent` (key/value sayt matni), `Translation` (i18n string store), `SiteMedia` (umumiy media), `ContactLocation` (xarita joylashuvlari).
 
 **Munosabatlar grafi:**
-
 ```
 Faculty 1──* Direction          (directions.faculty_id, nullOnDelete)
 Department 1──* Staff            (staff.department_id, cascadeOnDelete)
@@ -136,7 +133,6 @@ Page ──* Page  (self-referential tree: parent/children/allChildren)
 ```
 
 **Diqqatga sazovor modellar:**
-
 - **`Page`** (`backend/app/Models/Page.php`) — materialized-path daraxt. `boot()` saving hook `parent_id` o'zgarganda `depth` va slash-ajratilgan `path` ni avtomatik hisoblaydi. Bu daraxt dinamik navbar va `[...slug]` sahifalarini quvvatlaydi. Ogohlantirish: subtree'ni qayta-ota qilganda nabira-sahifalar `path`/`depth` ni meros qilmaydi (stale).
 - **`JobApplication`** (`backend/app/Models/JobApplication.php`) — maxfiylik namunasi: ~13 hujjat kolleksiyasi (resume, photo, diplomas, dissertation...) hammasi `useDisk('local')` (private) da, har biri `singleFile`.
 - **`News`** (`backend/app/Models/News.php`) — eng boy media sozlamasi: 7 kolleksiya, queued WebP konvertatsiyalar (thumbnail 600x450, medium 1200x900).
@@ -148,7 +144,6 @@ Page ──* Page  (self-referential tree: parent/children/allChildren)
 ### 3.3 API qatlami
 
 Barcha ~28 controller `BaseController` ni kengaytiradi (`success()`, `error()`, `paginated()` helperlar). Yagona response envelope:
-
 ```json
 { "success": true, "message": "...", "data": {...}, "meta": {...}, "links": {...} }
 ```
@@ -158,7 +153,6 @@ Barcha ~28 controller `BaseController` ni kengaytiradi (`success()`, `error()`, 
 **Marshrutlash** (`backend/routes/api.php`): hammasi `v1` prefix + global `ApiPerformance` + `throttle:120,1`. Public read GET'lar + tighter throttle'li public POST'lar (contact `10,1`, conference, job, student-works). `auth:sanctum` guruhida logout/me + admin CRUD. Ichida `role:super-admin` (user management) va `role:super-admin|admin` (barcha kontent CRUD). Marshrut tartibi ataylab boshqariladi: literal `pages/navigation` `pages/{slug}` dan OLDIN, admin numeric show `->where('id','[0-9]+')`.
 
 **Sofistik outlier'lar:**
-
 - **`MediaController`** (445 satr) — 16 modelni `model_type` string orqali resolve qiladi, public/private storage split, **HTTP Range (206 partial content)** video/audio streaming, conversion URL metadata.
 - **`AuthController`** — brute-force lockout (5 urinish → 15 min, `sha1(email|ip)` key), timing-safe dummy-hash solishtirish (user enumeration oldini olish), 24 soatdan eski tokenlarni o'chirish (multi-device sessiyalar).
 - **`PasswordResetController`** — DB-hashed token, 60 min TTL, har doim success qaytarish (anti-enumeration).
@@ -168,7 +162,6 @@ Barcha ~28 controller `BaseController` ni kengaytiradi (`success()`, `error()`, 
 ~22 domain CRUD service bir xil shablonga amal qiladi: `getAll/find*/create/update/delete`. O'qishlar `CacheService::remember()` ga o'raladi, yozishlar `DB::transaction()` ichida, commit'dan SO'NG `CacheService::clearModel(PREFIX)` (observer bilan ataylab ortiqcha — "observer file-cache bug workaround").
 
 **`CacheService`** (`backend/app/Services/CacheService.php`) — yagona cache haqiqat manbai:
-
 - TTL darajalari: `SHORT=60s` (news), `MEDIUM=300s`, `LONG=3600s` (statik), `PAGE=300s`.
 - `requestKey(prefix, params)` = `ksort` + `md5(serialize($params))`.
 - **Ikki backend** `isRedis()` orqali abstraksiya: Redis bilan `Cache::tags([tag])->flush()` (O(1)); file/db driver bilan qo'lda `_tracked_keys:{prefix}` to'plami (7-kun TTL, O(n)).
@@ -208,7 +201,6 @@ Bu loyihaning markaziy nakhshasi. Har bir model yozuvida **ikki tomonlama cache-
 ### 3.8 Console komandalar va scheduler
 
 14 komanda, `routes/console.php` scheduler'i tomonidan boshqariladi (60GB RAM / 4TB SSD universitet serveri, 02:00-04:30 tungi oyna). Klasterlar:
-
 - **Cache**: `cache:warm` (/30min, 8 service oldindan isitadi), `deploy:refresh` (to'liq flush + config/route/view/event cache + `queue:restart` + `revalidateAll()` + warm).
 - **Backup**: `db:backup` (pg_dump -Fc, oxirgi 10), `db:restore`, `media:backup` (zip, oxirgi 5), `db:safe-seed` ("SEED-PRODUCTION" type-to-confirm).
 - **Storage/media**: `storage:setup`, `media:health` (8-bo'lim diagnostika), `media:migrate-structure`, 3 ta overlapping cleanup komanda.
@@ -217,7 +209,7 @@ Bu loyihaning markaziy nakhshasi. Har bir model yozuvida **ikki tomonlama cache-
 
 ### 3.9 bootstrap/app.php
 
-Laravel 12 minimal skeleton: `withExceptions()` har bir istisnoni yagona JSON envelope'ga aylantiradi (`{success:false, message, errors}`, to'g'ri HTTP status — barchasi qattiq-kodlangan o'zbekcha). `redirectGuestsTo` api/\* uchun `null` qaytaradi (→ 401 JSON). `preventLazyLoading` + `preventSilentlyDiscardingAttributes` faqat NON-production'da yoqilgan.
+Laravel 12 minimal skeleton: `withExceptions()` har bir istisnoni yagona JSON envelope'ga aylantiradi (`{success:false, message, errors}`, to'g'ri HTTP status — barchasi qattiq-kodlangan o'zbekcha). `redirectGuestsTo` api/* uchun `null` qaytaradi (→ 401 JSON). `preventLazyLoading` + `preventSilentlyDiscardingAttributes` faqat NON-production'da yoqilgan.
 
 ---
 
@@ -233,13 +225,11 @@ Laravel 12 minimal skeleton: `withExceptions()` har bir istisnoni yagona JSON en
 ### 4.2 Hierarxik pages
 
 `pages` jadvali ortiqcha yuklangan — kontent store + CMS daraxt + navigatsiya menyu bir vaqtda:
-
 ```
 parent_id (FK self, cascade), sort_order, depth (smallint),
 path (string), is_nav_item (bool), page_type (content|link|group),
 external_url, nav_icon
 ```
-
 `NavigationSeeder` butun 7-bo'limli sayt navigatsiyasini shu jadvalga quradi (lekin `DatabaseSeeder` da ro'yxatga olinmagan — qo'lda ishga tushirilishi kerak).
 
 ### 4.3 Indekslar va search
@@ -263,7 +253,6 @@ Idempotent va production-safe: `if (Model::count() > 0) return;` yoki `updateOrC
 ### 5.1 i18n [locale] routing
 
 **Homegrown i18n** (next-intl EMAS):
-
 - `middleware.ts` locale'siz yo'llarni `/{defaultLocale}` ga 308-redirect qiladi, `x-locale` header + `lang` cookie (365 kun) o'rnatadi.
 - Server komponentlar `getLanguage()` (header → cookie → 'uz') orqali tilni resolve qiladi.
 - Client komponentlar Zustand `useLanguageStore` o'qiydi (SSR'da har doim 'uz' boshlanadi — hydration mismatch oldini olish).
@@ -282,7 +271,6 @@ Idempotent va production-safe: `if (Model::count() > 0) return;` yoki `updateOrC
 Public sayt IA (URL strukturasi): `abiturientlarga/`, `biz-haqimizda/`, `faoliyat/`, `talabalarga/`, `yangiliklar/`.
 
 Sahifa arxetiplari:
-
 1. **Dinamik DB-driven** async Server Component'lar (homepage, yangiliklar, kafedralar, fakultetlar). Har fetch `.catch()` bilan bo'sh-lekin-shaklli fallback qaytaradi (graceful degradation). HTML har doim `DOMPurify` orqali tozalanadi.
 2. **`[...slug]` catch-all** — to'liq generic CMS renderer (content + gallery + documents + children + breadcrumbs), `getPageByPath` orqali.
 3. **`NavHub`** hublar — DB-hujjatlar yoki qattiq-kodlangan fallback.
@@ -331,7 +319,6 @@ Admin — sidebar dashboard EMAS. Niyat: admin public frontend bilan AYNAN bir x
 ### 6.4 ~40 boshqaruv bo'limi
 
 Ikki CRUD scaffold:
-
 - **PATTERN A (thin wrapper)**: `page.tsx` statik metadata + `@/components/templates/*` render qiladi. `biz-haqimizda/meyoriy-hujjatlar/**` (~30 barg) va `faoliyat/**` deyarli butunlay shu.
 - **PATTERN B (full inline)**: `'use client'` komponent — shared primitiv + `EditModal` + `FieldConfig[]` + `use*` hooks.
 
@@ -437,7 +424,6 @@ Konfliktlar: server speclari (60GB vs 200GB), yo'llar (`/var/www/html` vs `/var/
 ### 9.1 Backend (PHPUnit/Pest)
 
 Minimal lekin maqsadli: 2 Feature class (`AuthTest`, `PublicApiTest`), bo'sh Unit suite. `RefreshDatabase` real PostgreSQL test DB'ga (`tmtu_termiz_test`) qarshi.
-
 - `AuthTest`: token berish, invalid-password 422 (o'zbekcha substring), 5-urinish brute-force lockout (`login:`+`sha1(email|ip)` key controllerga to'g'ri keladi), anti-enumeration forgot-password, `/auth/me` guard.
 - `PublicApiTest`: `/api/health` shakli, public index endpointlar, admin POST 401, contact validatsiya 422.
 
@@ -508,43 +494,43 @@ git push main → CI (test/lint/build) → SSH host:
 
 ### P0 — KRITIK (xavfsizlik / ma'lumot yo'qotish)
 
-| #   | Risk                                                                                                                                                                                                      | Fayl                                                   |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| 1   | **Plaintext DB parol commit'da** (`'Yoqubjon20022006'`)                                                                                                                                                   | `backend/phpunit.xml`                                  |
-| 2   | **Committed secretlar**: root/backend `.env` da live DB parol, `ADMIN_PASSWORD=Admin123456`, zaif `REVALIDATION_SECRET=tdtutf-revalidation-secret-2026` (config defaultiga qaytadi agar env o'rnatilmasa) | `backend/config/app.php`, `.env`                       |
-| 3   | **`fix_dompurify.js`** — DESTRUKTIV skript, 12 faylda DOMPurify'ni no-op'ga almashtiradi. Ishga tushirilsa stored-XSS vektor ochadi                                                                       | `frontend/fix_dompurify.js`                            |
-| 4   | **`MediaController.download/stream` ownership tekshiruvi yo'q** — har qanday admin BARCHA media'ni (jumladan boshqa modellarning CV/diplom skanlarini) yuklab/stream qila oladi                           | `backend/app/Http/Controllers/Api/MediaController.php` |
-| 5   | **StudentWork fayllari public disk'da** (`asset('storage/...')`) — shaxsiy ma'lumotli resumelar URL bilan ommaviy yuklab olinadi (JobApplication private, StudentWork emas)                               | `StudentWorkResource.php`                              |
+| # | Risk | Fayl |
+|---|------|------|
+| 1 | **Plaintext DB parol commit'da** (`'Yoqubjon20022006'`) | `backend/phpunit.xml` |
+| 2 | **Committed secretlar**: root/backend `.env` da live DB parol, `ADMIN_PASSWORD=Admin123456`, zaif `REVALIDATION_SECRET=tdtutf-revalidation-secret-2026` (config defaultiga qaytadi agar env o'rnatilmasa) | `backend/config/app.php`, `.env` |
+| 3 | **`fix_dompurify.js`** — DESTRUKTIV skript, 12 faylda DOMPurify'ni no-op'ga almashtiradi. Ishga tushirilsa stored-XSS vektor ochadi | `frontend/fix_dompurify.js` |
+| 4 | **`MediaController.download/stream` ownership tekshiruvi yo'q** — har qanday admin BARCHA media'ni (jumladan boshqa modellarning CV/diplom skanlarini) yuklab/stream qila oladi | `backend/app/Http/Controllers/Api/MediaController.php` |
+| 5 | **StudentWork fayllari public disk'da** (`asset('storage/...')`) — shaxsiy ma'lumotli resumelar URL bilan ommaviy yuklab olinadi (JobApplication private, StudentWork emas) | `StudentWorkResource.php` |
 
 ### P1 — YUQORI (correctness buglari)
 
-| #   | Risk                                                                                                                                                                                     | Fayl                                      |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| 6   | **SEARCH BUG**: Department/Direction/Staff/Page/Faq `@> ?::jsonb` containment (exact-match) ishlatadi, substring EMAS — qisman qidiruv ishlamaydi (News/Library ILIKE to'g'ri ishlatadi) | model `searchName`/`searchTitle` scopelar |
-| 7   | **Upload size mismatch**: PHP `upload_max_filesize=100M` vs Nginx `client_max_body_size=500M` — 100-500M oraliq Docker'da PHP'da fail bo'ladi                                            | `docker/php/php.ini`                      |
-| 8   | **Image upload HTTP 500** (Windows): WebP konvertatsiyadan keyin temp `.webp` fayl `SplFileInfo::getSize()` stat fail — image CRUD 75% ishlaydi                                          | `ConvertsToWebp` + Windows temp           |
-| 9   | **Page subtree re-parent stale path**: `boot()` faqat `parent_id` dirty bo'lganda ishlaydi, nabira-sahifalar `path`/`depth` ni yangilamaydi                                              | `backend/app/Models/Page.php`             |
-| 10  | **Cache badge stale**: `ContactService`/`StudentWorkService` yozishlar `contact:unread_count`/`stats` ni clear qilmaydi (30-60s kechikish)                                               | `backend/app/Services/ContactService.php` |
-| 11  | **Direct-upload media security bypass**: ko'p service `MediaUploadService` ni chetlab o'tadi — SVG-XSS, double-extension, MIME cross-check qo'llanmaydi                                  | barcha domain service'lar                 |
-| 12  | **Hooks-after-early-return**: `TestimonialsSection`/`StudentLifeGallery` `useMemo` ni `if (length===0) return null` dan KEYIN chaqiradi (Rules of Hooks buzilishi)                       | `frontend/src/components/home/`           |
+| # | Risk | Fayl |
+|---|------|------|
+| 6 | **SEARCH BUG**: Department/Direction/Staff/Page/Faq `@> ?::jsonb` containment (exact-match) ishlatadi, substring EMAS — qisman qidiruv ishlamaydi (News/Library ILIKE to'g'ri ishlatadi) | model `searchName`/`searchTitle` scopelar |
+| 7 | **Upload size mismatch**: PHP `upload_max_filesize=100M` vs Nginx `client_max_body_size=500M` — 100-500M oraliq Docker'da PHP'da fail bo'ladi | `docker/php/php.ini` |
+| 8 | **Image upload HTTP 500** (Windows): WebP konvertatsiyadan keyin temp `.webp` fayl `SplFileInfo::getSize()` stat fail — image CRUD 75% ishlaydi | `ConvertsToWebp` + Windows temp |
+| 9 | **Page subtree re-parent stale path**: `boot()` faqat `parent_id` dirty bo'lganda ishlaydi, nabira-sahifalar `path`/`depth` ni yangilamaydi | `backend/app/Models/Page.php` |
+| 10 | **Cache badge stale**: `ContactService`/`StudentWorkService` yozishlar `contact:unread_count`/`stats` ni clear qilmaydi (30-60s kechikish) | `backend/app/Services/ContactService.php` |
+| 11 | **Direct-upload media security bypass**: ko'p service `MediaUploadService` ni chetlab o'tadi — SVG-XSS, double-extension, MIME cross-check qo'llanmaydi | barcha domain service'lar |
+| 12 | **Hooks-after-early-return**: `TestimonialsSection`/`StudentLifeGallery` `useMemo` ni `if (length===0) return null` dan KEYIN chaqiradi (Rules of Hooks buzilishi) | `frontend/src/components/home/` |
 
 ### P2 — O'RTA (tech debt / maintainability)
 
-| #   | Risk                                                                                                                                                                                                                    | Fayl / Soha                                                             |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| 13  | **Massiv duplikatsiya**: ~26 service + ~24 hook template klonlari; per-degree sahifalar (bakalavriat/magistratura/ordinatura) ~450-620 satr near-identical (bugfix 3-6 marta)                                           | `admin/src/lib/services/`, `admin/src/app/(dashboard)/abiturientlarga/` |
-| 14  | **Hardcoded password '09'** sahifalar lock (client-side, trivial bypass)                                                                                                                                                | `admin/src/hooks/usePasswordGuard.tsx`, `PageLock`                      |
-| 15  | **Auth faqat client-side** (admin) — himoyalangan UI yuboriladi, hydration'dan keyin redirect; middleware faqat token FORMAT'ni validate qiladi                                                                         | `admin/src/app/(dashboard)/layout.tsx`, `admin/src/middleware.ts`       |
-| 16  | **Stale/broken factories**: ko'p factory schema bilan mos kelmaydi (insert xato)                                                                                                                                        | `backend/database/factories/`                                           |
-| 17  | **Inconsistent XSS escaping**: faqat ~8 Resource plain-text escape qiladi, ~15 ta xom `getTranslations()`                                                                                                               | `backend/app/Http/Resources/`                                           |
-| 18  | **Domain branding inconsistency**: `SEO_STRATEGY.md` `tdtutf.uz`, qolganlari `tashmedunitf.uz` (JSON-LD/canonical noto'g'ri bo'lishi mumkin)                                                                            | `SEO_STRATEGY.md`                                                       |
-| 19  | **Uch deploy yo'li kelishtirilmagan** (server spec/path/queue konfliktlari)                                                                                                                                             | `deploy.sh`, `backend/deploy-production.sh`, `docker-compose.yml`       |
-| 20  | **Admin CI coverage yo'q** — buzilgan admin build aniqlanmasdan ketadi                                                                                                                                                  | `.github/workflows/ci.yml`                                              |
-| 21  | **GIN `jsonb_path_ops` vs `pg_trgm`**: substring qidiruv GIN'dan foydalanmaydi (performance gap)                                                                                                                        | migratsiya indekslar                                                    |
-| 22  | **Dead code**: `AntiCard`/`LawCard`/`ContactCard` (import qilinmagan), unreachable `/biz-haqimizda/umumiy-malumot` (middleware redirect, lekin sitemap'da), `LoadingSpinner` size/text prop'larini e'tiborsiz qoldiradi | frontend/admin                                                          |
-| 23  | **Leaflet unpkg CDN** marker rasmlari — offline/CSP'da markerlar buziladi                                                                                                                                               | `ContactMap`, `LeafletMap` (ikkala app)                                 |
-| 24  | **CI deploy downtime**: `down && build --no-cache && up` — har deploy'da to'liq offline + qayta qurish, rollback/blue-green yo'q                                                                                        | `.github/workflows/ci.yml`                                              |
-| 25  | **`AutoRefresh` 2s poll** har sahifada har foydalanuvchi uchun cheksiz — miqyosda doimiy origin trafik, CDN'ni chetlab o'tadi                                                                                           | `frontend/src/components/shared/AutoRefresh.tsx`                        |
+| # | Risk | Fayl / Soha |
+|---|------|-------------|
+| 13 | **Massiv duplikatsiya**: ~26 service + ~24 hook template klonlari; per-degree sahifalar (bakalavriat/magistratura/ordinatura) ~450-620 satr near-identical (bugfix 3-6 marta) | `admin/src/lib/services/`, `admin/src/app/(dashboard)/abiturientlarga/` |
+| 14 | **Hardcoded password '09'** sahifalar lock (client-side, trivial bypass) | `admin/src/hooks/usePasswordGuard.tsx`, `PageLock` |
+| 15 | **Auth faqat client-side** (admin) — himoyalangan UI yuboriladi, hydration'dan keyin redirect; middleware faqat token FORMAT'ni validate qiladi | `admin/src/app/(dashboard)/layout.tsx`, `admin/src/middleware.ts` |
+| 16 | **Stale/broken factories**: ko'p factory schema bilan mos kelmaydi (insert xato) | `backend/database/factories/` |
+| 17 | **Inconsistent XSS escaping**: faqat ~8 Resource plain-text escape qiladi, ~15 ta xom `getTranslations()` | `backend/app/Http/Resources/` |
+| 18 | **Domain branding inconsistency**: `SEO_STRATEGY.md` `tdtutf.uz`, qolganlari `tashmedunitf.uz` (JSON-LD/canonical noto'g'ri bo'lishi mumkin) | `SEO_STRATEGY.md` |
+| 19 | **Uch deploy yo'li kelishtirilmagan** (server spec/path/queue konfliktlari) | `deploy.sh`, `backend/deploy-production.sh`, `docker-compose.yml` |
+| 20 | **Admin CI coverage yo'q** — buzilgan admin build aniqlanmasdan ketadi | `.github/workflows/ci.yml` |
+| 21 | **GIN `jsonb_path_ops` vs `pg_trgm`**: substring qidiruv GIN'dan foydalanmaydi (performance gap) | migratsiya indekslar |
+| 22 | **Dead code**: `AntiCard`/`LawCard`/`ContactCard` (import qilinmagan), unreachable `/biz-haqimizda/umumiy-malumot` (middleware redirect, lekin sitemap'da), `LoadingSpinner` size/text prop'larini e'tiborsiz qoldiradi | frontend/admin |
+| 23 | **Leaflet unpkg CDN** marker rasmlari — offline/CSP'da markerlar buziladi | `ContactMap`, `LeafletMap` (ikkala app) |
+| 24 | **CI deploy downtime**: `down && build --no-cache && up` — har deploy'da to'liq offline + qayta qurish, rollback/blue-green yo'q | `.github/workflows/ci.yml` |
+| 25 | **`AutoRefresh` 2s poll** har sahifada har foydalanuvchi uchun cheksiz — miqyosda doimiy origin trafik, CDN'ni chetlab o'tadi | `frontend/src/components/shared/AutoRefresh.tsx` |
 
 ---
 
@@ -583,7 +569,6 @@ git push main → CI (test/lint/build) → SSH host:
 ---
 
 **Tegishli asosiy fayllar (absolute path):**
-
 - `C:\Users\User\Desktop\tmtu_termiz project\backend\app\Services\CacheService.php` — cache haqiqat manbai
 - `C:\Users\User\Desktop\tmtu_termiz project\backend\app\Services\FrontendRevalidationService.php` — ISR ko'prik
 - `C:\Users\User\Desktop\tmtu_termiz project\backend\app\Models\Page.php` — materialized-path daraxt

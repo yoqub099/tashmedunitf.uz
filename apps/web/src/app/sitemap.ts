@@ -34,8 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localeEntries("/", { lastModified: staticDate, changeFrequency: "daily", priority: 1.0 }),
     // Biz haqimizda
     ...localeEntries("/biz-haqimizda", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.8 }),
-    ...localeEntries("/biz-haqimizda/umumiy-malumot", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.7 }),
-...localeEntries("/biz-haqimizda/sifat-siyosati", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.6 }),
+    ...localeEntries("/biz-haqimizda/sifat-siyosati", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.6 }),
     ...localeEntries("/biz-haqimizda/virtual-qabulxona", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.7 }),
     ...localeEntries("/biz-haqimizda/murojaatlar-tartibi", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.5 }),
     ...localeEntries("/biz-haqimizda/antikorrupsiya", { lastModified: staticDate, changeFrequency: "monthly", priority: 0.5 }),

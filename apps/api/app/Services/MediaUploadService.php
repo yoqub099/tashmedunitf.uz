@@ -45,6 +45,10 @@ class MediaUploadService
 {
     use ConvertsToWebp;
 
+    public function __construct(
+        private readonly VirusScanner $virusScanner
+    ) {}
+
     /**
      * Bir vaqtda yuklanadigan maksimal fayllar soni
      */
@@ -260,7 +264,8 @@ class MediaUploadService
         HasMedia $model,
         UploadedFile $file,
         string $collection = 'default',
-        array $properties = []
+        array $properties = [],
+        ?string $diskName = null
     ): Media {
         // 0. FAYL YAROQLILIGINI TEKSHIRISH
         if (! $file->isValid()) {
@@ -273,6 +278,9 @@ class MediaUploadService
         $fileType = $this->getFileType($file);
         $this->validateFile($file, $fileType);
 
+        // 1.5. VIRUS TEKSHIRUVI (config bilan yoqiladi; default o'chiq — ClamAV)
+        $this->virusScanner->scan((string) $file->getRealPath());
+
         // 2. FAYL NOMINI TOZALASH (xavfsiz nom)
         $sanitizedName = $this->sanitizeFileName($file->getClientOriginalName());
 
@@ -283,7 +291,7 @@ class MediaUploadService
         }
 
         // 3. DB TRANSACTION ICHIDA YUKLASH
-        return DB::transaction(function () use ($model, $file, $sanitizedName, $collection, $properties) {
+        return DB::transaction(function () use ($model, $file, $sanitizedName, $collection, $properties, $diskName) {
             // 4. FAYLNI YUKLASH (Spatie Media Library)
             $mediaAdder = $model
                 ->addMedia($file)
@@ -295,8 +303,8 @@ class MediaUploadService
                 $mediaAdder->withCustomProperties($properties);
             }
 
-            // 6. MEDIA COLLECTION GA SAQLASH
-            $media = $mediaAdder->toMediaCollection($collection);
+            // 6. MEDIA COLLECTION GA SAQLASH ('' = collection o'zi belgilagan disk)
+            $media = $mediaAdder->toMediaCollection($collection, $diskName ?? '');
 
             // 7. LOG YOZISH (media obyektidan o'lchov olish — temp fayl endi ko'chirilgan)
             Log::info('Media uploaded', [
@@ -330,7 +338,8 @@ class MediaUploadService
         HasMedia $model,
         array $files,
         string $collection = 'default',
-        int $maxFiles = self::MAX_BATCH_FILES
+        int $maxFiles = self::MAX_BATCH_FILES,
+        ?string $diskName = null
     ): array {
         if (count($files) > $maxFiles) {
             throw new \InvalidArgumentException(
@@ -355,7 +364,7 @@ class MediaUploadService
             }
 
             try {
-                $uploaded[] = $this->uploadFile($model, $file, $collection);
+                $uploaded[] = $this->uploadFile($model, $file, $collection, [], $diskName);
             } catch (\Throwable $e) {
                 $errors[] = [
                     'index' => $index,

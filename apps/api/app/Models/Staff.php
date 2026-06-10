@@ -88,11 +88,13 @@ class Staff extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
             ->useDisk('public');
 
+        // 🔒 MAXFIY — CV shaxsiy ma'lumot (telefon, manzil, tug'ilgan sana)
         $this->addMediaCollection('cv')
             ->singleFile()
             ->acceptsMimeTypes(['application/pdf'])
-            ->useDisk('public');
+            ->useDisk('local');
 
+        // 🔒 MAXFIY — diplom, sertifikat va boshqa shaxsiy hujjatlar
         $this->addMediaCollection('documents')
             ->acceptsMimeTypes([
                 'application/pdf',
@@ -100,7 +102,7 @@ class Staff extends Model implements HasMedia
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 'image/jpeg', 'image/png',
             ])
-            ->useDisk('public');
+            ->useDisk('local');
 
         $this->addMediaCollection('publications')
             ->acceptsMimeTypes(['application/pdf', 'application/epub+zip'])

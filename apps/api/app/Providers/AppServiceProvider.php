@@ -28,7 +28,9 @@ use App\Observers\ModelCacheObserver;
 use App\Observers\NewsObserver;
 use App\Services\CacheService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -76,5 +78,16 @@ class AppServiceProvider extends ServiceProvider
         SiteMedia::observe(new ModelCacheObserver(CacheService::PREFIX_SITE_MEDIA));
         StudentLifePhoto::observe(new ModelCacheObserver(CacheService::PREFIX_STUDENT_LIFE_PHOTOS));
         TalentedStudent::observe(new ModelCacheObserver(CacheService::PREFIX_TALENTED_STUDENTS));
+
+        // ============================================
+        // MEDIA XAVFSIZLIGI — maxfiy fayllarga kirish ruxsati
+        // ============================================
+        // Markazlashgan tekshiruv: hozircha rol asosida (super-admin/admin).
+        // Talaba hujjatlari (transkript/diplom) kelganda shu YAGONA joyni
+        // per-collection / per-faculty darajasiga kengaytirish kifoya.
+        Gate::define('access-private-media', function ($user, ?Media $media = null): bool {
+            return method_exists($user, 'hasAnyRole')
+                && $user->hasAnyRole(['super-admin', 'admin']);
+        });
     }
 }

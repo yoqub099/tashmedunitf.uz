@@ -26,10 +26,14 @@ class MediaBackup extends Command
 
         $this->info('Media fayllarni arxivlash...');
 
-        $sourceDirs = [
-            storage_path('app/public/media'),
-            storage_path('app/public/site-contents'),
-        ];
+        // BARCHA media diskini zaxiralash:
+        // - app/public  → ommaviy fayllar (news, staff, departments, directions, ... + media, site-contents)
+        // - app/private → MAXFIY disk (CV, ish arizalari, pasport/diplom skanerlari)
+        // Eslatma: app/backups va app/temp ataylab kiritilmagan.
+        $sourceDirs = array_filter([
+            storage_path('app/public'),
+            storage_path('app/private'),
+        ], 'is_dir');
 
         $zip = new \ZipArchive;
         if ($zip->open($filepath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {

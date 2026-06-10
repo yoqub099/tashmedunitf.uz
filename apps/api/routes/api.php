@@ -211,7 +211,7 @@ Route::prefix('v1')->middleware([ApiPerformance::class, 'throttle:120,1'])->grou
         Route::middleware('role:super-admin|admin')->group(function () {
 
             // Media boshqaruv
-            Route::get('media/download/{id}', [MediaController::class, 'download'])->name('media.download');
+            Route::get('media/download/{id}', [MediaController::class, 'download'])->middleware('throttle:30,1')->name('media.download');
             Route::get('media/stream/{id}', [MediaController::class, 'stream'])->name('media.stream');
             Route::post('media/upload', [MediaController::class, 'upload'])->name('media.upload');
             Route::delete('media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');

@@ -43,7 +43,10 @@ return [
 
     'queue_connection_name' => env('QUEUE_CONNECTION', 'database'),
 
-    'queue_name' => 'media-conversions',
+    // Bo'sh qiymat = default navbat. Systemd worker (`queue:work redis`) faqat
+    // default navbatni o'qiydi — alohida nom berilsa, worker'ga --queue=default,<nom>
+    // qo'shilmaguncha konvertatsiya joblari ishlanmay qoladi.
+    'queue_name' => env('MEDIA_QUEUE', ''),
 
     'generate_thumbnails_using_queue' => true,
 

@@ -11,6 +11,7 @@ use App\Models\Faculty;
 use App\Models\JobApplication;
 use App\Models\JournalIssue;
 use App\Models\LibraryResource;
+use App\Models\MediaAccessLog;
 use App\Models\News;
 use App\Models\Page;
 use App\Models\Partner;
@@ -23,6 +24,8 @@ use App\Services\CacheService;
 use App\Services\MediaUploadService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -101,12 +104,19 @@ class MediaController extends BaseController
             $modelClass = $this->resolveModel($request->model_type);
             $model = $modelClass::findOrFail($request->model_id);
 
+            // visibility=private → fayl majburan maxfiy diskka saqlanadi
+            $diskName = $request->input('visibility') === 'private'
+                ? config('media-security.private_disk', 'local')
+                : null;
+
             // Ko'p fayl yuklash
             if ($request->hasFile('files')) {
                 $result = $this->mediaService->uploadMultiple(
                     $model,
                     $request->file('files'),
-                    $request->collection
+                    $request->collection,
+                    MediaUploadService::MAX_BATCH_FILES,
+                    $diskName
                 );
 
                 $data = collect($result['uploaded'])->map(fn (Media $media) => $this->formatMedia($media));
@@ -125,7 +135,9 @@ class MediaController extends BaseController
             $media = $this->mediaService->uploadFile(
                 $model,
                 $request->file('file'),
-                $request->collection
+                $request->collection,
+                [],
+                $diskName
             );
 
             // Media yuklanganda tegishli model keshini tozalash
@@ -234,18 +246,31 @@ class MediaController extends BaseController
         try {
             $media = Media::findOrFail($id);
 
-            // Private faylni stream qilish (auth middleware tekshiradi)
-            return response()->streamDownload(function () use ($media) {
-                $stream = fopen($media->getPath(), 'rb');
-                while (! feof($stream)) {
-                    echo fread($stream, 8192);
-                    flush();
-                }
-                fclose($stream);
-            }, $media->file_name, [
+            // Faqat MAXFIY (private disk) fayllar shu auth-route orqali beriladi.
+            // Ommaviy fayllar to'g'ridan-to'g'ri URL bilan olinadi (Nginx).
+            if (! $this->isPrivateDisk($media->disk)) {
+                return $this->error('Bu ommaviy fayl — uni to\'g\'ridan-to\'g\'ri URL orqali oching', 400);
+            }
+
+            // Markazlashgan ruxsat (IDOR himoyasi + kelajakda per-collection kengayadi)
+            if (Gate::denies('access-private-media', $media)) {
+                $this->logAccess($media, 'download', 'denied');
+
+                return $this->error('Sizda bu maxfiy faylga ruxsat yo\'q', 403);
+            }
+
+            $disk = Storage::disk($media->disk);
+            $relativePath = $media->getPathRelativeToRoot();
+
+            if (! $disk->exists($relativePath)) {
+                return $this->error('Fayl diskda topilmadi', 404);
+            }
+
+            // Audit izi — kim, qachon, qaysi maxfiy faylni yuklab oldi
+            $this->logAccess($media, 'download', 'allowed');
+
+            return $disk->download($relativePath, $media->file_name, [
                 'Content-Type' => $media->mime_type,
-                'Content-Length' => $media->size,
-                'Content-Disposition' => 'attachment; filename="'.$media->file_name.'"',
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->error('Media topilmadi', 404);
@@ -271,6 +296,14 @@ class MediaController extends BaseController
             if (! str_starts_with($media->mime_type, 'video/') && ! str_starts_with($media->mime_type, 'audio/')) {
                 return $this->error('Faqat video va audio stream qilish mumkin', 422);
             }
+
+            // Markazlashgan ruxsat + audit (route allaqachon admin bilan himoyalangan)
+            if (Gate::denies('access-private-media', $media)) {
+                $this->logAccess($media, 'stream', 'denied');
+
+                return $this->error('Sizda bu faylga ruxsat yo\'q', 403);
+            }
+            $this->logAccess($media, 'stream', 'allowed');
 
             $path = $media->getPath();
             $size = $media->size;
@@ -442,5 +475,43 @@ class MediaController extends BaseController
         }
 
         return $data;
+    }
+
+    /**
+     * Disk maxfiymi? (media-security.public_disks da bo'lmasa — maxfiy)
+     */
+    private function isPrivateDisk(?string $disk): bool
+    {
+        $publicDisks = config('media-security.public_disks', ['public', 'media']);
+
+        return $disk !== null && ! in_array($disk, $publicDisks, true);
+    }
+
+    /**
+     * Maxfiy faylga kirishni audit jadvaliga yozish.
+     * Log yozish xatosi asosiy amalni TO'XTATMAYDI.
+     */
+    private function logAccess(Media $media, string $action, string $result = 'allowed'): void
+    {
+        try {
+            MediaAccessLog::create([
+                'media_id' => $media->id,
+                'user_id' => request()->user()?->id,
+                'action' => $action,
+                'result' => $result,
+                'disk' => $media->disk,
+                'collection_name' => $media->collection_name,
+                'model_type' => $media->model_type,
+                'model_id' => $media->model_id,
+                'ip' => request()->ip(),
+                'user_agent' => substr((string) request()->userAgent(), 0, 512),
+                'created_at' => now(),
+            ]);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('media access log failed', [
+                'media_id' => $media->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 }

@@ -64,14 +64,25 @@ function StaffCard({ staff, lang = "uz" }: { staff: Staff; lang?: Language }) {
   return (
     <div className="rounded-2xl bg-white p-4 md:p-6 lg:rounded-3xl">
       <div className="grid gap-6 xl:grid-cols-3">
-        {/* Photo placeholder */}
-        <div className="flex aspect-square w-full flex-col items-center justify-center rounded-xl bg-gradient-to-br from-[#00575B] to-[#008B8B] xl:col-span-1">
-          <svg className="h-20 w-20 text-white/40" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-          </svg>
-          <span className="mt-2 text-lg font-bold text-white/90">
-            {fullName}
-          </span>
+        {/* Photo (or placeholder when none) */}
+        <div className="relative flex aspect-[3/4] w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#00575B] to-[#008B8B] xl:col-span-1">
+          {staff.photo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={staff.photo_medium || staff.photo}
+              alt={fullName}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <>
+              <svg className="h-20 w-20 text-white/40" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <span className="mt-2 text-lg font-bold text-white/90">
+                {fullName}
+              </span>
+            </>
+          )}
         </div>
 
         {/* Info */}

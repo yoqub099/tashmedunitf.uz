@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Department;
 use App\Models\Staff;
 use App\Traits\ConvertsToWebp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -53,8 +55,10 @@ class StaffService
 
     public function create(array $data): Staff
     {
+        $this->resolveDepartment($data);
+
         $staff = DB::transaction(function () use ($data) {
-            $staff = Staff::create(\Illuminate\Support\Arr::except($data, ['photo']));
+            $staff = Staff::create(Arr::except($data, ['photo', 'department_name']));
 
             if (isset($data['photo'])) {
                 $staff->addMedia($this->convertToWebp($data['photo'], 400))->toMediaCollection('photo');
@@ -71,9 +75,11 @@ class StaffService
 
     public function update(int $id, array $data): Staff
     {
+        $this->resolveDepartment($data);
+
         $staff = DB::transaction(function () use ($id, $data) {
             $staff = Staff::findOrFail($id);
-            $staff->update(\Illuminate\Support\Arr::except($data, ['photo']));
+            $staff->update(Arr::except($data, ['photo', 'department_name']));
 
             if (isset($data['photo'])) {
                 $staff->clearMediaCollection('photo');
@@ -87,6 +93,39 @@ class StaffService
         CacheService::clearModel(CacheService::PREFIX_DEPARTMENTS);
 
         return $staff;
+    }
+
+    /**
+     * Bo'lim nomi (department_name) berilgan bo'lsa — mavjudini topadi yoki yangi yaratadi
+     * va department_id ni o'rnatadi. Bu admin panelda "Bo'lim" inputiga erkin yozish
+     * (mavjudidan tanlash YOKI yangi nom yaratish) imkonini beradi.
+     */
+    private function resolveDepartment(array &$data): void
+    {
+        $name = isset($data['department_name']) ? trim((string) $data['department_name']) : '';
+
+        if ($name === '') {
+            unset($data['department_name']);
+
+            return;
+        }
+
+        // Mavjud bo'limni nom (uz) bo'yicha case-insensitive qidirish
+        $department = Department::query()
+            ->whereRaw("LOWER(name->>'uz') = ?", [mb_strtolower($name)])
+            ->first();
+
+        if (! $department) {
+            $department = Department::create([
+                'name' => ['uz' => $name, 'ru' => $name, 'en' => $name],
+                'is_active' => true,
+            ]);
+
+            CacheService::clearModel(CacheService::PREFIX_DEPARTMENTS);
+        }
+
+        $data['department_id'] = $department->id;
+        unset($data['department_name']);
     }
 
     public function delete(int $id): void

@@ -55,8 +55,10 @@ export default function StaffCrudAdmin({ title, subtitle, departmentId, breadcru
     { name: "position", label: "Lavozim", type: "text", translatable: true, required: true },
     { name: "bio", label: "Biografiya", type: "richtext", translatable: true },
     {
-      name: "department_id", label: "Bo'lim", type: "select",
+      name: "department_id", label: "Bo'lim", type: "combobox",
       options: departmentOptions,
+      createParam: "department_name",
+      placeholder: "Bo'lim tanlang yoki yangi nom yozing",
     },
     { name: "phone", label: "Telefon", type: "text", placeholder: "+998 90 123 45 67" },
     { name: "email", label: "Email", type: "text", placeholder: "email@tdtutf.uz" },
@@ -77,7 +79,12 @@ export default function StaffCrudAdmin({ title, subtitle, departmentId, breadcru
   const deleteStaff = useDeleteStaff();
 
   const handleCreate = useCallback(async (formData: FormData) => {
-    if (departmentId) formData.set("department_id", String(departmentId));
+    if (departmentId) {
+      // Bo'limga bog'langan sahifada bo'lim kontekstdan olinadi — comboboxdagi
+      // erkin nom (department_name) bekor qilinadi.
+      formData.set("department_id", String(departmentId));
+      formData.delete("department_name");
+    }
     await createStaff.mutateAsync(formData);
     setIsCreateOpen(false);
     refetch();
@@ -214,9 +221,12 @@ export default function StaffCrudAdmin({ title, subtitle, departmentId, breadcru
               full_name: editItem.full_name,
               position: editItem.position,
               bio: editItem.bio,
-              department_id: editItem.department?.id ? String(editItem.department.id) : undefined,
+              department_id: editItem.department
+                ? { id: String(editItem.department.id), label: editItem.department.name?.uz || "" }
+                : { id: null, label: "" },
               phone: editItem.phone,
               email: editItem.email,
+              photo: editItem.photo || undefined,
               sort_order: editItem.sort_order,
               is_active: editItem.is_active,
             }}

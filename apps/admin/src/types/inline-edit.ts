@@ -3,6 +3,7 @@ export type FieldType =
   | "textarea"
   | "richtext"
   | "select"
+  | "combobox"
   | "number"
   | "date"
   | "media"
@@ -28,6 +29,10 @@ export interface FieldConfig {
   maxSize?: number; // Max file size in KB (for media fields)
   halfWidth?: boolean; // Render in 2-col grid (side by side)
   sectionLabel?: string; // Section divider label above this field
+  // combobox uchun: yangi nom yozilganda yuboriladigan param nomi (masalan "department_name")
+  createParam?: string;
+  // combobox uchun: yangi qiymat yaratishga ruxsat (default: true)
+  allowCreate?: boolean;
 }
 
 export interface EditableWrapperProps {

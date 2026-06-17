@@ -6,6 +6,7 @@ import Button from "@/components/shared/Button";
 import Input from "@/components/shared/Input";
 import Textarea from "@/components/shared/Textarea";
 import Select from "@/components/shared/Select";
+import ComboBox, { type ComboBoxValue } from "./ComboBox";
 import Toggle from "@/components/shared/Toggle";
 import LanguageTabs from "./LanguageTabs";
 import MediaUploader from "./MediaUploader";
@@ -126,6 +127,15 @@ export default function EditModal({
           }
         } else if (field.type === "media") {
           // Media can be optional for updates
+        } else if (field.type === "combobox") {
+          const cb = formData[field.name] as ComboBoxValue | string | undefined;
+          const empty =
+            cb == null ||
+            (typeof cb === "string" && cb.trim() === "") ||
+            (typeof cb === "object" && !cb.id && !cb.label?.trim());
+          if (empty) {
+            newErrors[field.name] = `${field.label} majburiy`;
+          }
         } else {
           const val = formData[field.name];
           if (val === undefined || val === null || val === "") {
@@ -209,6 +219,22 @@ export default function EditModal({
           }
         }
         // If value is a string (existing URL, unchanged), skip — don't re-upload
+        continue;
+      }
+
+      // Combobox: mavjud yozuv tanlangan bo'lsa id ni, yangi nom yozilgan bo'lsa
+      // createParam (masalan department_name) ni yuboramiz.
+      if (field.type === "combobox") {
+        const cb = value as ComboBoxValue | string | null | undefined;
+        if (cb && typeof cb === "object") {
+          if (cb.id) {
+            fd.append(field.name, String(cb.id));
+          } else if (cb.label && cb.label.trim() !== "") {
+            fd.append(field.createParam || field.name, cb.label.trim());
+          }
+        } else if (typeof cb === "string" && cb.trim() !== "") {
+          fd.append(field.name, cb);
+        }
         continue;
       }
 
@@ -319,6 +345,21 @@ export default function EditModal({
             options={field.options || []}
             placeholder={field.placeholder}
             required={field.required}
+            error={error}
+          />
+        );
+
+      case "combobox":
+        return (
+          <ComboBox
+            key={key}
+            label={field.label}
+            value={value as ComboBoxValue | string | null}
+            options={field.options || []}
+            onChange={(v) => setFieldValue(field, v)}
+            placeholder={field.placeholder}
+            required={field.required}
+            allowCreate={field.allowCreate !== false}
             error={error}
           />
         );

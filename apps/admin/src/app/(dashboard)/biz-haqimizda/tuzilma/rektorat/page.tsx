@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
 import { useStaff, useStaffDetail, useCreateStaff, useUpdateStaff, useDeleteStaff } from "@/hooks/useStaff";
 import { useDepartments } from "@/hooks/useDepartments";
 import Container from "@/components/shared/Container";
@@ -71,13 +70,24 @@ function StaffCard({ item, onEdit, onDelete }: { item: Staff; onEdit: () => void
     >
       <div className="rounded-2xl bg-white p-4 md:p-6 lg:rounded-3xl h-full">
         <div className="grid gap-6 xl:grid-cols-3">
-          <div className="flex aspect-square w-full flex-col items-center justify-center rounded-xl bg-gradient-to-br from-[#00575B] to-[#008B8B] xl:col-span-1">
-            <svg className="h-20 w-20 text-white/40" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-            <span className="mt-2 text-lg font-bold text-white/90">
-              {fullName}
-            </span>
+          <div className="relative flex aspect-[3/4] w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#00575B] to-[#008B8B] xl:col-span-1">
+            {item.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={item.photo_medium || item.photo}
+                alt={fullName}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : (
+              <>
+                <svg className="h-20 w-20 text-white/40" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                <span className="mt-2 text-lg font-bold text-white/90">
+                  {fullName}
+                </span>
+              </>
+            )}
           </div>
 
           <div className="xl:col-span-2">
@@ -150,7 +160,14 @@ export default function RektoratAdminPage() {
     { name: "full_name", label: "To'liq ism", type: "text", translatable: true, required: true },
     { name: "position", label: "Lavozim", type: "text", translatable: true, required: true },
     { name: "bio", label: "Biografiya", type: "richtext", translatable: true },
-    { name: "department_id", label: "Bo'lim", type: "select", options: departmentOptions },
+    {
+      name: "department_id",
+      label: "Bo'lim",
+      type: "combobox",
+      options: departmentOptions,
+      createParam: "department_name",
+      placeholder: "Bo'lim tanlang yoki yangi nom yozing",
+    },
     { name: "phone", label: "Telefon", type: "text", placeholder: "+998 76 223-40-01" },
     { name: "email", label: "Email", type: "text", placeholder: "email@ttatf.uz" },
     { name: "photo", label: "Rasm", type: "media", accept: "image/*" },
@@ -248,9 +265,12 @@ export default function RektoratAdminPage() {
               full_name: editItem.full_name,
               position: editItem.position,
               bio: editItem.bio,
-              department_id: editItem.department?.id ? String(editItem.department.id) : undefined,
+              department_id: editItem.department
+                ? { id: String(editItem.department.id), label: editItem.department.name?.uz || "" }
+                : { id: null, label: "" },
               phone: editItem.phone,
               email: editItem.email,
+              photo: editItem.photo || undefined,
               sort_order: editItem.sort_order,
               is_active: editItem.is_active,
             }}

@@ -94,12 +94,12 @@ class JournalIssue extends Model implements HasMedia
                 $this->addMediaConversion('thumbnail')
                     ->width(400)->height(533)
                     ->format('webp')->quality(85)->sharpen(10)
-                    ->queued();
+                    ->nonQueued();
 
                 $this->addMediaConversion('medium')
                     ->width(800)->height(1067)
                     ->format('webp')->quality(90)->sharpen(10)
-                    ->queued();
+                    ->nonQueued();
             });
 
         // Jurnal PDF fayli

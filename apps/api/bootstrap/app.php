@@ -35,6 +35,15 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
 
         // ============================================
+        // ERROR LOGGING — /look kuzatuv markazi
+        // Barcha report qilinadigan (kutilmagan) exception DB ga yoziladi.
+        // Laravel "ignored" exceptions (validation/404/401/403/429) bu yerga tushmaydi.
+        // ============================================
+        $exceptions->report(function (\Throwable $e) {
+            \App\Services\ErrorLogger::captureException($e);
+        });
+
+        // ============================================
         // API uchun JSON formatda xatolik qaytarish
         // ============================================
 

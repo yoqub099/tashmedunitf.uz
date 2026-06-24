@@ -14,6 +14,7 @@ import {
   FileText,
   Languages,
   ExternalLink,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mainNavigation, adminNavItems, type NavItem } from "@/config/navigation";
@@ -376,6 +377,17 @@ export default function AdminTopHeader() {
                     <BarChart3 className="w-4 h-4" />
                     Dashboard
                   </Link>
+                  {(((user as { roles?: string[] } | null)?.roles?.includes("super-admin")) ||
+                    (user as { role?: string } | null)?.role === "super-admin") && (
+                    <Link
+                      href="/look"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                    >
+                      <Eye className="w-4 h-4" />
+                      Kuzatuv markazi
+                    </Link>
+                  )}
                   <Link
                     href="/sahifalar"
                     onClick={() => setProfileOpen(false)}

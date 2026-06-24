@@ -72,18 +72,18 @@ class Banner extends Model implements HasMedia
             ->width(1920)->height(600)
             ->format('webp')->quality(90)
             ->performOnCollections('image')
-            ->queued();
+            ->nonQueued();
 
         $this->addMediaConversion('mobile')
             ->width(768)->height(400)
             ->format('webp')->quality(85)
             ->performOnCollections('image', 'mobile_image')
-            ->queued();
+            ->nonQueued();
 
         $this->addMediaConversion('thumbnail')
             ->width(400)->height(200)
             ->format('webp')->quality(80)
             ->performOnCollections('image')
-            ->queued();
+            ->nonQueued();
     }
 }

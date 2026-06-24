@@ -89,7 +89,7 @@ class Faculty extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('image');
 
         $this->addMediaConversion('medium')
@@ -98,7 +98,7 @@ class Faculty extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('image');
     }
 }

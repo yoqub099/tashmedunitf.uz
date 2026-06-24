@@ -187,7 +187,7 @@ class News extends Model implements HasMedia
             ->quality(85)
             ->sharpen(10)
             ->performOnCollections('thumbnail', 'gallery')
-            ->queued();
+            ->nonQueued();
 
         $this->addMediaConversion('medium')
             ->width(1200)
@@ -195,6 +195,6 @@ class News extends Model implements HasMedia
             ->format('webp')
             ->quality(90)
             ->performOnCollections('thumbnail', 'gallery')
-            ->queued();
+            ->nonQueued();
     }
 }

@@ -92,6 +92,7 @@ apps/api/storage/app/private/*
 !apps/api/storage/app/private/.gitkeep
 apps/api/storage/app/backup/*
 !apps/api/storage/app/backup/.gitkeep
+apps/api/storage/framework/testing/
 apps/api/bootstrap/cache/*.php
 !apps/api/bootstrap/cache/.gitkeep
 apps/api/public/storage

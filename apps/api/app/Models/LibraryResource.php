@@ -91,12 +91,12 @@ class LibraryResource extends Model implements HasMedia
                 $this->addMediaConversion('thumbnail')
                     ->width(400)->height(300)
                     ->format('webp')->quality(85)->sharpen(10)
-                    ->queued();
+                    ->nonQueued();
 
                 $this->addMediaConversion('medium')
                     ->width(800)->height(600)
                     ->format('webp')->quality(90)->sharpen(10)
-                    ->queued();
+                    ->nonQueued();
             });
 
         // Hujjat fayli (PDF, Word, Excel, kitob)

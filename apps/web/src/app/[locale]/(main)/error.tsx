@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AlertTriangle, RefreshCw, Home } from "lucide-react";
 import { s } from "@/lib/i18n";
 import { useLanguageStore } from "@/store/useLanguageStore";
+import { reportClientError } from "@/lib/errorReporter";
 
 export default function MainError({
   error,
@@ -16,9 +17,13 @@ export default function MainError({
   const { language } = useLanguageStore();
 
   useEffect(() => {
-    // Log to console; in prod, Sentry captures via beforeSend
+    reportClientError({
+      message: error.message,
+      type: error.name,
+      stack: error.stack,
+      extra: { digest: error.digest, boundary: "main" },
+    });
     if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
       console.error("Page error:", error);
     }
   }, [error]);

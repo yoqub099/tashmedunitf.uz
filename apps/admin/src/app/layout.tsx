@@ -5,6 +5,7 @@ import Providers from "@/providers/Providers";
 import NextTopLoader from "nextjs-toploader";
 import SkipToContent from "@/components/a11y/SkipToContent";
 import A11yPreHydrationScript from "@/components/a11y/A11yPreHydrationScript";
+import ErrorReporter from "@/components/shared/ErrorReporter";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -47,6 +48,7 @@ export default function RootLayout({
           showSpinner={false}
         />
         <Providers>{children}</Providers>
+        <ErrorReporter />
       </body>
     </html>
   );

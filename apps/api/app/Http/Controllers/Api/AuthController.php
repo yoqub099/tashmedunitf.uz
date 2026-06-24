@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Services\AuditLogger;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,8 @@ class AuthController extends BaseController
             // Track failed attempt; lock after MAX_ATTEMPTS
             RateLimiter::hit($key, self::LOCKOUT_MINUTES * 60);
 
+            AuditLogger::logAuth('login_failed', $user?->id, $user?->name, null, ['email' => $email]);
+
             $remaining = RateLimiter::remaining($key, self::MAX_ATTEMPTS);
             $message = $remaining > 0
                 ? "Email yoki parol noto'g'ri. ({$remaining} urinish qoldi)"
@@ -63,6 +66,8 @@ class AuthController extends BaseController
         // Rollarni yuklash
         $user->load('roles');
 
+        AuditLogger::logAuth('login', $user->id, $user->name, $user->getRoleNames()->first());
+
         return $this->success([
             'user' => new UserResource($user),
             'token' => $token,
@@ -71,7 +76,10 @@ class AuthController extends BaseController
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $user = $request->user();
+        AuditLogger::logAuth('logout', $user->id, $user->name, $user->getRoleNames()->first());
+
+        $user->currentAccessToken()->delete();
 
         return $this->success(null, 'Logged out successfully');
     }

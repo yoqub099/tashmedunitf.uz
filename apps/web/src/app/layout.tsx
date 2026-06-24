@@ -6,6 +6,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import NextTopLoader from "nextjs-toploader";
 import CookieConsent from "@/components/shared/CookieConsent";
 import Analytics from "@/components/shared/Analytics";
+import ErrorReporter from "@/components/shared/ErrorReporter";
 import SkipToContent from "@/components/a11y/SkipToContent";
 import A11yPreHydrationScript from "@/components/a11y/A11yPreHydrationScript";
 import type { Language } from "@/lib/i18n";
@@ -200,6 +201,7 @@ export default async function RootLayout({
         <QueryProvider>{children}</QueryProvider>
         <CookieConsent />
         <Analytics />
+        <ErrorReporter />
       </body>
     </html>
   );

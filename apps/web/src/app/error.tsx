@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { s } from "@/lib/i18n";
 import { useLanguageStore } from "@/store/useLanguageStore";
+import { reportClientError } from "@/lib/errorReporter";
 
 export default function GlobalError({
   error,
@@ -14,7 +15,13 @@ export default function GlobalError({
   const { language } = useLanguageStore();
 
   useEffect(() => {
-    // Error is captured by Next.js error boundary
+    reportClientError({
+      message: error.message,
+      type: error.name,
+      stack: error.stack,
+      level: "critical",
+      extra: { digest: error.digest, boundary: "global" },
+    });
   }, [error]);
 
   return (

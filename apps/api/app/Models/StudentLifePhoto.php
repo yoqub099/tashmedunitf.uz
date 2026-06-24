@@ -50,7 +50,7 @@ class StudentLifePhoto extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('photo');
 
         $this->addMediaConversion('medium')
@@ -59,7 +59,7 @@ class StudentLifePhoto extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('photo');
     }
 }

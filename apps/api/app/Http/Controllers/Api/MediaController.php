@@ -20,6 +20,7 @@ use App\Models\Staff;
 use App\Models\StudentLifePhoto;
 use App\Models\TalentedStudent;
 use App\Models\Testimonial;
+use App\Services\AuditLogger;
 use App\Services\CacheService;
 use App\Services\MediaUploadService;
 use Illuminate\Http\JsonResponse;
@@ -128,6 +129,11 @@ class MediaController extends BaseController
 
                 $this->clearModelCache($request->model_type);
 
+                AuditLogger::logMedia('media_uploaded', $request->model_type, (int) $request->model_id, null, [
+                    'collection' => $request->collection,
+                    'count' => count($result['uploaded']),
+                ]);
+
                 return $this->success($response, 'Fayllar muvaffaqiyatli yuklandi', 201);
             }
 
@@ -142,6 +148,11 @@ class MediaController extends BaseController
 
             // Media yuklanganda tegishli model keshini tozalash
             $this->clearModelCache($request->model_type);
+
+            AuditLogger::logMedia('media_uploaded', $request->model_type, (int) $request->model_id, $media->file_name, [
+                'collection' => $request->collection,
+                'file_name' => $media->file_name,
+            ]);
 
             return $this->success($this->formatMedia($media), 'Fayl muvaffaqiyatli yuklandi', 201);
 
@@ -163,8 +174,12 @@ class MediaController extends BaseController
     public function destroy(int $id): JsonResponse
     {
         try {
-            Media::findOrFail($id);
+            $media = Media::findOrFail($id);
             $this->mediaService->deleteMedia($id);
+
+            AuditLogger::logMedia('media_deleted', class_basename((string) $media->model_type), $media->model_id, $media->file_name, [
+                'collection' => $media->collection_name,
+            ]);
 
             return $this->success(null, 'Fayl o\'chirildi');
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

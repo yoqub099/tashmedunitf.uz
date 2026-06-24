@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\JobApplicationController;
 use App\Http\Controllers\Api\JournalIssueController;
 use App\Http\Controllers\Api\LibraryResourceController;
+use App\Http\Controllers\Api\LookController;
 use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PageController;
@@ -179,6 +180,11 @@ Route::prefix('v1')->middleware([ApiPerformance::class, 'throttle:120,1'])->grou
     // Translations — public (barcha tarjimalar flat map)
     Route::get('translations', [TranslationController::class, 'publicIndex'])->name('translations.public');
 
+    // Client Errors — frontend (web/admin) JS xatolarini qabul qilish (/look)
+    Route::post('client-errors', [LookController::class, 'clientError'])
+        ->middleware('throttle:60,1')
+        ->name('client-errors.store');
+
     // Site Contents — public (bo'lim bo'yicha)
     Route::get('site-contents/{section}', [SiteContentController::class, 'index'])->name('site-contents.index');
 
@@ -203,6 +209,15 @@ Route::prefix('v1')->middleware([ApiPerformance::class, 'throttle:120,1'])->grou
             Route::get('users/{id}', [UserController::class, 'show'])->name('users.show');
             Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
             Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+            // ============================================
+            // LOOK — kuzatuv markazi (faqat super-admin)
+            // ============================================
+            Route::get('look/stats', [LookController::class, 'stats'])->name('look.stats');
+            Route::get('look/activities', [LookController::class, 'activities'])->name('look.activities');
+            Route::get('look/errors', [LookController::class, 'errors'])->name('look.errors');
+            Route::get('look/sessions', [LookController::class, 'sessions'])->name('look.sessions');
+            Route::get('look/users', [LookController::class, 'users'])->name('look.users');
         });
 
         // ============================================

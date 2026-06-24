@@ -127,7 +127,7 @@ class Staff extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('photo');
 
         $this->addMediaConversion('medium')
@@ -136,7 +136,7 @@ class Staff extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('photo');
     }
 }

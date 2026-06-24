@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { reportClientError } from "@/lib/errorReporter";
 
 export default function GlobalError({
   error,
@@ -10,6 +11,13 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
+    reportClientError({
+      message: error.message,
+      type: error.name,
+      stack: error.stack,
+      level: "critical",
+      extra: { digest: error.digest, boundary: "global" },
+    });
     console.error("Admin global error:", error);
   }, [error]);
 

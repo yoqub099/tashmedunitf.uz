@@ -14,7 +14,7 @@ Artisan::command('inspire', function () {
 |--------------------------------------------------------------------------
 |
 | Server: 60 GB RAM, 4 TB SSD
-| Cron: * * * * * cd /var/www/tmtu-termiz/backend && php artisan schedule:run
+| Cron: * * * * * cd /var/www/tmtu-termiz/apps/api && /usr/bin/php8.4 artisan schedule:run >/dev/null 2>&1
 |
 | TARTIB (tungi ishlar — foydalanuvchilar kam paytda):
 |
@@ -23,6 +23,7 @@ Artisan::command('inspire', function () {
 | 03:30 — Media backup
 | 04:00 — Orphan media cleanup (haftalik)
 | 04:30 — Full media cleanup (haftalik)
+| 04:45 — Look monitoring loglarini tozalash (activity 180 kun / error 60 kun)
 |
 | KUNLIK:
 | Har 6 soat — Temp fayllar tozalash
@@ -97,3 +98,13 @@ Schedule::command('media:cleanup --force --days=60')
 Schedule::command('project:stats')
     ->dailyAt('08:00')
     ->appendOutputTo(storage_path('logs/stats.log'));
+
+// ══════════════════════════════════════
+// /LOOK — kuzatuv markazi jurnallarini tozalash
+// ══════════════════════════════════════
+
+// Eski audit/xato yozuvlarini tozalash — har kuni 04:45 da
+Schedule::command('look:cleanup')
+    ->dailyAt('04:45')
+    ->withoutOverlapping()
+    ->appendOutputTo(storage_path('logs/look-cleanup.log'));

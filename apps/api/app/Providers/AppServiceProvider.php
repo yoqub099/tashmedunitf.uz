@@ -23,6 +23,7 @@ use App\Models\StudentWork;
 use App\Models\TalentedStudent;
 use App\Models\Testimonial;
 use App\Models\Translation;
+use App\Observers\AuditObserver;
 use App\Observers\ContactMessageObserver;
 use App\Observers\ModelCacheObserver;
 use App\Observers\NewsObserver;
@@ -78,6 +79,40 @@ class AppServiceProvider extends ServiceProvider
         SiteMedia::observe(new ModelCacheObserver(CacheService::PREFIX_SITE_MEDIA));
         StudentLifePhoto::observe(new ModelCacheObserver(CacheService::PREFIX_STUDENT_LIFE_PHOTOS));
         TalentedStudent::observe(new ModelCacheObserver(CacheService::PREFIX_TALENTED_STUDENTS));
+
+        // ============================================
+        // AUDIT — /look kuzatuv markazi (kim nimani o'zgartirdi)
+        // ============================================
+        // Har bir content modelga generic AuditObserver: created/updated/
+        // deleted/restored hodisalarini ESKI→YANGI qiymat bilan yozadi.
+        foreach ([
+            \App\Models\News::class,
+            \App\Models\Department::class,
+            \App\Models\Staff::class,
+            \App\Models\Direction::class,
+            \App\Models\Faq::class,
+            \App\Models\Banner::class,
+            \App\Models\Partner::class,
+            \App\Models\Testimonial::class,
+            \App\Models\Page::class,
+            \App\Models\Faculty::class,
+            \App\Models\SiteContent::class,
+            \App\Models\SiteMedia::class,
+            \App\Models\ContactLocation::class,
+            \App\Models\LibraryResource::class,
+            \App\Models\JournalIssue::class,
+            \App\Models\Translation::class,
+            \App\Models\CareerCenterInfo::class,
+            \App\Models\StudentLifePhoto::class,
+            \App\Models\TalentedStudent::class,
+            \App\Models\User::class,
+            \App\Models\ContactMessage::class,
+            \App\Models\ConferenceRegistration::class,
+            \App\Models\JobApplication::class,
+            \App\Models\StudentWork::class,
+        ] as $auditable) {
+            $auditable::observe(AuditObserver::class);
+        }
 
         // ============================================
         // MEDIA XAVFSIZLIGI — maxfiy fayllarga kirish ruxsati

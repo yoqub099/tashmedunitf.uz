@@ -52,7 +52,7 @@ class Partner extends Model implements HasMedia
             ->format('webp')
             ->quality(85)
             ->sharpen(10)
-            ->queued()
+            ->nonQueued()
             ->performOnCollections('logo');
     }
 }

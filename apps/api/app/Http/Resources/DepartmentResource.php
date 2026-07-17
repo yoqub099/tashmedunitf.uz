@@ -2,13 +2,19 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasSafeConversionUrls;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DepartmentResource extends JsonResource
 {
+    use HasSafeConversionUrls;
+
     public function toArray(Request $request): array
     {
+        $image = $this->getFirstMedia('image');
+        $headPhoto = $this->getFirstMedia('head_photo');
+
         return [
             'id' => $this->id,
             'name' => $this->getTranslations('name'),
@@ -20,12 +26,12 @@ class DepartmentResource extends JsonResource
             'email' => $this->email,
             'is_active' => $this->is_active,
             'sort_order' => $this->sort_order,
-            'image' => $this->getFirstMediaUrl('image'),
-            'image_thumbnail' => $this->getFirstMediaUrl('image', 'thumbnail') ?: null,
-            'image_medium' => $this->getFirstMediaUrl('image', 'medium') ?: null,
-            'head_photo' => $this->getFirstMediaUrl('head_photo'),
-            'head_photo_thumbnail' => $this->getFirstMediaUrl('head_photo', 'thumbnail') ?: null,
-            'head_photo_medium' => $this->getFirstMediaUrl('head_photo', 'medium') ?: null,
+            'image' => $image?->getUrl() ?: '',
+            'image_thumbnail' => $this->safeConversionUrl($image, 'thumbnail'),
+            'image_medium' => $this->safeConversionUrl($image, 'medium'),
+            'head_photo' => $headPhoto?->getUrl() ?: '',
+            'head_photo_thumbnail' => $this->safeConversionUrl($headPhoto, 'thumbnail'),
+            'head_photo_medium' => $this->safeConversionUrl($headPhoto, 'medium'),
             'staff' => StaffResource::collection($this->whenLoaded('staff')),
             'staff_count' => $this->whenCounted('staff'),
             'created_at' => $this->created_at?->toISOString(),

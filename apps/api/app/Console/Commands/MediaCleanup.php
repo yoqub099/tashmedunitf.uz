@@ -108,11 +108,16 @@ class MediaCleanup extends Command
                 }
             });
 
-        // Yangi PathGenerator papkalarini tekshirish
+        // Yangi PathGenerator papkalarini tekshirish.
+        // DIQQAT: bu ro'yxatga FAQAT Spatie media jadvali orqali boshqariladigan
+        // papkalar kiradi. To'g'ridan-to'g'ri saqlanadigan papkalar ('site-contents'
+        // — SiteContentController::uploadImage, 'editor' — uploadInline) media
+        // jadvalida YO'Q — ularni skanerlash hammasini "yetim" deb o'chirib
+        // yuboradi (2026-06-28 da advantages_image shu tarzda yo'qolgan).
         $modelFolders = [
             'news', 'pages', 'staff', 'departments', 'banners', 'directions',
             'faculties', 'library', 'journal', 'partners', 'testimonials',
-            'students', 'contacts', 'site', 'site-contents',
+            'students', 'contacts', 'site',
         ];
 
         // ESKI media/{id}/ formatni tekshirish
@@ -225,6 +230,13 @@ class MediaCleanup extends Command
 
         foreach ($modelsWithSoftDelete as $modelClass) {
             if (! class_exists($modelClass)) {
+                continue;
+            }
+
+            // Model SoftDeletes ishlatmasa — onlyTrashed() mavjud emas.
+            // (Masalan LibraryResource — bu yo'qligi har haftalik media:cleanup'ni
+            //  "Call to undefined method onlyTrashed()" bilan yiqitardi.)
+            if (! in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses_recursive($modelClass), true)) {
                 continue;
             }
 

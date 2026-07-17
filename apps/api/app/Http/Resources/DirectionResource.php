@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasSafeConversionUrls;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DirectionResource extends JsonResource
 {
+    use HasSafeConversionUrls;
+
     /** XSS: plain-text translatable fields escape. Description HTML — frontend DOMPurify tozalaydi. */
     private function escapeTranslations(array $translations): array
     {
@@ -43,8 +46,8 @@ class DirectionResource extends JsonResource
                 $this->exam_subjects ?? []
             ),
             'image' => $image?->getUrl() ?: '',
-            'image_thumbnail' => $image?->getUrl('thumbnail') ?: null,
-            'image_medium' => $image?->getUrl('medium') ?: null,
+            'image_thumbnail' => $this->safeConversionUrl($image, 'thumbnail'),
+            'image_medium' => $this->safeConversionUrl($image, 'medium'),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
         ];

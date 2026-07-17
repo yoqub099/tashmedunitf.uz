@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasSafeConversionUrls;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LibraryResourceResource extends JsonResource
 {
+    use HasSafeConversionUrls;
+
     /**
      * XSS protection — plain-text translatable fields'ni escape qilish.
      * Content (rich HTML) escape qilinmaydi — frontend DOMPurify tozalaydi.
@@ -21,6 +24,8 @@ class LibraryResourceResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $cover = $this->getFirstMedia('cover');
+
         return [
             'id' => $this->id,
             'title' => $this->escapeTranslations($this->getTranslations('title')),
@@ -36,9 +41,9 @@ class LibraryResourceResource extends JsonResource
             'is_published' => $this->is_published,
             'published_at' => $this->published_at?->toISOString(),
             'sort_order' => $this->sort_order,
-            'cover' => $this->getFirstMediaUrl('cover'),
-            'cover_medium' => $this->getFirstMediaUrl('cover', 'medium') ?: $this->getFirstMediaUrl('cover'),
-            'cover_thumbnail' => $this->getFirstMediaUrl('cover', 'thumbnail') ?: $this->getFirstMediaUrl('cover'),
+            'cover' => $cover?->getUrl() ?: '',
+            'cover_medium' => $this->safeConversionUrl($cover, 'medium') ?? '',
+            'cover_thumbnail' => $this->safeConversionUrl($cover, 'thumbnail') ?? '',
             'document' => $this->getFirstMediaUrl('document'),
             'document_name' => $this->getFirstMedia('document')?->file_name,
             'gallery' => $this->when(

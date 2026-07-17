@@ -2,13 +2,18 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasSafeConversionUrls;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NewsResource extends JsonResource
 {
+    use HasSafeConversionUrls;
+
     public function toArray(Request $request): array
     {
+        $cover = $this->getFirstMedia('thumbnail');
+
         return [
             'id' => $this->id,
             'title' => $this->getTranslations('title'),
@@ -21,9 +26,9 @@ class NewsResource extends JsonResource
             'category' => $this->category,
             'is_published' => $this->is_published,
             'published_at' => $this->published_at?->toISOString(),
-            'cover' => $this->getFirstMediaUrl('thumbnail'),
-            'cover_medium' => $this->getFirstMediaUrl('thumbnail', 'medium') ?: $this->getFirstMediaUrl('thumbnail'),
-            'cover_thumbnail' => $this->getFirstMediaUrl('thumbnail', 'thumbnail') ?: $this->getFirstMediaUrl('thumbnail'),
+            'cover' => $cover?->getUrl() ?: '',
+            'cover_medium' => $this->safeConversionUrl($cover, 'medium') ?? '',
+            'cover_thumbnail' => $this->safeConversionUrl($cover, 'thumbnail') ?? '',
             // Gallery faqat detail sahifada kerak (content bor bo'lganda)
             'gallery' => $this->when(
                 array_key_exists('content', $this->resource->getAttributes()),

@@ -2,13 +2,18 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasSafeConversionUrls;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BannerResource extends JsonResource
 {
+    use HasSafeConversionUrls;
+
     public function toArray(Request $request): array
     {
+        $image = $this->getFirstMedia('image');
+
         return [
             'id' => $this->id,
             'title' => $this->getTranslations('title'),
@@ -17,10 +22,10 @@ class BannerResource extends JsonResource
             'button_text' => $this->getTranslations('button_text'),
             'is_active' => $this->is_active,
             'sort_order' => $this->sort_order,
-            'image' => $this->getFirstMediaUrl('image'),
-            'image_desktop' => $this->getFirstMediaUrl('image', 'desktop') ?: null,
-            'image_mobile' => $this->getFirstMediaUrl('image', 'mobile') ?: null,
-            'image_thumbnail' => $this->getFirstMediaUrl('image', 'thumbnail') ?: null,
+            'image' => $image?->getUrl() ?: '',
+            'image_desktop' => $this->safeConversionUrl($image, 'desktop'),
+            'image_mobile' => $this->safeConversionUrl($image, 'mobile'),
+            'image_thumbnail' => $this->safeConversionUrl($image, 'thumbnail'),
             'mobile_image' => $this->getFirstMediaUrl('mobile_image'),
             'video' => $this->getFirstMediaUrl('video'),
             'created_at' => $this->created_at?->toISOString(),

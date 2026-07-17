@@ -66,4 +66,23 @@ class StudentWorkController extends BaseController
 
         return $this->success(['count' => $count]);
     }
+
+    /**
+     * Faylni yuklab olish — faqat imzolangan URL orqali ('signed' middleware).
+     * URL StudentWorkResource'da 30 daqiqaga imzolanadi (admin API javoblarida
+     * va yuborilgan zahoti muallifning o'z javobida beriladi).
+     */
+    public function download(int $id): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+        $work = \App\Models\StudentWork::findOrFail($id);
+
+        if (! $work->file_path || ! \Illuminate\Support\Facades\Storage::disk('local')->exists($work->file_path)) {
+            abort(404, 'Fayl topilmadi.');
+        }
+
+        return \Illuminate\Support\Facades\Storage::disk('local')->download(
+            $work->file_path,
+            $work->file_name ?: basename($work->file_path)
+        );
+    }
 }

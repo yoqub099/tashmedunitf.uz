@@ -160,6 +160,13 @@ Route::prefix('v1')->middleware([ApiPerformance::class, 'throttle:120,1'])->grou
         ->middleware('throttle:10,5')
         ->name('student-works.store');
 
+    // Student Works — faylni yuklab olish FAQAT imzolangan URL bilan
+    // (URL admin API javobidagi StudentWorkResource'da 30 daqiqaga imzolanadi)
+    Route::get('student-works/{id}/download', [StudentWorkController::class, 'download'])
+        ->middleware(['signed', 'throttle:30,1'])
+        ->where('id', '[0-9]+')
+        ->name('student-works.download');
+
     // Library Resources — public
     Route::get('library-resources/categories', [LibraryResourceController::class, 'categories'])->name('library-resources.categories');
     Route::get('library-resources', [LibraryResourceController::class, 'index'])->name('library-resources.index');
@@ -366,6 +373,8 @@ Route::prefix('v1')->middleware([ApiPerformance::class, 'throttle:120,1'])->grou
             Route::put('site-contents', [SiteContentController::class, 'upsert'])->name('site-contents.upsert');
             Route::put('site-contents/batch', [SiteContentController::class, 'batchUpsert'])->name('site-contents.batch-upsert');
             Route::post('site-contents/upload-image', [SiteContentController::class, 'uploadImage'])->name('site-contents.upload-image');
+            // Matn muharriri (Tiptap) uchun inline rasm yuklash — URL qaytaradi
+            Route::post('editor/upload-image', [SiteContentController::class, 'uploadInline'])->name('editor.upload-image');
             Route::delete('site-contents/{key}', [SiteContentController::class, 'destroy'])->name('site-contents.destroy');
         });
     });

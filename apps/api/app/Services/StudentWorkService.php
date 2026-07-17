@@ -13,7 +13,11 @@ class StudentWorkService
     public function create(array $data, ?UploadedFile $file = null): StudentWork
     {
         if ($file) {
-            $path = $file->store('student-works', 'public');
+            // MAXFIY disk ('local') — fayllar shaxsiy hujjat bo'lishi mumkin.
+            // Yuklab olish faqat imzolangan (signed, 30 daqiqalik) URL orqali:
+            // StudentWorkResource -> route('student-works.download').
+            // (Avval 'public' diskda edi — URLni bilgan har kim ochib ko'rardi.)
+            $path = $file->store('student-works', 'local');
             $data['file_path'] = $path;
             $data['file_name'] = $file->getClientOriginalName();
         }
@@ -58,12 +62,17 @@ class StudentWorkService
     {
         $work = StudentWork::findOrFail($id);
 
-        // Faylni diskdan o'chirish
+        // Faylni diskdan o'chirish (yangi fayllar 'local'da; eski davr
+        // 'public' bo'lgan — har ikkalasini ham tozalaymiz)
         if ($work->file_path) {
-            try {
-                Storage::disk('public')->delete($work->file_path);
-            } catch (\Throwable $e) {
-                Log::warning('Failed to delete student work file', ['id' => $id, 'path' => $work->file_path, 'error' => $e->getMessage()]);
+            foreach (['local', 'public'] as $disk) {
+                try {
+                    if (Storage::disk($disk)->exists($work->file_path)) {
+                        Storage::disk($disk)->delete($work->file_path);
+                    }
+                } catch (\Throwable $e) {
+                    Log::warning('Failed to delete student work file', ['id' => $id, 'disk' => $disk, 'path' => $work->file_path, 'error' => $e->getMessage()]);
+                }
             }
         }
 

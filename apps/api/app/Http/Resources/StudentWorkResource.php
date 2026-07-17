@@ -22,7 +22,15 @@ class StudentWorkResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->escape($this->phone),
             'address' => $this->escape($this->address),
-            'file_path' => $this->file_path ? asset('storage/'.$this->file_path) : null,
+            // Maxfiy diskdagi fayl — 30 daqiqalik imzolangan yuklab olish URL'i
+            // (to'g'ridan-to'g'ri /storage/ URL emas: fayllar endi 'local' diskda)
+            'file_path' => $this->file_path
+                ? \Illuminate\Support\Facades\URL::temporarySignedRoute(
+                    'student-works.download',
+                    now()->addMinutes(30),
+                    ['id' => $this->id]
+                )
+                : null,
             'file_name' => $this->escape($this->file_name),
             'is_read' => $this->is_read,
             'created_at' => $this->created_at?->toISOString(),

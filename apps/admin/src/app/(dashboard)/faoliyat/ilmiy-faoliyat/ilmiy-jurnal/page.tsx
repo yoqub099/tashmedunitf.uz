@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import Image from "next/image";
 import { Plus } from "lucide-react";
 import {
   useJournalIssues,
@@ -69,17 +68,15 @@ export default function IlmiyJurnalBoshSahifaAdmin() {
 
   return (
     <div className="mx-auto max-w-350 px-4 sm:px-6 lg:px-8 space-y-16 md:space-y-20 pt-16 md:pt-20 pb-20">
-      {/* ═══════ Hero Image ═══════ */}
-      <div className="relative w-full aspect-video md:aspect-[21/9] lg:h-170 overflow-hidden rounded-2xl lg:rounded-3xl bg-slate-200">
-        <Image
-          src="/imgs/journal/hero.jpg"
-          alt="Termiz tibbiyot ilmiy axborotnomasi"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          unoptimized
-        />
-        <div className="absolute inset-0 bg-black/5" />
+      {/* ═══════ Hero (saytdagi hero rasm Sahifalar → "ilmiy-jurnal" → rasmlar
+          orqali boshqariladi: 1-rasm hero, qolganlari litsenziyalar) ═══════ */}
+      <div className="relative w-full aspect-video md:aspect-[21/9] lg:h-170 overflow-hidden rounded-2xl lg:rounded-3xl bg-linear-to-br from-[#00575B] to-[#00969D] flex items-center justify-center">
+        <h1 className="text-white text-3xl md:text-5xl font-semibold text-center px-6">
+          Termiz tibbiyot ilmiy axborotnomasi
+        </h1>
+        <div className="absolute bottom-4 left-4 bg-black/40 text-white px-3 py-1.5 rounded-lg text-xs">
+          Saytdagi hero/litsenziya rasmlari: Sahifalar → “ilmiy-jurnal” → rasmlar
+        </div>
       </div>
 
       {/* ═══════ CTA Banner ═══════ */}
@@ -181,30 +178,6 @@ export default function IlmiyJurnalBoshSahifaAdmin() {
           </button>
         </div>
       )}
-
-      {/* ═══════ Licenses ═══════ */}
-      <div className="rounded-2xl p-4 md:p-6 lg:rounded-3xl bg-gray-100">
-        <h4 className="text-base md:text-xl leading-6 text-gray-900 font-bold text-center mb-6">
-          Litsenziyalar va sertifikatlar
-        </h4>
-        <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
-          {[1, 2, 3].map((n) => (
-            <div
-              key={n}
-              className="rounded-2xl p-4 lg:rounded-3xl w-full max-w-60 bg-white"
-            >
-              <Image
-                src={`/imgs/license/${n}.jpg`}
-                alt={`Litsenziya ${n}`}
-                width={260}
-                height={367}
-                className="size-full max-h-72 max-w-52"
-                unoptimized
-              />
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ═══════ CREATE Modal ═══════ */}
       <EditModal

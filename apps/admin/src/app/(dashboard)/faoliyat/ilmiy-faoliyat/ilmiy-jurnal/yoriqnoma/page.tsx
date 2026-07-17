@@ -1,5 +1,4 @@
 import StaticPageAdmin from "@/components/templates/StaticPageAdmin";
-import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -74,43 +73,18 @@ export default function YoriqnomaAdminPage() {
           Ilmiy maqolaga qo&apos;yilgan talablar
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          {/* Left — requirements sections */}
-          <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {guideSections.map((section) => (
-                <div key={section.title} className="leading-6">
-                  <p className="text-gray-900 font-bold mb-2 text-base">
-                    {section.title}
-                  </p>
-                  <p className="text-justify text-xs whitespace-pre-line text-gray-700">
-                    {section.content}
-                  </p>
-                </div>
-              ))}
+        {/* Talab bo'limlari to'liq kenglikda (mavjud bo'lmagan rasm/PDF olib tashlandi) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {guideSections.map((section) => (
+            <div key={section.title} className="leading-6">
+              <p className="text-gray-900 font-bold mb-2 text-base">
+                {section.title}
+              </p>
+              <p className="text-justify text-xs whitespace-pre-line text-gray-700">
+                {section.content}
+              </p>
             </div>
-          </div>
-
-          {/* Right — guide image + download */}
-          <div className="flex flex-col">
-            <div className="relative w-full h-64 md:h-[500px]">
-              <Image
-                src="/imgs/journal/article-guide.jpg"
-                alt="Maqola tuzilishi"
-                fill
-                className="object-contain rounded-xl border border-slate-200"
-                unoptimized
-              />
-            </div>
-            <div
-              className="relative flex items-center justify-center font-semibold overflow-hidden px-6 text-base leading-5 gap-2.5 bg-[#00575B] text-white w-full mt-4 py-3"
-              style={{ borderRadius: 12 }}
-            >
-              <span className="whitespace-nowrap">
-                Yo&apos;riqnomani yuklash
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </StaticPageAdmin>

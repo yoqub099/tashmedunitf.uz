@@ -1,10 +1,21 @@
 import StaticPageAdmin from "@/components/templates/StaticPageAdmin";
-import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Jurnal haqida — Ilmiy jurnal — Admin",
 };
+
+/** "prof./dots." kabi unvon prefikslarisiz ism bosh harflari (foto o'rnida avatar) */
+function initialsOf(name: string): string {
+  return name
+    .replace(/^(prof\.|dots\.|akad\.)\s*/i, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
 
 const faqItems = [
   {
@@ -34,10 +45,10 @@ const faqItems = [
 ];
 
 const editorialBoard = [
-  { name: "prof. Rahimov S.T.", role: "Bosh muharrir", description: "Ichki kasalliklar kafedrasi mudiri, tibbiyot fanlari doktori", image: "/imgs/journal/board/rahimov.jpg" },
-  { name: "prof. Nazarov M.X.", role: "Bosh muharrir o'rinbosari", description: "Pediatriya kafedrasi professori, tibbiyot fanlari doktori", image: "/imgs/journal/board/nazarov.jpg" },
-  { name: "dots. Alimova G.R.", role: "Mas'ul muharrir", description: "Jamoat salomatligi kafedrasi dotsenti", image: "/imgs/journal/board/alimova.jpg" },
-  { name: "dots. Toshmatov A.K.", role: "Texnik muharrir", description: "Ilmiy tadqiqotlar bo'limi bosh mutaxassisi", image: "/imgs/journal/board/toshmatov.jpg" },
+  { name: "prof. Rahimov S.T.", role: "Bosh muharrir", description: "Ichki kasalliklar kafedrasi mudiri, tibbiyot fanlari doktori" },
+  { name: "prof. Nazarov M.X.", role: "Bosh muharrir o'rinbosari", description: "Pediatriya kafedrasi professori, tibbiyot fanlari doktori" },
+  { name: "dots. Alimova G.R.", role: "Mas'ul muharrir", description: "Jamoat salomatligi kafedrasi dotsenti" },
+  { name: "dots. Toshmatov A.K.", role: "Texnik muharrir", description: "Ilmiy tadqiqotlar bo'limi bosh mutaxassisi" },
 ];
 
 const editorialMembers = [
@@ -117,14 +128,6 @@ export default function JurnalHaqidaAdminPage() {
               </div>
             ))}
           </div>
-          <Image
-            src="/imgs/journal/map.jpg"
-            alt="Joylashuv"
-            width={413}
-            height={177}
-            className="rounded-2xl object-cover w-full h-auto"
-            unoptimized
-          />
         </div>
       </div>
 
@@ -139,15 +142,10 @@ export default function JurnalHaqidaAdminPage() {
               key={member.name}
               className="rounded-2xl p-4 lg:rounded-3xl bg-gray-100 space-y-2"
             >
-              <div className="relative aspect-[261/288] w-full overflow-hidden rounded-[20px] bg-gray-200">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  unoptimized
-                />
+              <div className="relative aspect-[261/288] w-full overflow-hidden rounded-[20px] bg-linear-to-br from-[#00575B] to-[#00969D] flex items-center justify-center">
+                <span className="text-white/90 text-4xl font-semibold select-none">
+                  {initialsOf(member.name)}
+                </span>
               </div>
               <h4 className="text-sm md:text-base font-semibold text-[#101828] pt-1 line-clamp-1">
                 {member.name}

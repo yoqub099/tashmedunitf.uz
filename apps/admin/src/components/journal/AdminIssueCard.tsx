@@ -12,7 +12,8 @@ interface AdminIssueCardProps {
 }
 
 export default function AdminIssueCard({ issue, onEdit, onDelete }: AdminIssueCardProps) {
-  const cover = issue.cover_thumbnail || issue.cover || "/imgs/journal/placeholder.jpg";
+  // Muqova yo'q bo'lsa gradient plashka (mavjud bo'lmagan placeholder.jpg 404 berardi)
+  const cover = issue.cover_thumbnail || issue.cover || "";
   const title = t(issue.title);
 
   return (
@@ -50,14 +51,20 @@ export default function AdminIssueCard({ issue, onEdit, onDelete }: AdminIssueCa
       </div>
 
       <div className="relative w-full aspect-3/4 mb-4 overflow-hidden rounded-2xl shrink-0 bg-gray-100">
-        <Image
-          src={cover}
-          alt={title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 50vw, 20vw"
-          unoptimized
-        />
+        {cover ? (
+          <Image
+            src={cover}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, 20vw"
+            unoptimized
+          />
+        ) : (
+          <div className="absolute inset-0 bg-linear-to-br from-[#00575B] to-[#00969D] flex items-center justify-center">
+            <span className="text-white/80 text-3xl font-semibold">№</span>
+          </div>
+        )}
       </div>
       <div className="flex flex-col flex-1 w-full gap-2">
         <h4 className="md:text-base text-sm font-semibold leading-snug line-clamp-2">

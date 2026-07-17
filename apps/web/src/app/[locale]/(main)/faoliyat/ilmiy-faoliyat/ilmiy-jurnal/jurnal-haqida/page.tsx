@@ -1,11 +1,22 @@
 import Container from "@/components/shared/Container";
 import Breadcrumb from "@/components/shared/Breadcrumb";
 import JournalFAQ from "@/components/journal/JournalFAQ";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import { getLanguage } from "@/lib/language";
 import { s } from "@/lib/i18n";
+
+/** "prof./dots." kabi unvon prefikslarisiz ism bosh harflari (foto o'rnida avatar) */
+function initialsOf(name: string): string {
+  return name
+    .replace(/^(prof\.|dots\.|akad\.)\s*/i, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const lang = await getLanguage();
@@ -33,25 +44,21 @@ export default async function JurnalHaqidaPage() {
       name: "prof. Rahimov S.T.",
       role: s("jp.role_chief_editor", lang),
       description: s("jp.desc_rahimov", lang),
-      image: "/imgs/journal/board/rahimov.jpg",
     },
     {
       name: "prof. Nazarov M.X.",
       role: s("jp.role_deputy_editor", lang),
       description: s("jp.desc_nazarov", lang),
-      image: "/imgs/journal/board/nazarov.jpg",
     },
     {
       name: "dots. Alimova G.R.",
       role: s("jp.role_exec_editor", lang),
       description: s("jp.desc_alimova", lang),
-      image: "/imgs/journal/board/alimova.jpg",
     },
     {
       name: "dots. Toshmatov A.K.",
       role: s("jp.role_tech_editor", lang),
       description: s("jp.desc_toshmatov", lang),
-      image: "/imgs/journal/board/toshmatov.jpg",
     },
   ];
 
@@ -139,15 +146,6 @@ export default async function JurnalHaqidaPage() {
             <div className="rounded-2xl p-4 md:p-6 lg:rounded-3xl md:px-4 md:py-2 bg-gray-100 min-h-25 flex items-center justify-center">
               <JournalFAQ items={faqItems} />
             </div>
-            <div className="relative w-full aspect-[413/177] overflow-hidden rounded-3xl bg-gray-200">
-              <Image
-                src="/imgs/journal/map.jpg"
-                alt={s("jp.faq_map_alt", lang)}
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
           </div>
         </div>
 
@@ -162,15 +160,10 @@ export default async function JurnalHaqidaPage() {
                 key={member.name}
                 className="rounded-2xl p-4 lg:rounded-3xl md:p-5 space-y-2.5 bg-gray-100"
               >
-                <div className="relative aspect-[261/288] w-full overflow-hidden rounded-[20px] bg-gray-200">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
-                    unoptimized
-                  />
+                <div className="relative aspect-[261/288] w-full overflow-hidden rounded-[20px] bg-linear-to-br from-[#00575B] to-[#00969D] flex items-center justify-center">
+                  <span className="text-white/90 text-5xl font-serif font-semibold select-none">
+                    {initialsOf(member.name)}
+                  </span>
                 </div>
                 <h4 className="text-base md:text-xl leading-6 font-semibold text-[#101828] pt-2 line-clamp-1">
                   {member.name}

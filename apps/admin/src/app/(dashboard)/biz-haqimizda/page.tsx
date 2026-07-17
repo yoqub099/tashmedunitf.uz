@@ -557,13 +557,11 @@ export default function BizHaqimizdaPage() {
                 />
               </div>
               {heroImage && (
-                <div className="space-x-8">
+                <div className="relative w-full lg:w-[420px] lg:shrink-0 lg:mt-10 aspect-[456/240] overflow-hidden rounded-2xl bg-gray-200">
                   <img
                     src={heroImage}
                     alt={heroTitle}
-                    className="float-right mt-10 rounded-2xl"
-                    width={456}
-                    height={240}
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
               )}

@@ -22,6 +22,8 @@ class StoreStaffRequest extends BaseFormRequest
             'position.uz' => ['required', 'string', 'max:255'],
             'position.ru' => ['nullable', 'string', 'max:255'],
             'position.en' => ['nullable', 'string', 'max:255'],
+            // Bo'lim majburiy (staff.department_id ustuni NOT NULL): mavjud
+            // bo'limni tanlash YOKI yangi nom yozish (department_name) mumkin.
             'department_id' => ['required_without:department_name', 'nullable', 'integer', 'exists:departments,id'],
             'department_name' => ['required_without:department_id', 'nullable', 'string', 'max:255'],
             'bio' => ['nullable', 'array'],
@@ -32,7 +34,7 @@ class StoreStaffRequest extends BaseFormRequest
             'email' => ['nullable', 'email', 'max:255'],
             'is_active' => ['boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
-            'photo' => ['nullable', 'image', 'max:5120'],
+            'photo' => ['nullable', 'image', 'max:10240'],
         ];
     }
 }

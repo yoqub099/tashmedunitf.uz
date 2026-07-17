@@ -59,10 +59,11 @@ export default function StaffCrudAdmin({ title, subtitle, departmentId, breadcru
       options: departmentOptions,
       createParam: "department_name",
       placeholder: "Bo'lim tanlang yoki yangi nom yozing",
+      required: true,
     },
     { name: "phone", label: "Telefon", type: "text", placeholder: "+998 90 123 45 67" },
     { name: "email", label: "Email", type: "text", placeholder: "email@tdtutf.uz" },
-    { name: "photo", label: "Rasm", type: "media", accept: "image/*" },
+    { name: "photo", label: "Rasm", type: "media", accept: "image/*", maxSize: 10240 },
     { name: "sort_order", label: "Tartib", type: "number" },
     { name: "is_active", label: "Faol", type: "toggle" },
   ];

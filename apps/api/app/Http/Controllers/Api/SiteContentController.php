@@ -98,6 +98,32 @@ class SiteContentController extends BaseController
     }
 
     /**
+     * Admin — matn muharriri (Tiptap) uchun INLINE rasm yuklash.
+     *
+     * SiteContent ga TEGMAYDI — shunchaki rasmni WebP'ga o'girib, public
+     * diskdagi `editor/` papkasiga saqlaydi va to'liq URL qaytaradi.
+     * RichTextEditor shu URL'ni <img> sifatida matn ichiga qo'yadi.
+     */
+    public function uploadInline(): JsonResponse
+    {
+        $request = request();
+
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,jpg,png,gif,webp,avif|max:10240',
+        ]);
+
+        // WebP'ga convert (max 1600px — matn ichidagi rasm uchun yetarli)
+        $file = $this->convertToWebp($request->file('file'), 1600, 88);
+
+        $path = $file->store('editor', 'public');
+
+        return $this->success(
+            ['url' => url('/storage/'.$path)],
+            'Rasm muvaffaqiyatli yuklandi'
+        );
+    }
+
+    /**
      * Admin — rasm yuklash va SiteContent ga saqlash
      * Eski rasmni o'chiradi va yangi rasmni WebP formatga convert qiladi
      */

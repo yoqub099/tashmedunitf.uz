@@ -172,7 +172,7 @@ export default async function BizHaqimizdaPage() {
               />
             </div>
             {heroImage && (
-              <div className="relative w-full lg:w-auto lg:float-right lg:mt-10 aspect-[456/240] overflow-hidden rounded-2xl bg-gray-200">
+              <div className="relative w-full lg:w-[420px] lg:shrink-0 lg:mt-10 aspect-[456/240] overflow-hidden rounded-2xl bg-gray-200">
                 <Image
                   src={heroImage}
                   alt={heroTitle}

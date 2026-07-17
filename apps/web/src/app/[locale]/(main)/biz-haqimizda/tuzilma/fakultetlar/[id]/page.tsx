@@ -11,8 +11,23 @@ import { t } from "@/lib/translate";
 import { s } from "@/lib/i18n";
 import type { Language } from "@/lib/i18n";
 import { getLanguage } from "@/lib/language";
+import DOMPurify from "isomorphic-dompurify";
 
 type Props = { params: Promise<{ id: string }> };
+
+/** HTML matnni toza o'qiladigan matnga aylantirish (teaser/overlay uchun) */
+function toPlainText(html: string): string {
+  return (html || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;|&apos;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
@@ -232,7 +247,7 @@ export default async function FacultyDetailPage({ params }: Props) {
                     <span>{s("faculty.description", lang)}</span>
                   </h4>
                   <div className="line-clamp-[10] text-sm leading-relaxed">
-                    {description}
+                    {toPlainText(description)}
                   </div>
                 </div>
               )}
@@ -242,7 +257,10 @@ export default async function FacultyDetailPage({ params }: Props) {
               <h4 className="font-serif text-2xl font-semibold flex gap-3 mb-4">
                 <span>{s("faculty.description", lang)}</span>
               </h4>
-              <p className="text-gray-700 leading-relaxed">{description}</p>
+              <div
+                className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed [&_strong]:text-gray-900 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-5"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+              />
             </div>
           ) : null}
 

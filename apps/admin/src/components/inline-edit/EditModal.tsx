@@ -190,6 +190,12 @@ export default function EditModal({
           // User explicitly removed the image → tell backend to delete it
           fd.append(`remove_${field.name}`, "1");
         } else if (value instanceof File) {
+          // Bitta rasmli maydon (multiple emas): yangi rasm eskisini ALMASHTIRADI.
+          // Busiz backend rasmni QO'SHIB ketardi (append) — natijada eski/test rasm
+          // birinchi bo'lib qolib, yangi rasm hech qachon ko'rinmasdi.
+          if (!field.multiple) {
+            fd.append(`remove_${field.name}`, "1");
+          }
           fd.append(field.name, value);
         } else if (Array.isArray(value)) {
           const files = value.filter((v): v is File => v instanceof File);

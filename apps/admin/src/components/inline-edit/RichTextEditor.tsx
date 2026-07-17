@@ -26,9 +26,12 @@ import {
   AlignLeft,
   AlignCenter,
   AlignRight,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { siteContentService } from "@/lib/services/siteContentService";
+import toast from "react-hot-toast";
 
 interface RichTextEditorProps {
   content: string;
@@ -76,13 +79,45 @@ export default function RichTextEditor({
     }
   }, [content, editor]);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  // Rasm tugmasi — kompyuterdan fayl tanlash oynasini ochadi
   const addImage = useCallback(() => {
-    if (!editor) return;
-    const url = window.prompt("Rasm URL manzilini kiriting:");
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
-    }
-  }, [editor]);
+    fileInputRef.current?.click();
+  }, []);
+
+  // Tanlangan faylni serverga yuklab, matn ichiga <img> sifatida qo'yadi
+  const handleImageFile = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      e.target.value = ""; // bir xil faylni qayta tanlash mumkin bo'lsin
+      if (!file || !editor) return;
+
+      if (!file.type.startsWith("image/")) {
+        toast.error("Faqat rasm fayli yuklash mumkin");
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error("Rasm hajmi 10 MB dan oshmasligi kerak");
+        return;
+      }
+
+      setUploading(true);
+      const loadingId = toast.loading("Rasm yuklanmoqda...");
+      try {
+        const url = await siteContentService.uploadEditorImage(file);
+        editor.chain().focus().setImage({ src: url }).run();
+        toast.success("Rasm qo'shildi", { id: loadingId });
+      } catch (err) {
+        console.error("[RichTextEditor] image upload failed:", err);
+        toast.error("Rasm yuklab bo'lmadi. Qaytadan urinib ko'ring.", { id: loadingId });
+      } finally {
+        setUploading(false);
+      }
+    },
+    [editor]
+  );
 
   const setLink = useCallback(() => {
     if (!editor) return;
@@ -250,8 +285,15 @@ export default function RichTextEditor({
 
         <Separator />
 
-        <ToolbarButton onClick={addImage} title="Rasm qo'shish">
-          <ImageIcon className="w-4 h-4" />
+        <ToolbarButton
+          onClick={addImage}
+          title={uploading ? "Yuklanmoqda..." : "Rasm qo'shish (kompyuterdan yuklash)"}
+        >
+          {uploading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <ImageIcon className="w-4 h-4" />
+          )}
         </ToolbarButton>
         <ToolbarButton
           onClick={setLink}
@@ -280,6 +322,15 @@ export default function RichTextEditor({
           <Redo2 className="w-4 h-4" />
         </ToolbarButton>
       </div>
+
+      {/* Yashirin file input — rasm tugmasi shuni ochadi */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleImageFile}
+      />
 
       {/* Editor content */}
       <EditorContent editor={editor} />

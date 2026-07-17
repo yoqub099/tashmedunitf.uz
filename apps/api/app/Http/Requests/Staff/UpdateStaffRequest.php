@@ -32,7 +32,7 @@ class UpdateStaffRequest extends BaseFormRequest
             'email' => ['nullable', 'email', 'max:255'],
             'is_active' => ['boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
-            'photo' => ['nullable', 'image', 'max:5120'],
+            'photo' => ['nullable', 'image', 'max:10240'],
         ];
     }
 }

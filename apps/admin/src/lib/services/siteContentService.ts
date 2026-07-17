@@ -54,6 +54,17 @@ export const siteContentService = {
   },
 
   /**
+   * Admin — matn muharriri (Tiptap) uchun inline rasm yuklash.
+   * Faqat URL qaytaradi (SiteContent ga tegmaydi).
+   */
+  uploadEditorImage: async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const { data } = await api.post<ApiResponse<{ url: string }>>("editor/upload-image", formData);
+    return data.data.url;
+  },
+
+  /**
    * Admin — kontentni o'chirish
    */
   delete: async (key: string): Promise<void> => {

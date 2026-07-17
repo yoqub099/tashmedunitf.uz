@@ -19,13 +19,6 @@ class StaffFactory extends Factory
         ];
         $index = fake()->numberBetween(0, 5);
 
-        $degrees = [
-            'uz' => ['Tibbiyot fanlari doktori', 'Tibbiyot fanlari nomzodi', 'PhD', 'DSc'],
-            'ru' => ['Доктор медицинских наук', 'Кандидат медицинских наук', 'PhD', 'DSc'],
-            'en' => ['Doctor of Medical Sciences', 'Candidate of Medical Sciences', 'PhD', 'DSc'],
-        ];
-        $degreeIndex = fake()->numberBetween(0, 3);
-
         return [
             'department_id' => Department::factory(),
             'full_name' => [
@@ -38,11 +31,6 @@ class StaffFactory extends Factory
                 'ru' => $positions['ru'][$index],
                 'en' => $positions['en'][$index],
             ],
-            'academic_degree' => [
-                'uz' => $degrees['uz'][$degreeIndex],
-                'ru' => $degrees['ru'][$degreeIndex],
-                'en' => $degrees['en'][$degreeIndex],
-            ],
             'bio' => [
                 'uz' => fake('uz_UZ')->paragraphs(2, true),
                 'ru' => fake('ru_RU')->paragraphs(2, true),
@@ -51,7 +39,7 @@ class StaffFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'is_active' => fake()->boolean(90),
-            'order' => fake()->numberBetween(1, 100),
+            'sort_order' => fake()->numberBetween(1, 100),
         ];
     }
 

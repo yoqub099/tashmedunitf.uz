@@ -22,15 +22,20 @@ class DepartmentFactory extends Factory
                 'ru' => fake('ru_RU')->paragraphs(3, true),
                 'en' => fake()->paragraphs(3, true),
             ],
-            'head_of_department' => [
+            'head_name' => [
                 'uz' => fake('uz_UZ')->name(),
                 'ru' => fake('ru_RU')->name(),
                 'en' => fake()->name(),
             ],
+            'head_title' => [
+                'uz' => 'Kafedra mudiri',
+                'ru' => 'Заведующий кафедрой',
+                'en' => 'Head of Department',
+            ],
             'email' => fake()->unique()->companyEmail(),
             'phone' => fake()->phoneNumber(),
             'is_active' => fake()->boolean(90),
-            'order' => fake()->numberBetween(1, 50),
+            'sort_order' => fake()->numberBetween(1, 50),
         ];
     }
 

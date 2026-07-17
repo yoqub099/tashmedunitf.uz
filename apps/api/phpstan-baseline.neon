@@ -73,9 +73,15 @@ parameters:
 			path: app/Http/Resources/BannerResource.php
 
 		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\BannerResource\:\:getFirstMedia\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/BannerResource.php
+
+		-
 			message: '#^Call to an undefined method App\\Http\\Resources\\BannerResource\:\:getFirstMediaUrl\(\)\.$#'
 			identifier: method.notFound
-			count: 6
+			count: 2
 			path: app/Http/Resources/BannerResource.php
 
 		-
@@ -373,9 +379,9 @@ parameters:
 			path: app/Http/Resources/DepartmentResource.php
 
 		-
-			message: '#^Call to an undefined method App\\Http\\Resources\\DepartmentResource\:\:getFirstMediaUrl\(\)\.$#'
+			message: '#^Call to an undefined method App\\Http\\Resources\\DepartmentResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 6
+			count: 2
 			path: app/Http/Resources/DepartmentResource.php
 
 		-
@@ -807,13 +813,13 @@ parameters:
 		-
 			message: '#^Call to an undefined method App\\Http\\Resources\\JournalIssueResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 1
+			count: 2
 			path: app/Http/Resources/JournalIssueResource.php
 
 		-
 			message: '#^Call to an undefined method App\\Http\\Resources\\JournalIssueResource\:\:getFirstMediaUrl\(\)\.$#'
 			identifier: method.notFound
-			count: 6
+			count: 1
 			path: app/Http/Resources/JournalIssueResource.php
 
 		-
@@ -879,13 +885,13 @@ parameters:
 		-
 			message: '#^Call to an undefined method App\\Http\\Resources\\LibraryResourceResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 1
+			count: 2
 			path: app/Http/Resources/LibraryResourceResource.php
 
 		-
 			message: '#^Call to an undefined method App\\Http\\Resources\\LibraryResourceResource\:\:getFirstMediaUrl\(\)\.$#'
 			identifier: method.notFound
-			count: 6
+			count: 1
 			path: app/Http/Resources/LibraryResourceResource.php
 
 		-
@@ -937,9 +943,9 @@ parameters:
 			path: app/Http/Resources/NewsResource.php
 
 		-
-			message: '#^Call to an undefined method App\\Http\\Resources\\NewsResource\:\:getFirstMediaUrl\(\)\.$#'
+			message: '#^Call to an undefined method App\\Http\\Resources\\NewsResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 5
+			count: 1
 			path: app/Http/Resources/NewsResource.php
 
 		-
@@ -1087,9 +1093,9 @@ parameters:
 			path: app/Http/Resources/PartnerResource.php
 
 		-
-			message: '#^Call to an undefined method App\\Http\\Resources\\PartnerResource\:\:getFirstMediaUrl\(\)\.$#'
+			message: '#^Call to an undefined method App\\Http\\Resources\\PartnerResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 2
+			count: 1
 			path: app/Http/Resources/PartnerResource.php
 
 		-
@@ -1237,9 +1243,9 @@ parameters:
 			path: app/Http/Resources/StaffResource.php
 
 		-
-			message: '#^Call to an undefined method App\\Http\\Resources\\StaffResource\:\:getFirstMediaUrl\(\)\.$#'
+			message: '#^Call to an undefined method App\\Http\\Resources\\StaffResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 3
+			count: 1
 			path: app/Http/Resources/StaffResource.php
 
 		-
@@ -1329,7 +1335,7 @@ parameters:
 		-
 			message: '#^Access to an undefined property App\\Http\\Resources\\StudentWorkResource\:\:\$id\.$#'
 			identifier: property.notFound
-			count: 1
+			count: 2
 			path: app/Http/Resources/StudentWorkResource.php
 
 		-
@@ -1423,9 +1429,9 @@ parameters:
 			path: app/Http/Resources/TestimonialResource.php
 
 		-
-			message: '#^Call to an undefined method App\\Http\\Resources\\TestimonialResource\:\:getFirstMediaUrl\(\)\.$#'
+			message: '#^Call to an undefined method App\\Http\\Resources\\TestimonialResource\:\:getFirstMedia\(\)\.$#'
 			identifier: method.notFound
-			count: 2
+			count: 1
 			path: app/Http/Resources/TestimonialResource.php
 
 		-
@@ -1531,25 +1537,25 @@ parameters:
 			path: app/Models/Department.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: app/Models/Direction.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: app/Models/Faculty.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: app/Models/JournalIssue.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: app/Models/LibraryResource.php
@@ -1567,31 +1573,31 @@ parameters:
 			path: app/Models/Page.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Models/Partner.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: app/Models/Staff.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: app/Models/StudentLifePhoto.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Models/TalentedStudent.php
 
 		-
-			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:queued\(\)\.$#'
+			message: '#^Call to an undefined method Spatie\\Image\\Drivers\\ImageDriver\:\:nonQueued\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Models/Testimonial.php

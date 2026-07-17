@@ -76,6 +76,7 @@ class DatabaseSeeder extends Seeder
             SiteContentSeeder::class,
             ContactLocationSeeder::class,
             PageSeeder::class,
+            NavigationSeeder::class,
             MediaSeeder::class,
             TalentedStudentSeeder::class,
         ]);

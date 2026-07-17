@@ -137,6 +137,31 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
 
+        // 403 — Gate/Policy rad etdi ($this->authorize(), Gate::authorize())
+        $exceptions->render(function (\Illuminate\Auth\Access\AuthorizationException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'Sizda bu amalni bajarish huquqi yo\'q',
+                    'errors' => null,
+                ], 403);
+            }
+        });
+
+        // Boshqa barcha HTTP exceptionlar (abort(403/404/...), imzolangan URL
+        // xatosi InvalidSignatureException=403, va h.k.) — o'z status kodi
+        // bilan qaytadi. Busiz ular pastdagi \Throwable ushlagichiga tushib,
+        // hammasi noto'g'ri 500 bo'lib ketardi.
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'So\'rovni bajarib bo\'lmadi',
+                    'errors' => null,
+                ], $e->getStatusCode());
+            }
+        });
+
         // 500 — Server xatolik (API so'rovlarda har doim JSON qaytaradi)
         $exceptions->render(function (\Throwable $e, Request $request) {
             if ($request->is('api/*')) {
